@@ -42,7 +42,7 @@ export default function Checkout() {
       country: 'BH',
       area: '',
       building: '',
-      region: ''
+      province: ''
     },
     billingAddress: {
       first_name: '',
@@ -52,7 +52,7 @@ export default function Checkout() {
       country: 'BH',
       area: '',
       building: '',
-      region: ''
+      province: ''
     },
     shippingAdd: false,
     note: '',
@@ -108,7 +108,7 @@ export default function Checkout() {
       return {
         ...prevData,
         shippingAdd: newSameAsShipping,
-        shippingAddress: { first_name: '', last_name: '', mobile: '', email: '', area: '', building: '', region: '' }
+        shippingAddress: { first_name: '', last_name: '', mobile: '', email: '', area: '', building: '', province: '' }
       }
     });
   };
@@ -195,7 +195,7 @@ export default function Checkout() {
             email: '',
             area: '',
             building: '',
-            region: ''
+            province: ''
           },
           billingAddress: {
             first_name: '',
@@ -204,7 +204,7 @@ export default function Checkout() {
             email: '',
             area: '',
             building: '',
-            region: ''
+            province: ''
           },
           shippingAdd: false,
         });
@@ -236,8 +236,8 @@ export default function Checkout() {
         if(data['billingAddress.building']) {
           setError(data['billingAddress.building']);
         }
-        if(data['billingAddress.region']) {
-          setError(data['billingAddress.region']);
+        if(data['billingAddress.province']) {
+          setError(data['billingAddress.province']);
         }
         setSuccess(null);
       }
@@ -540,9 +540,9 @@ export default function Checkout() {
                         className="form-control form-control-lg search-field__actor"
                         id="country"
                         name="billingAddress.country"
-                        value="Bahrain"
+                        value="Qatar"
                         readOnly
-                        placeholder="Bahrain"
+                        placeholder="Qatar"
                       />
                     </div>
                   </div>
@@ -589,7 +589,7 @@ export default function Checkout() {
                     }`}
                   >
                     <label htmlFor="search-dropdown" className="form-label">
-                      Region*
+                      Province*
                     </label>
                     <div className="js-hover__open">
                       <input
@@ -646,15 +646,15 @@ export default function Checkout() {
                   <input
                     type="text"
                     className="form-control"
-                    id="checkout_region"
-                    placeholder="Region *"
-                    name="billingAddress.region"
-                    value={formData.billingAddress.region}
+                    id="checkout_province"
+                    placeholder="Province *"
+                    name="billingAddress.province"
+                    value={formData.billingAddress.province}
                     onChange={handleChange}
                     required
                   />
-                  <label htmlFor="checkout_region">
-                    Region *
+                  <label htmlFor="checkout_province">
+                    Province *
                   </label>
                 </div>
                 {/* <div className="form-floating mt-3 mb-3">
@@ -827,14 +827,15 @@ export default function Checkout() {
                       <th>SHIPPING</th>
                       <td>{freeShippingFlag ? 'You Got Free Shipping' : `Shipping Cost: ${ shippingServiceCharges[0].price }${ currency.symbol}`}</td>
                     </tr>
-                    <tr>
-                    <th>SERVICE FEE</th>
-                    <td>{ shippingServiceCharges[1].price }{ currency.symbol }</td>
-                    </tr>
+                    {/* <tr>
+                      <th>SERVICE FEE</th>
+                      <td>{ shippingServiceCharges[1].price }{ currency.symbol }</td>
+                    </tr> */}
                     <tr>
                       <th>TOTAL</th>
                       <td>{!freeShippingFlag ? (parseFloat(shippingServiceCharges[0].price) + totalPrice + parseFloat(shippingServiceCharges[1].price)).toFixed(2) :
-                          (0 + totalPrice + parseFloat(shippingServiceCharges[1].price)).toFixed(2)}{ currency.symbol } (includes { !freeShippingFlag ? (
+                          (0 + totalPrice + parseFloat(shippingServiceCharges[1].price)).toFixed(2)}{ currency.symbol }
+                          {/* (includes { !freeShippingFlag ? (
                           (
                             (parseFloat(shippingServiceCharges[0].price) - parseFloat(shippingServiceCharges[0].price) / (1 + parseFloat(vatTax.percentage / 100))) +
                             (parseFloat(totalPrice) - parseFloat(totalPrice) / (1 + parseFloat(vatTax.percentage / 100))) +
@@ -844,7 +845,8 @@ export default function Checkout() {
                             0 +
                             (parseFloat(totalPrice) - parseFloat(totalPrice) / (1 + parseFloat(vatTax.percentage / 100))) +
                             (parseFloat(shippingServiceCharges[1].price) - parseFloat(shippingServiceCharges[1].price) / (1 + parseFloat(vatTax.percentage / 100)))
-                          ).toFixed(2)) }{ currency.symbol } VAT)</td>
+                          ).toFixed(2)) }{ currency.symbol } VAT) */}
+                        </td>
                     </tr>
                   </tbody>
                 </table>
@@ -1004,9 +1006,9 @@ export default function Checkout() {
                           className="form-control form-control-lg search-field__actor"
                           id="country"
                           name="shippingAddress.country"
-                          value="Bahrain"
+                          value="Qatar"
                           readOnly
-                          placeholder="Bahrain"
+                          placeholder="Qatar"
                         />
                       </div>
                     </div>
@@ -1110,15 +1112,15 @@ export default function Checkout() {
                     <input
                       type="text"
                       className="form-control"
-                      id="checkout_region"
-                      placeholder="Region *"
-                      name="shippingAddress.region"
-                      value={formData.shippingAddress.region}
+                      id="checkout_province"
+                      placeholder="Province *"
+                      name="shippingAddress.province"
+                      value={formData.shippingAddress.province}
                       onChange={handleChange}
                       required
                     />
-                    <label htmlFor="checkout_region">
-                      Region *
+                    <label htmlFor="checkout_province">
+                      Province *
                     </label>
                   </div>
                   {/* <div className="form-floating mt-3 mb-3">

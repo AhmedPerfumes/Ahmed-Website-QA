@@ -138,15 +138,16 @@ export default function OrderCompleted() {
               </tr>
               <tr>
                 <th>SHIPPING</th>
-                <td>{(orderDetails.sub_total).toFixed(2) >= 20 ? 'You Got Free Shipping' : `Shipping Cost: ${ shippingServiceCharges[0].price }${ currency.symbol }`}</td>
+                <td>{(orderDetails.sub_total).toFixed(2) >= 400 ? 'You Got Free Shipping' : `Shipping Cost: ${ shippingServiceCharges[0].price }${ currency.symbol }`}</td>
               </tr>
-              <tr>
+              {/* <tr>
                 <th>SERVICE FEE</th>
                 <td>{ shippingServiceCharges[1].price }{ currency.symbol }</td>
-              </tr>
+              </tr> */}
               <tr>
                 <th>TOTAL</th>
-                <td>{parseFloat(orderDetails.total).toFixed(2)}{ currency.symbol } (includes { orderDetails.shipping_amount > 0 ? (
+                <td>{parseFloat(orderDetails.total).toFixed(2)}{ currency.symbol }
+                  {/* (includes { orderDetails.shipping_amount > 0 ? (
                     (
                       (parseFloat(shippingServiceCharges[0].price) - parseFloat(shippingServiceCharges[0].price) / (1 + parseFloat(vatTax.percentage / 100))) +
                       (parseFloat(orderDetails.sub_total) - parseFloat(orderDetails.sub_total) / (1 + parseFloat(vatTax.percentage / 100))) +
@@ -156,7 +157,7 @@ export default function OrderCompleted() {
                       0 +
                       (parseFloat(orderDetails.sub_total) - parseFloat(orderDetails.sub_total) / (1 + parseFloat(vatTax.percentage / 100))) +
                       (parseFloat(shippingServiceCharges[1].price) - parseFloat(shippingServiceCharges[1].price) / (1 + parseFloat(vatTax.percentage / 100)))
-                    ).toFixed(2)) }{ currency.symbol } VAT)
+                    ).toFixed(2)) }{ currency.symbol } VAT) */}
                 </td>
               </tr>
             </tbody>

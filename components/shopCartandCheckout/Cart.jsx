@@ -322,16 +322,17 @@ export default function Cart() {
                       </div> */}
                     </td>
                   </tr>
-                  <tr>
+                  {/* <tr>
                     <th>SERVICE FEE</th>
                     <td>{ shippingServiceCharges[1].price }{ currency.symbol }</td>
-                  </tr>
+                  </tr> */}
                   <tr>
                     <th>Total</th>
                     <td>
                       {!freeShippingFlag ?
                         (parseFloat(shippingServiceCharges[0].price) + totalPrice + parseFloat(shippingServiceCharges[1].price)).toFixed(2) :
-                        (0 + totalPrice + parseFloat(shippingServiceCharges[1].price)).toFixed(2)}{ currency.symbol } (includes { !freeShippingFlag ? (
+                        (0 + totalPrice + parseFloat(shippingServiceCharges[1].price)).toFixed(2)}{ currency.symbol }
+                        {/* (includes { !freeShippingFlag ? (
                           (
                             (parseFloat(shippingServiceCharges[0].price) - parseFloat(shippingServiceCharges[0].price) / (1 + parseFloat(vatTax.percentage / 100))) +
                             (parseFloat(totalPrice) - parseFloat(totalPrice) / (1 + parseFloat(vatTax.percentage / 100))) +
@@ -341,7 +342,7 @@ export default function Cart() {
                             0 +
                             (parseFloat(totalPrice) - parseFloat(totalPrice) / (1 + parseFloat(vatTax.percentage / 100))) +
                             (parseFloat(shippingServiceCharges[1].price) - parseFloat(shippingServiceCharges[1].price) / (1 + parseFloat(vatTax.percentage / 100)))
-                          ).toFixed(2)) }{ currency.symbol } VAT)
+                          ).toFixed(2)) }{ currency.symbol } VAT) */}
                     </td>
                   </tr>
                 </tbody>

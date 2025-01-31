@@ -39,7 +39,7 @@ export default function Checkout() {
       last_name: '',
       mobile: '',
       email: '',
-      country: 'BH',
+      country: 'QA',
       area: '',
       building: '',
       province: ''
@@ -49,7 +49,7 @@ export default function Checkout() {
       last_name: '',
       mobile: '',
       email: '',
-      country: 'BH',
+      country: 'QA',
       area: '',
       building: '',
       province: ''

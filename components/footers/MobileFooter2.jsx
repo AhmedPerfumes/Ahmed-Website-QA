@@ -76,7 +76,7 @@ export default function MobileFooter2() {
         {/* <!-- /.logo --> */}
         <p className="footer-address text-white text-center">
           Ahmed Al Maghribi Perfume Manuf L.L.C, <br />
-          Manama <br />
+          Al Nasr, Doha <br />
           Qatar <br />
         </p>
 
@@ -85,7 +85,7 @@ export default function MobileFooter2() {
         </p>
         <p className="text-center">
           <strong className="fw-medium text-white text-center">
-          +973 3542 8747 / +973 3978 1417
+          +974 5505 3821 / +974 6696 0156
           </strong>
         </p>
 

@@ -42,7 +42,7 @@ export default function Checkout() {
       country: 'QA',
       area: '',
       building: '',
-      province: ''
+      city: ''
     },
     billingAddress: {
       first_name: '',
@@ -52,7 +52,7 @@ export default function Checkout() {
       country: 'QA',
       area: '',
       building: '',
-      province: ''
+      city: ''
     },
     shippingAdd: false,
     note: '',
@@ -108,7 +108,7 @@ export default function Checkout() {
       return {
         ...prevData,
         shippingAdd: newSameAsShipping,
-        shippingAddress: { first_name: '', last_name: '', mobile: '', email: '', area: '', building: '', province: '' }
+        shippingAddress: { first_name: '', last_name: '', mobile: '', email: '', area: '', building: '', city: '' }
       }
     });
   };
@@ -195,7 +195,7 @@ export default function Checkout() {
             email: '',
             area: '',
             building: '',
-            province: ''
+            city: ''
           },
           billingAddress: {
             first_name: '',
@@ -204,7 +204,7 @@ export default function Checkout() {
             email: '',
             area: '',
             building: '',
-            province: ''
+            city: ''
           },
           shippingAdd: false,
         });
@@ -236,8 +236,8 @@ export default function Checkout() {
         if(data['billingAddress.building']) {
           setError(data['billingAddress.building']);
         }
-        if(data['billingAddress.province']) {
-          setError(data['billingAddress.province']);
+        if(data['billingAddress.city']) {
+          setError(data['billingAddress.city']);
         }
         setSuccess(null);
       }
@@ -646,15 +646,15 @@ export default function Checkout() {
                   <input
                     type="text"
                     className="form-control"
-                    id="checkout_province"
-                    placeholder="Province *"
-                    name="billingAddress.province"
-                    value={formData.billingAddress.province}
+                    id="checkout_city"
+                    placeholder="City *"
+                    name="billingAddress.city"
+                    value={formData.billingAddress.city}
                     onChange={handleChange}
                     required
                   />
-                  <label htmlFor="checkout_province">
-                    Province *
+                  <label htmlFor="checkout_city">
+                    City *
                   </label>
                 </div>
                 {/* <div className="form-floating mt-3 mb-3">
@@ -1112,15 +1112,15 @@ export default function Checkout() {
                     <input
                       type="text"
                       className="form-control"
-                      id="checkout_province"
-                      placeholder="Province *"
-                      name="shippingAddress.province"
-                      value={formData.shippingAddress.province}
+                      id="checkout_city"
+                      placeholder="City *"
+                      name="shippingAddress.city"
+                      value={formData.shippingAddress.city}
                       onChange={handleChange}
                       required
                     />
-                    <label htmlFor="checkout_province">
-                      Province *
+                    <label htmlFor="checkout_city">
+                      City *
                     </label>
                   </div>
                   {/* <div className="form-floating mt-3 mb-3">

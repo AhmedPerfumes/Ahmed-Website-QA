@@ -65,7 +65,7 @@ export default function Hero() {
                             {elm.id != 3 && (
                                 <a
                                     href={`${locale}/${elm.href}`}
-                                    className={`btn-link btn-link_lg default-underline text-uppercase fw-bold animate animate_fade animate_btt animate_delay-7 ${elm.color}`}
+                                    className={`btn-link mt-3 btn-link_lg default-underline text-uppercase fw-bold animate animate_fade animate_btt animate_delay-7 ${elm.color}`}
                                 >
                                     {t("Discover More")}
                                 </a>

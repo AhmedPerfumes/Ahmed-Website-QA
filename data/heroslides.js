@@ -243,7 +243,7 @@ export const slidesData3 = [
     objectPosition: "50% center",
     title: "",
     subtitle: "",
-    href: "shop/perfumes",
+    href: "shop/",
     color: "text-black"
   },
 
@@ -277,7 +277,7 @@ export const slidesData33 = [
     objectPosition: "50% center",
     title: "",
     subtitle: "",
-    href: "shop/perfumes",
+    href: "shop/",
     color: "text-black"
   },
   {

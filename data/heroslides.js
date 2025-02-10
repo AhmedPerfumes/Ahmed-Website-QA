@@ -249,7 +249,7 @@ export const slidesData3 = [
 
   {
     id: 2,
-    imageSrc: "/assets/images/home/la-rose.jpg",
+    imageSrc: "/assets/images/la-rose.jpg",
     season: "La Rosee",
     objectPosition: "50% center",
     title: "Feel Luxurious",
@@ -282,7 +282,7 @@ export const slidesData33 = [
   },
   {
     id: 2,
-    imageSrc: "/assets/images/home/la-rose.jpg",
+    imageSrc: "/assets/images/la-rose.jpg",
     season: "La Rosee",
     objectPosition: "50% center",
     title: "Feel Luxurious",

@@ -26,7 +26,7 @@ export default function VerifyOTP() {
      setIsLoading(false);
      return;
    }
-   const regex = /^\d{9}$/;
+   const regex = /^\d{8}$/;
    if(!regex.test(mobile)) {
      setError('Invalid Mobile Number');
      setSuccess(null);
@@ -95,7 +95,7 @@ export default function VerifyOTP() {
                   onChange={validateMobile}
                   required
                 />
-                <label>Mobile Number (Eg. 500000000)*</label>
+                <label>Mobile Number (Eg. 50000000)*</label>
               </div>
 
               <div className="pb-3"></div>

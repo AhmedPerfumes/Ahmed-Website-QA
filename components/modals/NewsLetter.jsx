@@ -83,7 +83,7 @@ export default function NewsLetter() {
                                             height={650}
                                             style={{ height: "fit-content" }}
                                             loading="lazy"
-                                            src="/assets/images/home/ahl.jpg"
+                                            src="/assets/images/home/Ahl.jpg"
                                             className="h-100 w-100 object-fit-cover d-block"
                                             alt="image"
                                         />

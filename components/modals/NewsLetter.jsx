@@ -73,33 +73,48 @@ export default function NewsLetter() {
           <div className="row p-0 m-0">
             <div className="col-md-8 p-0">
               <div className="newsletter-popup__bg h-100 w-100">
-              <a href={`/${locale}/shop/perfumes/oriental-fragrance/zumar`}>
-                <Image
-                  width={550}
-                  height={650}
-                  style={{ height: "fit-content" }}
-                  loading="lazy"
-                  src="/assets/images/home/demo8/zumar.jpg"
-                  className="h-100 w-100 object-fit-cover d-block"
-                  alt="image"                
-                  />
-                  </a>
+              <div className="d-none d-lg-block">
+                                    <a
+                                        href={`/${locale}/shop/perfumes/oriental-fragrance/ahl`}
+                                    >
+                                        <Image
+                                            width={550}
+                                            height={650}
+                                            style={{ height: "fit-content" }}
+                                            loading="lazy"
+                                            src="/assets/images/home/ahl.jpg"
+                                            className="h-100 w-100 object-fit-cover d-block"
+                                            alt="image"
+                                        />
+                                    </a>
+                                </div>
+                  <div className="d-sm-block d-md-none">
+                                    <VideoPanel
+                                        src="/assets/videos/ahl.mp4"
+                                        section="hundred"
+                                    />
+                                </div>
                 {/* <VideoPanel src="/assets/videos/popup video.mp4" section='hundred'/> */}
               </div>
             </div>
             <div className="col-md-4 p-0 d-flex align-items-center text-center">
               <div className="block-newsletter w-100">
               <h3 className="section-title fw-normal mb-3 pb-2" style={{ color: '#cfa91a' }}>
-                  Zumar
+              Ahl
                 </h3>
                 <p>
-                Zumar is a truly luxurious scent crafted for those who embrace elegance and sophistication, making it an essential addition to the collection of any perfume connoisseur.
+                A name that signifies family, kinship, and a
+                                    deep sense of belonging. This fragrance is a
+                                    tribute to the warmth of cherished
+                                    connections, enveloping you in a captivating
+                                    blend of luxurious notes that evoke comfort,
+                                    elegance, and sophistication.
                   {/* <b className="sub-title">Don't miss out.</b> */}
 
                 </p>
                 <a
                   className="btn-link btn-link_lg default-underline text-uppercase fw-medium"
-                  href={`/${locale}/shop/perfumes/oriental-fragrance/zumar`}
+                  href={`/${locale}/shop/perfumes/oriental-fragrance/ahl`}
                 >
                   Shop Now
                 </a>

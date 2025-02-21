@@ -2,4 +2,4 @@ DirectoryIndex Disabled
 # Redirect traffic to your port 3000
 RewriteEngine On
 RewriteBase /
-RewriteRule ^(.*)?$ http://localhost:3000/$1 [P,L]
+RewriteRule ^(.*)?$ http://localhost:3001/$1 [P,L]

@@ -81,7 +81,8 @@ export default function OrderPaymentCompleted({ orderDetails }) {
         <div className="order-info__item">
           <label>Total</label>
 
-          <span>{orderDetails.total}{ currency.symbol } (includes { orderDetails.tax_amount }{ currency.symbol } VAT)
+          <span>{orderDetails.total}{ currency.symbol }
+            {/* (includes { orderDetails.tax_amount }{ currency.symbol } VAT) */}
           </span>
         </div>
         <div className="order-info__item">

@@ -160,7 +160,9 @@ export default function OrderTrack() {
           <div className="order-info__item">
             <label>Total</label>
 
-            <span>{orderDetails.total}{ currency.symbol } (includes { orderDetails.tax_amount }{ currency.symbol } VAT)</span>
+            <span>{orderDetails.total}{ currency.symbol }
+              {/* (includes { orderDetails.tax_amount }{ currency.symbol } VAT) */}
+            </span>
           </div>
           <div className="order-info__item">
             <label>Paymetn Method</label>

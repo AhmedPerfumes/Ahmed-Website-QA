@@ -236,16 +236,16 @@ export const slidesData2 = [
   },
 ];
 export const slidesData3 = [
-  {
-    id: 1,
-    imageSrc: "/assets/images/banner/qatar-sale.jpg",
-    season: "",
-    objectPosition: "50% center",
-    title: "",
-    subtitle: "",
-    href: "shop/",
-    color: "text-black"
-  },
+  // {
+  //   id: 1,
+  //   imageSrc: "/assets/images/banner/qatar-sale.jpg",
+  //   season: "",
+  //   objectPosition: "50% center",
+  //   title: "",
+  //   subtitle: "",
+  //   href: "shop/",
+  //   color: "text-black"
+  // },
 
   {
     id: 2,
@@ -280,16 +280,16 @@ export const slidesData3 = [
   
 ];
 export const slidesData33 = [
-  {
-    id: 1,
-    imageSrc: "/assets/images/banner/qatar-mobile.jpg",
-    season: "",
-    objectPosition: "50% center",
-    title: "",
-    subtitle: "",
-    href: "shop/",
-    color: "text-black"
-  },
+  // {
+  //   id: 1,
+  //   imageSrc: "/assets/images/banner/qatar-mobile.jpg",
+  //   season: "",
+  //   objectPosition: "50% center",
+  //   title: "",
+  //   subtitle: "",
+  //   href: "shop/",
+  //   color: "text-black"
+  // },
   {
     id: 2,
     imageSrc: "/assets/images/la-rose.jpg",

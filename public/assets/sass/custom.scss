@@ -167,6 +167,14 @@ body {
   display: flex;
   flex-wrap: nowrap;
 }
+.out-of-stock{
+  font-family: 'Lato','SofiaProRegular';
+}
+.badge{
+  background-color:rgb(220, 53, 69);
+  padding: 0.325rem;
+  border-radius: 0%;
+}
 #page5 .red{
   width: 100%;
   background-color: rgb(241, 241, 194);

@@ -10,7 +10,7 @@ export const metadata = {
   title: "Ahmed Al Maghribi Wedding Promotion - Ahmed Al Maghribi Perfumes",
   description: "Elevate your wedding experience with our enchanting perfume setup",
   icons: {
-      icon: "/assets/images/ahmed-favicon.png",
+      icon: "/assets/images/ahmed-favicons.png",
   },
 };
 

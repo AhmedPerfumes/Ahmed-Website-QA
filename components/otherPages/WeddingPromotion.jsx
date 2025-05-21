@@ -94,7 +94,7 @@ export default function WeddingPromotion() {
                 height={0}
                 sizes="100%"
                 className="img-fluid mb-3"
-                src="/assets/images/wedding/setup-1.png"
+                src="/assets/images/wedding/enchanting-harbor.png"
                 alt="First Wedding Package"
                 loading="lazy"
                 style={{ width:'500px', height: 'auto'}}

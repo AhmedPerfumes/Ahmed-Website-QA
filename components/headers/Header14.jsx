@@ -145,7 +145,7 @@ export default function Header14() {
                         ? `header header_sticky bg-white ${
                               scrollDirection == "up"
                                   ? "header_sticky-active"
-                                  : "position-absolute"
+                                  : ""
                           } `
                         : "header header_sticky position-sticky w-100 bg-white"
                 }
@@ -365,7 +365,7 @@ export default function Header14() {
                                     )}
                                 </div> */}
 
-                                <Link className="header-tools__item" href="#">
+                                <Link className="header-tools__item" href={`/${locale}/store-locator`}>
                                     <IoLocationOutline size={20} />
                                 </Link>
 

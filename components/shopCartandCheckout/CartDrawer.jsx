@@ -112,34 +112,7 @@ export default function CartDrawer() {
                       Size: L
                     </p> */}
                     <div className="d-flex align-items-center justify-content-between mt-1">
-                      <div className="qty-control position-relative">
-                        <input
-                          type="number"
-                          name="quantity"
-                          onChange={(e) =>
-                            setQuantity(elm.product_id, e.target.value / 1, elm.product_qty)
-                          }
-                          value={elm.quantity}
-                          min="1"
-                          className="qty-control__number border-0 text-center"
-                          readOnly
-                        />
-                        <div
-                          onClick={() => {
-                            setQuantity(elm.product_id, elm.quantity - 1, elm.product_qty);
-                          }}
-                          className="qty-control__reduce text-start"
-                        >
-                          -
-                        </div>
-                        <div
-                          onClick={() => setQuantity(elm.product_id, elm.quantity + 1, elm.product_qty)}
-                          className="qty-control__increase text-end"
-                        >
-                          +
-                        </div>
-                      </div>
-                      {!elm.is_gift ? <div className="qty-control position-relative">
+                    {!elm.is_gift ? <div className="qty-control position-relative">
                         <input
                           type="number"
                           name="quantity"

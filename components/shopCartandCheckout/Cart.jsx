@@ -202,7 +202,7 @@ export default function Cart() {
                         { subTotalPrice(elm) }
                       
                     </td>
-                    <td>
+                    {/* <td>
                       {!elm.is_gift ? <div className="qty-control position-relative">
                         <input
                           type="number"
@@ -228,7 +228,7 @@ export default function Cart() {
                           +
                         </div>
                       </div> : 1}
-                    </td>
+                    </td> */}
                     <td>
                       <a
                         onClick={() => removeItem(elm.product_id)}

@@ -59,7 +59,14 @@ export default function CartDrawer() {
         return <span className="cart-drawer-item__price money price">{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</span>;
       }
     } else if(elm?.sale_price) {
-      return <span className="cart-drawer-item__price money price">{((elm.price - (elm.price / 100 * elm.sale_price)) * elm.quantity).toFixed(2)}{ currency.symbol }</span>;
+      return <><span className="money price price-old">{currency.symbol}{elm?.price}</span><span className="cart-drawer-item__price money price price-sale">{((elm.sale_price) * elm.quantity).toFixed(2)}{ currency.symbol }</span></>;
+    } else if(elm?.coupon && !Array.isArray(elm.coupon) && couponDataContext?.code && couponDataContext?.code != null) {
+      console.log('0000else if', elm);
+        if(new Date(current_date_time) >= new Date(elm.coupon[couponDataContext?.code.toLowerCase()]?.start_date) && new Date(current_date_time) <= new Date(elm.coupon[couponDataContext?.code.toLowerCase()]?.end_date) && elm.coupon[couponDataContext?.code.toLowerCase()].code == couponDataContext?.code.toLowerCase()) {
+          return <span className="cart-drawer-item__price money price">{ currency.symbol }{((elm.price - (elm.price / 100 * elm.coupon[couponDataContext?.code.toLowerCase()]?.value)) * elm.quantity).toFixed(2)}</span>;
+        } else {
+          return <span>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</span>;
+        }
     } else {
       return <span className="cart-drawer-item__price money price">{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</span>;
     }
@@ -111,8 +118,8 @@ export default function CartDrawer() {
                     <p className="cart-drawer-item__option text-secondary">
                       Size: L
                     </p> */}
-                    <div className="d-flex align-items-center justify-content-between mt-1">
-                    {!elm.is_gift ? <div className="qty-control position-relative">
+                   <div className="d-flex align-items-center justify-content-between mt-1">
+                      {!elm.is_gift ? <div className="qty-control position-relative">
                         <input
                           type="number"
                           name="quantity"
@@ -138,7 +145,7 @@ export default function CartDrawer() {
                         >
                           +
                         </div>
-                      </div> : 1}
+                      </div> : elm.quantity}
 
                         {subTotalPrice(elm)}
                       

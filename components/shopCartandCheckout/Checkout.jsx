@@ -560,10 +560,19 @@ export default function Checkout() {
       } else {
         return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
       }
-    } else if(elm?.sale_price) {
+    }else if(elm?.sale_price) {
       console.log('else if 2');
-      return <td>{((elm.price - (elm.price / 100 * elm.sale_price)) * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
-    } else {
+      return <td>
+      <span className="money price price-old">
+          {currency.symbol}
+          {elm?.price}
+      </span>
+      <span className="money price price-sale">
+          {currency.symbol}
+          {(elm.sale_price * elm.quantity).toFixed(2)}
+      </span>
+  </td>;
+  } else {
       console.log('else');
       return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
     }

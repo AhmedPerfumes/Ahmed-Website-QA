@@ -34,12 +34,6 @@ export default function Context({ children }) {
           const coupon_price = (product.price - (product.price / 100 * product.coupon[couponDataContext?.code.toLowerCase()]?.value)).toFixed(2);
           return accumulator + product.quantity * coupon_price;
         }
-<<<<<<< HEAD
-=======
-      }else if(product?.sale_price) {
-        const sale_price = (product.sale_price).toFixed(2);
-        return accumulator + product.quantity * sale_price;
->>>>>>> dev
       }
       return accumulator + product.quantity * product.price;
     }, 0);

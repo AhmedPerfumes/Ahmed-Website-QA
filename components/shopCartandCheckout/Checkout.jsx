@@ -507,6 +507,20 @@ export default function Checkout() {
     //   setCouponSuccess(null);
     //   return;
     // }
+
+    if(formData.billingAddress.mobile == '') {
+      setCouponError('Mobile Number is Required');
+      setCouponSuccess(null);
+      setCouponDataContext(null);
+      return;
+    }
+    const regex = /^\d{8}$/;
+    if(!regex.test(formData.billingAddress.mobile)) {
+      setCouponError('Invalid Mobile Number');
+      setCouponSuccess(null);
+      setCouponDataContext(null);
+      return;
+    }
     try {
       // Call your backend API or validation logic for the coupon code
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/validateCoupon`, {
@@ -554,9 +568,9 @@ export default function Checkout() {
   }
 
   const subTotalPrice = (elm) => {
-    if (elm.is_gift) {
-      return <td>0.00{currency.symbol} (Free Gift)</td>;
-    }
+    // if (elm.is_gift) {
+    //   return <td>0.00{currency.symbol} (Free Gift)</td>;
+    // }
     const currentUTC = new Date(); // Current UTC time
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");

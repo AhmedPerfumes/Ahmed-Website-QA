@@ -32,6 +32,10 @@ export default function OrderCompleted() {
   }
 
   const subTotalPrice = (elm) => {
+    if (elm.is_gift) {
+      console.log('FREE');
+      return <td>0.00{currency.symbol} (Free Gift)</td>;
+    }
     const currentUTC = new Date(); // Current UTC time
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
@@ -140,7 +144,7 @@ export default function OrderCompleted() {
               </tr>
               <tr>
                 <th>SHIPPING</th>
-                <td>{(orderDetails.sub_total).toFixed(2) >= 400 ? 'You Got Free Shipping' : `Shipping Cost: ${ shippingServiceCharges[0].price }${ currency.symbol }`}</td>
+                <td>{(orderDetails.sub_total).toFixed(2) >= 100 ? 'You Got Free Shipping' : `Shipping Cost: ${ shippingServiceCharges[0].price }${ currency.symbol }`}</td>
               </tr>
               {/* <tr>
                 <th>SERVICE FEE</th>

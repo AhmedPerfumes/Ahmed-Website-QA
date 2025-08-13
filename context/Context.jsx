@@ -34,11 +34,17 @@ export default function Context({ children }) {
           const coupon_price = (product.price - (product.price / 100 * product.coupon[couponDataContext?.code.toLowerCase()]?.value)).toFixed(2);
           return accumulator + product.quantity * coupon_price;
         }
+<<<<<<< HEAD
+=======
+      }else if(product?.sale_price) {
+        const sale_price = (product.sale_price).toFixed(2);
+        return accumulator + product.quantity * sale_price;
+>>>>>>> dev
       }
       return accumulator + product.quantity * product.price;
     }, 0);
     setTotalPrice(subtotal);
-    setFreeShippingFlag((subtotal).toFixed(2) >= 400 ? true : false);
+    setFreeShippingFlag((subtotal).toFixed(2) >= 100 ? true : false);
   }, [cartProducts, couponDataContext]);
 
   const addProductToQuickView = (product) => {
@@ -97,6 +103,11 @@ export default function Context({ children }) {
   useEffect(() => {
     localStorage.setItem("wishlist", JSON.stringify(wishList));
   }, [wishList]);
+  const removeGiftFromCart = () => {
+    const updatedCart = cartProducts.filter((item) => !item.is_gift);
+    setCartProducts(updatedCart);
+    localStorage.setItem('cartList', JSON.stringify(updatedCart));
+  };
 
   const contextElement = {
     cartProducts,
@@ -114,7 +125,8 @@ export default function Context({ children }) {
     setOrderDetails,
     orderDetails,
     couponDataContext,
-    setCouponDataContext
+    setCouponDataContext,
+    removeGiftFromCart
   };
   return (
     <dataContext.Provider value={contextElement}>

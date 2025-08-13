@@ -98,7 +98,7 @@ export default function SingleProduct11({ category, subcategory, product }) {
         return <span className="money price">{elm?.price}{ currency.symbol }</span>;
       }
     } else if(elm?.sale_price) {
-      return <><span className="money price price-sale">{ currency.symbol }{(elm.price - (elm.price / 100 * elm.sale_price)).toFixed(2)}</span><span className="money price price-old">{ currency.symbol }{elm?.price}</span> </>;
+      return <><span className="money price price-sale">{ currency.symbol }{(elm.sale_price).toFixed(2)}</span><span className="money price price-old">{ currency.symbol }{elm?.price}</span> </>;
     } else {
       return <span className="money price">{elm?.price}{ currency.symbol }</span>;
     }
@@ -215,7 +215,13 @@ export default function SingleProduct11({ category, subcategory, product }) {
             <Description product_name={ product.product_name }/>
           </div>
           <h2 className="product-single__details-list__title text-white">
-           {category === "gift-sets" ? "Gift Set Contains" : "Fragrance Notes"}
+          {category === "gift-sets"
+  ? "Gift Set Contains"
+  : category === "collections"
+  ? "Bundle Consist of"
+  : "Fragrance Notes"}
+
+
           </h2>
           <div className="product-single__details-list__content text-white">
             <AdditionalInfo product_name={ product.product_name } video={ product.video && JSON.parse(product.video)[0][0].value } title={ product.video[0][1] && JSON.parse(product.video)[0][1].value }/>

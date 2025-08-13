@@ -137,7 +137,7 @@
  "Qatar": "Qatar",
  "Al Nasr Doha": "Al Nasr,Doha",
   "15% OFF ON OUR EXCLUSIVE COLLECTION SETS":"15% OFF ON OUR EXCLUSIVE COLLECTION SETS",
-  "Free Shipping on orders QAR 400 and above":"Free Shipping on orders QAR 400 and above",
+  "Free Shipping on orders QAR 400 and above":"Free Shipping on orders QAR 100 and above",
   "A huge selection of best fragrance":"A huge selection of best fragrance.",
   "HOME DELIVERY NOW AVAILABLE":"HOME DELIVERY NOW AVAILABLE",
   "FOR ANY INQUIRIES, PLEASE CONTACT OUR CUSTOMER CARE TEAM AT +800 472 1828":"FOR ANY INQUIRIES, PLEASE CONTACT OUR CUSTOMER CARE TEAM AT +971 67420602",
@@ -258,6 +258,7 @@
 "Bakhoor Ahmed (40 Tabs)": "Bakhoor Ahmed (40 Tabs)",
 "Bakhoor Ahmed (20 Tabs)": "Bakhoor Ahmed (20 Tabs)",
 "Bakhoor Rasiyat": "Bakhoor Rasiyaat",
+"Bakhoor Marj": "Bakhoor Marj (20 Tabs)",
 
 "-------------Oud Ma'attar Category":"This is category for Oud Ma'attar-----------",
 "Oud al Amber 3TL": "OUD AMBER 3TL",
@@ -377,6 +378,11 @@
   "Zumar": "Zumar",
   "La Rosee": "La Rosee",
   "Kawkab": "Kawkab",
+  "Mosaic": "Mosaic",
+  "O clock": "O'clock",
+  "Black Fume": "Black Fume",
+  "Peachy Peach": "Peachy Peach",
+
 
   "----------Gel Category---------":"----------Gel Category---------",
   "Marj Body Gel":"Marj Body Gel",
@@ -446,7 +452,10 @@
 "Aayah Description": "<p>AAYAH SINGS THE ETERNAL BALLAD OF BEAUTY</p>",
 "AHL Description":"Ahl is more than just a fragrance, it's a feeling of home, a scent that lingers like the embrace of loved ones, exuding warmth and refinement in every drop.",
 "Kawkab Description": "Kawkab is a sophisticated fragrance that blends radiant florals with rich, woody depths.Kawkab is a statement of elegance and timeless charm,EDP 75ml.",
-
+"Mosaic Description": " MOSAIC is a celebration of individuality, offering a unique harmony of warmth, sweetness, and floral elegance for those who seek a signature scent as multifaceted as their personality.",
+"O clock Description": "O’ Clock is a fragrance for those who appreciate the art of fine perfumery—a perfect balance of freshness, warmth, and sophistication.",
+"Black Fume Description": "Black Fume is a fragrance that embodies the essence of mystery and allure, perfect for those who appreciate a bold and captivating scent.",
+"Peachy Peach Description": "PEACHY PEACH is the perfect expression of cheerful elegance, making it an essential addition to any fragrance collection.",
 
 "Shay Jadeed Content": "<p>Besiege in with tickling prefusions of shay jadeed. Let go the scents beyond the Middle East. Just a trifling amount of splash, fills your essence with liveliness; as juicy citruses sums the top the note with thier zesty flavors. </p>",
 "Abaan Content":"Abaan is a fragrance for confident & courageous. EDP 100 ML",
@@ -482,6 +491,10 @@
 "Cocoblend Content":"At the heart, a rich bouquet of Oud and the timeless beauty of Rose of Bulgaria intertwine with the delicate Orange Blossom and Vetiver, creating a sophisticated harmony. The serene notes of Water Lily and Damask Rose, enhanced by the exotic Frangipani Flower, evoke an aura of grace and sensuality. Together, these elements weave a mesmerizing fragrance that exudes elegance and allure, leaving a lingering, unforgettable impression that captivates the senses and transports you to a world of refined luxury.",
 "AHL Content":"Ahl is a name that signifies family, kinship, and a deep sense of belonging. This fragrance is a tribute to the warmth of cherished connections, enveloping you in a captivating blend of luxurious notes that evoke comfort, elegance, and sophistication.Ahl is more than just a fragrance, it's a feeling of home, a scent that lingers like the embrace of loved ones, exuding warmth and refinement in every drop.",
 "Kawkab Content": "Kawkab is a luxurious fragrance that blends radiant florals with deep, woody notes. It opens with vibrant rose, peony, saffron, and citrus, leading to a warm heart of Isparta rose, black tea, and amber. The scent settles into a rich base of musk, oud Ahmed Kinam, cedarwood, and patchouli, leaving a lasting impression of elegance and sophistication.",
+"Mosaic Content": "MOSAIC is a masterful creation that captivates the senses with its luxurious blend of contrasts. The fragrance opens with an energizing burst of coffee and almond, beautifully balanced by the zesty brightness of orange and the rich warmth of cacao. At its heart, a sophisticated bouquet of white flowers, orris, and the timeless allure of Bulgarian rose exudes elegance and romance. As it dries down, the fragrance reveals a comforting base of tonka bean, vanilla, and praline, enriched by the creamy softness of sandalwood and the sensual depth of musk. ",
+"O clock Content": "O’ Clock is a sophisticated fragrance that captures the essence of elegance and refinement, making every moment unforgettable. This exquisite scent opens with a vibrant blend of crisp apple, soothing lavender, warm cinnamon, invigorating bergamot, zesty grapefruit, and effervescent malt notes, creating a refreshing yet spicy introduction.At its heart, delicate orange blossom, enchanting lily of the valley, and rich leather come together, adding depth and a touch of sensuality. This harmonious fusion seamlessly transitions into a warm and captivating base of luxurious vanilla CO2, soft musk, earthy patchouli, and rich amber, leaving an irresistible and lasting impression.",
+"Black Fume Content": "Black Fume is a bold and enigmatic fragrance that opens with a burst of juicy raspberry, leading into a smoky heart of orris and a burnt wood effect. Its base is rich and addictive, blending labdanum, oud, tobacco, and ambroxan for a deep, lingering trail that exudes mystery and intensity. Black Fume is a fragrance that captures the essence of mystery and intrigue, making it perfect for those who appreciate a fragrance that evokes a sense of mystery and intrigue.",
+"Peachy Peach Content": "Indulge in the delightful sweetness of PEACHY PEACH, a fragrance that captures the spirit of ripe, juicy fruits. The scent opens with a luscious blend of vanilla, pear, and marshmallow, enhanced by the fresh green notes of violet leaves and the exotic touch of ylang-ylang, creating a whimsical and inviting introduction. As the fragrance unfolds, the heart reveals playful notes of bubblegum and jelly bean, complemented by the richness of caramel, jasmine, and labdanum, evoking a sense of nostalgia and joy. The base is a warm, comforting blend of sugar, patchouli, tonka, cashmere wood, sandalwood, and vetiver, anchored by the softness of white musk.",
 
 "Shay Jadeed Notes": "<p>Top – citrus (Lemon) <br>heart – Flower (lavender vanilla) <br>base - woody (agarwood, frankincense)</p>",
 "Saba Horoof Notes": "<p>Top - Citrus </p><p>Heart - White floral -rosy </p><p>Base - Musky - woody </p>",
@@ -516,6 +529,10 @@
 "Cocoblend Notes":"<p>TOP : ORANGE, MANDARIN, BERGAMOT, ORANGE BLOSSOM</p><p>HEART : TURKISH ROSE, JASMINE, YLANG-YLANG, MIMOSA.</p><p>BOTTOM : PATCHOULI, WHITEMUSK, VANILLA. VETIVER, TONKA BEAN, AMBROXAN.</p>",
 "AHL Notes":"<div class=\"d-lg-flex align-items-lg-center mb-5\"><p><img src=\"https://admin.ahmedalmaghribi.com/public/storage/notes/ingridient-1.jpg\" alt=\"second-notes.jpg\"></p><div class=\"content-wrapper col-lg-7 px-lg-5\"><h3 class=\"mb-3 text-white\">Top Notes</h3><p>A vibrant and refreshing opening with the citrusy brightness of bergamot, Brazilian orange, and lavender, harmonized with the exotic warmth of cardamom, pink pepper, and angelica root. A unique touch of coconut, melon, banana, and raspberry adds a fruity, tropical twist, making the first impression both inviting and exhilarating.</p></div></div><div class=\"d-lg-flex align-items-lg-center mb-5 flex-column-reverse flex-lg-row\"><p class=\"order-1 order-lg-2\"><img class=\"img-fluid\" src=\"https://admin.ahmedalmaghribi.com/public/storage/notes/heart-notes.jpg\" alt=\"first-notes-3.jpg\"></p><div class=\"content-wrapper col-lg-7 px-lg-5 order-2 order-lg-1\"><h3 class=\"mb-3 text-white\">Heart Notes</h3><p>A rich floral bouquet unfolds at the heart, combining the airy freshness of marine notes, cyclamen, lily of the valley, rose, and tulip, with the opulence of cashmere wood, iris, jasmine, orange blossom, and magnolia. A subtle hint of patchouli adds depth and mystery, creating a beautifully balanced core.</p></div></div><div class=\"d-lg-flex align-items-lg-center mb-5\"><p><img src=\"https://admin.ahmedalmaghribi.com/public/storage/notes/ingridient-2.jpg\" alt=\"third-notes-2.jpg\"></p><div class=\"content-wrapper col-lg-7 px-lg-5\"><h3 class=\"mb-3 text-white\">Bottom Notes</h3><p>A sensual and long-lasting dry-down of sandalwood, white musk, tonka, and moss, enriched with the warmth of amber, Thai oud, and caramel. The final touch of vanilla leaves an irresistibly smooth and creamy finish, ensuring an unforgettable presence.<br> </p></div></div><div class=\"d-lg-flex align-items-lg-center mb-5\"><p> </p><p><img src=\"https://admin.ahmedalmaghribi.com/public/storage/notes/ahl-artwork-2.jpg\" alt=\"artboard-1-min.jpg\"></p><p> </p><div class=\"content-wrapper col-lg-4 px-lg-4\"><h4 style=\"text-align:center;\"><span style=\"color:hsl(342,28%,69%);font-size:18px;\">Ahl – The Essence of Belonging</span></h4><p style=\"text-align:center;\">Ahl is a name that signifies family, kinship, and a deep sense of belonging. This fragrance is a tribute to the warmth of cherished connections, enveloping you in a captivating blend of luxurious notes that evoke comfort, elegance, and sophistication.<br> </p></div><p> </p><p><img src=\"https://admin.ahmedalmaghribi.com/public/storage/notes/ahl-artwork-1.jpg\" alt=\"artboard-3-min.jpg\"></p></div>",
 "Kawkab Notes": "<div class=\"d-lg-flex align-items-lg-center mb-5\"><p><img src=\"https://admin.ahmedalmaghribi.com/public/storage/notes/kawkab-first-notes.jpg\" alt=\"Top Notes oud &amp; roses\" loading=\"lazy\"><br> </p><div class=\"content-wrapper col-lg-7 px-lg-5\"><h3 class=\"mb-3 text-white\">Top Notes</h3><p>It opens with a vibrant rose bouquet, complemented by peony, saffron, mango, and citrus notes, creating a fresh yet luxurious introduction.</p></div></div><div class=\"d-lg-flex align-items-lg-center mb-5 flex-column-reverse flex-lg-row\"><p class=\"order-1 order-lg-2\"><img class=\"img-fluid\" src=\"https://admin.ahmedalmaghribi.com/public/storage/notes/kawkab-heart-notes.jpg\" alt=\"first-notes-3.jpg\"></p><div class=\"content-wrapper col-lg-7 px-lg-5 order-2 order-lg-1\"><h3 class=\"mb-3 text-white\">Heart Notes</h3><p>The heart reveals the richness of Isparta rose, black tea, iris, and amber, adding warmth and depth.</p></div></div><div class=\"d-lg-flex align-items-lg-center mb-5\"><p><img src=\"https://admin.ahmedalmaghribi.com/public/storage/notes/kawkab-base-notes.jpg\" alt=\"Bottom Notes oud &amp; roses\" loading=\"lazy\"><br> </p><div class=\"content-wrapper col-lg-7 px-lg-5\"><h3 class=\"mb-3 text-white\">Bottom Notes</h3><p>The fragrance settles into an elegant base of musk, oud Ahmed Kinam, cypriol, cedarwood, and patchouli, leaving a lasting and distinguished impression</p></div></div>",
+"Mosaic Notes": "<p>TOP : Coffee, Almond, Orange, Cacao. </p><p>HEART : White flowers, Orris, Bulgarian Rose.</p><p>BOTTOM : Tonka bean, , Vanilla, Praline, Sandalwood, Musk,</p>",
+"O clock Notes": "<p>TOP : APPLE, LAVENDER, CINNAMON, BERGAMOT, GRAPEFRUIT, SPARKLING MALT NOTES </p><p>HEART : ORANGE BLOSSOM, LILY OF THE VALLEY, LEATHER. </p><p>BASE : VANILLA CO2, MUSK, PATCHOULI, AMBER. </p>",
+"Black Fume Notes": "<p>TOP : raspberry.</p><p>HEART : orris, burnt wood effect.</p><p>BOTTOM : labdanum, oud, tobacco, ambroxan.</p>",
+"Peachy Peach Notes": "<p>TOP : VANILLA, PEAR, MARSHMALLOW. VIOLET LEAVES, YLANG-YLANG.</p><p>HEART : BUBBLEGUM, JELLY BEAN, CARAMEL. JASMINE, LABDANUM.</p><p>BOTTOM : SUGAR, PATCHOULI, TONKA, CASHMERE WOOD, SANDAL WOOD,VETIVER. WHITE MUSK.</p>",
 
 "----------EAU DE Parfum Single Product Page Occidental Fragrance":"----------EAU DE Parfum Single Product Page Occidental Fragrance",
 "Instance 60ML Description": "<p><span>Instance Perfume is a timeless and versatile fragrance that suits every occasion.</span></p>",
@@ -812,6 +829,7 @@
 "Bakhoor Ahmed 20 Tabs Description": "<p>20 Tablets infused with woody &amp; Exotic flower notes</p>",
 "Bakhoor Hind Description":"Bakhoor Hind, an oriental fragrance, ensures that your surrounding is perfumed with delightful aromas, creating a mood that warmly welcomes fresh woody scent.",
 "Bakhoor Rasiyat Description":"Bakhoor Rasiyat is a rich, oriental-musky blend designed to infuse your space with elegance and tranquility.",
+"Bakhoor Marj Description": "Bakhoor Marj is a luxurious bakhoor that combines the richness of oud with the freshness of floral notes.It is a perfect choice for any occasion.",
 
 
 "Marrah Content": "<p>Marrah Bakhoor is a premium home fragrance product that exudes luxury and warmth.</p>",
@@ -832,6 +850,7 @@
 "Bakhoor Ahmed 40 Tabs Content": "<p>Bakhoor Ahmed brings the garden's ethereal beauty closer to your soul, Giving in to the bliss of Oriental, White Musk-scented florals.<br>The smoky woodiness of the scent, the warm amber, incense, and sandalwood towards the end are enough to make anyone fall into the overwhelming desire to relish the moment.</p><p>One small touch of this bakhoor on a woodchip is all it takes to transform any environment into a pleasant oasis.</p><p> </p>",
 "Bakhoor Ahmed 20 Tabs Content": "<p>Bakhoor Ahmed brings the garden’s ethereal beauty closer to your soul, Giving in to the bliss of Oriental,White Musk-scented florals.<br>The smoky woodiness of the scent, the warm amber, incense, and sandalwood towards the end are enough to make anyone fall into the overwhelming desire to relish the moment.</p><p>One small touch of this bakhoor on a woodchip is all it takes to transform any environment into a pleasant oasis.</p><p>The most popular amongst our Bakhoors, Bakhoor Ahmed, is available in a 20-tablet container</p>",
 "Bakhoor Rasiyat Content":"Bakhoor Rasiyat is a rich, oriental-musky blend designed to infuse your space with elegance and tranquility.It opens with the zesty brightness of mandarin, gracefully transitioning into the opulent aroma of Indian roses. The heart unveils the profound woody richness of Dehnal Oud, adding depth and refinement.The base is a captivating harmony of amber, white musk, white flowers, and black musk, delivering a warm, lingering scent that balances floral softness with musky allure.Perfect for creating an inviting ambiance, Bakhoor Rasiyat transforms any setting into a sanctuary of timeless luxury.",
+"Bakhoor Marj Content": "<p>Bakhoor Marj is a luxurious bakhoor that combines the richness of oud with the freshness of floral notes. The top notes feature a delightful blend of citrus and fruity accords, creating an uplifting and vibrant opening. As it unfolds, the heart reveals a bouquet of delicate flowers, adding a touch of elegance and sophistication. The base notes are anchored by warm and earthy oud, providing depth and longevity to the fragrance. Bakhoor Marjan is perfect for creating a serene and inviting atmosphere in any space.</p>",
 
 "Marrah Notes": "<p>Marrah Bakhoor is a premium home fragrance product that exudes luxury and warmth.</p>",
 "Bakhoor Ghars 40 Tabs Notes": "<p>TOP : Aldhydes, Bergamot, Tuberose.</p><p>HEART : Rose, Jasmine, Ylang-Ylang, Violet </p><p>BOTTOM : Ambroxan, Oakmoss, Vetluer, Sandalwood, Musk, Resins, Amber and Patchouli  </p>",
@@ -850,6 +869,7 @@
 "Bakhoor Ahmed 10 Tabs Notes": "<p>Notes - Fresh woody ( Citrus fruits, bulgarian roses, white exotic flowers, saffron, musk amber)</p>",
 "Bakhoor Ahmed 40 Tabs Notes": "<p>Notes - Fresh woody ( Citrus fruits, bulgarian roses, white exotic flowers, saffron, musk amber) </p>",
 "Bakhoor Ahmed 20 Tabs Notes": "<p>Notes - Fresh woody ( Citrus fruits, bulgarian roses, white exotic flowers, saffron, musk amber)</p>",
+"Bakhoor Marj Notes": "",
 
 "----------Dakhoon Single Product Page Oud Maattar":"----------Dakhoon Single Product Page Oud Maattar",
 "Oud al Amber 3TL Description": "<p>The pairing of oud with amber often results in a scent that lingers on the skin for hours, leaving a sensual trail.</p>",
@@ -1035,41 +1055,59 @@
 "Spring Collection Content":"<p>Spring Collection</p>",
 "Spring Collection Notes":"",
 
-"Bundle 5 Description":"<p>Awaken your senses with the serene charm of our Bundle 5 Collection.Perfect for those who seek beauty in simplicity, peace in routine, and elegance in everyday moments.Collection consist of Marj,Oud Lavender,Hulwa and Bin Shaikh</p>",
-"Bundle 5 Content":"<p>Awaken your senses with the serene charm of our Bundle 5 Collection.Perfect for those who seek beauty in simplicity, peace in routine, and elegance in everyday moments.</p>",
-"Bundle 5 Notes":"It consist of Marj,Oud Lavender,Hulwa and Bin Shaikh Perfume",
+"Bahar El Oud":"Bahar El Oud",
+"Bahar El Oud Description":"Bahar El Oud is an elegant fragrance set featuring the rich, woody allure of Ignite Oud paired with the captivating, floral notes of Marj Perfume. Together, they create a perfect harmony of depth and freshness, ideal for making a lasting impression.",
+"Bahar El Oud Content":"Bahar El Oud is a luxurious fragrance set that beautifully combines the richness of traditional oud with the elegance of modern perfumery. Featuring the deep, smoky aroma of Ignite Oud and the soft, floral essence of Marj Perfume, this duo creates a harmonious blend that captures both intensity and grace.",
+"Bahar El Oud Notes":"<p>Ignite Oud :-  a bold, smoky, and resinous oud blend that delivers a deep, long-lasting aroma, evoking warmth, strength, and timeless charm.</p><p>Marj Perfume – a delicate yet captivating scent with soft floral and powdery notes, bringing a refreshing contrast and an air of graceful beauty.</p>",
 
-"Bundle 2 Description":"<p>Bundle 2 is a celebration of nature’s most enchanting blooms. This collection captures the essence of delicate petals, lush gardens, and the timeless elegance of Rose beauty.Collection consist of Marj,Bin Shaikh,Rose Noir and Musk & Roses</p>",
-"Bundle 2 Content":"<p>Bundle 2 is a celebration of nature’s most enchanting blooms. This collection captures the essence of delicate petals, lush gardens, and the timeless elegance of Rose beauty.</p>",
-"Bundle 2 Notes":"It consist of Marj,Bin Shaikh,Rose Noir and Musk & Roses Perfume",
+"Whisper of Roses":"Whisper of Roses",
+"Whisper of Roses Description":"Whisper of Roses is a graceful fragrance set that captures the delicate romance of roses blended with the richness of oud and the depth of soulful aromas.",
+"Whisper of Roses Content":"Whisper of Roses is an enchanting fragrance set that tells a story of timeless romance, delicate strength, and sensual elegance. Crafted for those who appreciate the finer details in scent, this duo captures the beauty of blooming roses wrapped in the richness of oud and the serenity of soft musks.",
+"Whisper of Roses Notes":"<p>Oud & Roses – a luxurious fusion of velvety rose petals and warm, woody oud, creating a sensual and enchanting scent that lingers beautifully.</p><p>Laathani – a refined, mysterious fragrance with soft musky undertones and a whisper of floral sweetness, evoking elegance and inner serenity.</p>",
 
-"Bundle 4 Description":"<p>Bundle 4 is a tribute to nature's most radiant moments. This perfume collection blends soft florals with fresh, airy notes to create fragrances that feel like a blooming garden in every spritz ,Collection consist of Rose Noir,Hulwah,Kaaf,Laathani and Marj</p>",
-"Bundle 4 Content":"<p>Bundle 4 is a tribute to nature's most radiant moments. This perfume collection blends soft florals with fresh, airy notes to create fragrances that feel like a blooming garden in every spritz</p>",
-"Bundle 4 Notes":"It consist of Rose Noir,Hulwah,Kaaf,Laathani and Marj Perfume",
+"Floral Essence":"Floral Essence",
+"Floral Essence Description":"Floral Essence is a captivating fragrance that captures the enchanting allure of floral essence blended with the timeless allure of oud and the refined allure of musk.",
+"Floral Essence Content":"Floral Essence is a radiant fragrance set that celebrates the beauty of florals wrapped in the deep warmth of oud. Carefully curated to offer a complete scent ritual, this luxurious trio blends freshness, elegance, and indulgence into one unforgettable experience.",
+"Floral Essence Notes":"<p>Laathani – a soft, musky, and emotional fragrance that exudes grace and tranquility. With subtle floral undertones and warm amber-like notes, Laathani creates a serene, long-lasting impression that is both delicate and memorable.</p><p>Summer Oud – a bright and uplifting take on traditional oud, offering a fresh, modern twist with hints of citrus, light spices, and woody warmth. Perfect for daywear, it brings energy and sophistication to every moment.</p><p>Oud & Roses Perfume – a timeless fusion of rich oud and lush rose petals. Romantic, bold, and deeply enchanting, it embodies the perfect balance of power and elegance.</p><p>Oud & Roses Body Gel – a luxurious cleansing gel that envelops the skin in the signature scent of Oud & Roses, leaving it soft, refreshed, and gently perfumed to complement the perfume.</p>",
 
-"Bundle 7 Description":"<p>Bundle 7 invites you into a world where every fragrance is a blooming escape. Inspired by lush gardens and nature’s most aromatic blossoms, this collection captures the essence of serenity, beauty, and timeless floral elegance.Collection consist of Rose Noir,Marj and Zumar</p>",
-"Bundle 7 Content":"<p>Bundle 7 invites you into a world where every fragrance is a blooming escape. Inspired by lush gardens and nature’s most aromatic blossoms, this collection captures the essence of serenity, beauty, and timeless floral elegance.</p>",
-"Bundle 7 Notes":"It consist of Marj,Zumar and Rose Noir Perfume",
+"Rose of the Dunes":"Rose of the Dunes",
+"Rose of the Dunes Description":"Rose of the Dunes is a captivating fragrance collection inspired by the mysterious beauty of desert landscapes and the delicate elegance of blooming roses carried by the wind. This exquisite set brings together four unique scents, each offering its own story, mood, and charm — from deep, resinous oud to soft, romantic florals.",
+"Rose of the Dunes Content":"Together, these four fragrances create a versatile and immersive olfactory experience—perfect for transitioning from soft daylight to deep night, from gentle presence to bold expression. Whether worn individually or layered creatively, Rose of the Dunes is a fragrant journey across contrasts: light and dark, floral and woody, soft and intense.",
+"Rose of the Dunes Notes":"<p>Marj – a light, floral fragrance that evokes purity and serenity, with soft notes that bloom gently on the skin, perfect for everyday elegance</p> <p>Ignite Oud – a bold, intense scent rooted in the richness of oud, offering smoky, warm tones that embody depth, power, and timeless tradition</p> <p>Laathani – graceful and emotional, Laathani delivers a soothing blend of musky and powdery notes, wrapping you in a delicate, comforting aura</p> <p>Rose Noir – a dark, romantic take on classic rose, blending floral sensuality with subtle spice and shadowy depth, creating a mysterious and unforgettable trail</p>",
 
-"Bundle 6 Description":"<p>Bundle 6 is a celebration of everlasting beauty. Each fragrance in this collection captures the delicate grace of flowers in full bloom — timeless, romantic, and endlessly captivating. A scent that lingers like a memory.Collection consist of Scentique White,Laathani,Summer Oud and Bakhoor Ahmed</p>",
-"Bundle 6 Content":"<p>Bundle 6 is a celebration of everlasting beauty. Each fragrance in this collection captures the delicate grace of flowers in full bloom — timeless, romantic, and endlessly captivating. A scent that lingers like a memory.</p>",
-"Bundle 6 Notes":"It consist of Bakhoor Ahmed,Scentique White,Laathani and Summer Oud Perfume",
+"The Floral Majlis":"The Floral Majlis",
+"The Floral Majlis Description":"The Floral Majlis is a sophisticated fragrance set inspired by the warm hospitality, timeless traditions, and delicate floral elegance of a Middle Eastern gathering.",
+"The Floral Majlis Content":"The Floral Majlis is a luxurious collection of four fragrances that capture the essence of a Middle Eastern majlis, blending the warmth of oud with the delicate allure of floral perfumery.",
+"The Floral Majlis Notes":"<p>Oud Lavender – a calming blend of rich oud and soothing lavender, this scent merges the depth of oriental woods with the gentle freshness of florals, creating a serene and comforting aura</p> <p>Laathani – a soft, musky fragrance with subtle floral and powdery notes, Laathani evokes feelings of tranquility, elegance, and quiet beauty</p> <p>Marj – a light and refreshing floral perfume that radiates purity and natural grace, perfect for daily wear and uplifting the senses</p> <p>Summer Oud – a vibrant take on oud, this fragrance combines woody warmth with breezy, sun-kissed notes, offering a bright, modern oud experience full of energy and style</p>",
 
-"Bundle 1 Description":"<p>Bundle 1 is a collection that embodies the essence of nature's most cherished gifts. Each fragrance is a harmonious blend of floral, fruity, and woody notes, designed to evoke feelings of joy, serenity, and gratitude. This collection is a fragrant reminder of life's simple pleasures and the beauty that surrounds us.</p>",
-"Bundle 1 Content":"<p>Bundle 1 is a collection that embodies the essence of nature's most cherished gifts. Each fragrance is a harmonious blend of floral, fruity, and woody notes, designed to evoke feelings of joy, serenity, and gratitude. This collection is a fragrant reminder of life's simple pleasures and the beauty that surrounds us.</p>",
-"Bundle 1 Notes":"It consist of Marj,Summer Oud,Laathani and Kaaf Perfume",
+"The Royal Bloom":"The Royal Bloom",
+"The Royal Bloom Description":"The Royal Bloom is a captivating fragrance collection that captures the allure of royalty, blending the timeless allure of oud with the exquisite allure of florals.",
+"The Royal Bloom Content":"The Royal Bloom is a graceful and luxurious fragrance set that celebrates elegance, serenity, and timeless charm. Inspired by royal gardens and tranquil moments, this curated trio blends soft florals with warm oud to create a scent journey that is both refined and deeply comforting.",
+"The Royal Bloom Notes":"<p>Laathani – a delicate and emotional fragrance with musky and powdery undertones, Laathani wraps the senses in a veil of elegance and inner calm</p> <p>Oud Lavender – a soothing harmony of aromatic lavender and rich oud, this scent offers a perfect balance of freshness and depth, evoking both relaxation and regality</p> <p>Summer Oud – a vibrant, contemporary take on oud, blending sunlit freshness with woody richness to create a scent that is bold, bright, and effortlessly stylish</p>",
 
-"Bundle 3 Description":"<p>Bundle 3 is a collection that celebrates the rich, warm, and captivating aroma of oud. Each fragrance in this collection is a unique interpretation of this luxurious ingredient, blending it with complementary notes to create a scent that is both timeless and modern. This collection is perfect for those who appreciate the depth and complexity of oud.</p>",
-"Bundle 3 Content":"<p>Bundle 3 is a collection that celebrates the rich, warm, and captivating aroma of oud. Each fragrance in this collection is a unique interpretation of this luxurious ingredient, blending it with complementary notes to create a scent that is both timeless and modern. This collection is perfect for those who appreciate the depth and complexity of oud.</p>",
-"Bundle 3 Notes":"It Consist of Oud & Roses,Bakhoor Ahmed,Summer Oud and Hulwah",
+"The Royal Essence":"The Royal Essence",
+"The Royal Essence Description":"The Royal Essence is a captivating fragrance collection that captures the allure of royalty, blending the timeless allure of oud with the exquisite allure of florals.",
+"The Royal Essence Content":"The Royal Essence is an opulent fragrance set that embodies heritage, depth, and timeless sophistication. Carefully curated to reflect the richness of Arabian perfumery, this collection brings together three exquisite scents rooted in tradition, each offering a powerful and dignified presence.",
+"The Royal Essence Notes":"<p>Bakhoor Ahmed – a traditional aromatic blend that fills the space with a warm, smoky trail of rich spices, woods, and resins, evoking the soul of Arabian hospitality and sacred rituals</p> <p>Oud Ma'Attar Ahmed – a masterful fusion of oud and concentrated attar oils, this perfume is bold, resinous, and deeply luxurious, leaving behind an enduring and commanding trail</p> <p>Dehn Al Oud Maliki Qadeem – a rare, aged oud oil with deep woody notes and regal intensity, known for its purity and strength, reserved for those who appreciate the finest in classical oud</p>",
 
-"Bundle 9 Description":"<p>Bundle 9 is a tribute to the timeless elegance and sophistication of classic fragrances. Each scent in this collection is a harmonious blend of rich notes that evoke a sense of nostalgia and refinement. This collection is perfect for those who appreciate the art of perfumery and the stories that each fragrance tells.</p>",
-"Bundle 9 Content":"<p>Bundle 9 is a tribute to the timeless elegance and sophistication of classic fragrances. Each scent in this collection is a harmonious blend of rich notes that evoke a sense of nostalgia and refinement. This collection is perfect for those who appreciate the art of perfumery and the stories that each fragrance tells.</p>",
-"Bundle 9 Notes":"It consist of Ignite Oud And Marj Perfume",
+"Arabian Bloom":"Arabian Bloom",
+"Arabian Bloom Description":"Arabian Bloom is a rich and evocative fragrance set that captures the essence of Arabian tradition through the power of oud, incense, and deep woody accords.",
+"Arabian Bloom Content":"Arabian Bloom is a rich and evocative fragrance set that captures the essence of Arabian tradition through the power of oud, incense, and deep woody accords. This beautifully composed trio blends the soul of the East with the timeless beauty of natural aromas, creating a scent experience that is bold, warm, and enduring.",
+"Arabian Bloom Notes":"<p>Oud Ma'Attar Ahmed – a luxurious blend of pure oud and traditional attar oils, offering a deep, resinous scent with a lasting impression that reflects refinement and strength</p> <p>Oud Aslaaf – a distinguished oud fragrance with earthy and woody undertones, known for its smooth intensity and elegant character, making it a perfect choice for both daily wear and special occasions</p> <p>Bakhoor Ahmed – a classic incense blend crafted to fill your surroundings with a warm, smoky aroma rich in spice and tradition, ideal for spiritual ambiance and welcoming spaces</p>",
 
-"Bundle 8 Description":"<p>Royal Essence is a collection that embodies the opulence and grandeur of royal fragrances. Each scent in this collection is a luxurious blend of rich, exotic notes that transport you to a world of elegance and sophistication. This collection is perfect for those who seek to indulge in the finer things in life.</p>",
-"Bundle 8 Content":"<p>Royal Essence is a collection that embodies the opulence and grandeur of royal fragrances. Each scent in this collection is a luxurious blend of rich, exotic notes that transport you to a world of elegance and sophistication. This collection is perfect for those who seek to indulge in the finer things in life.</p>",
-"Bundle 8 Notes":"It Consist of Marj,Oud & Roses and Afwah Perfume"
+"Jewel of Arabia":"Jewel of Arabia",
+"Jewel of Arabia Description":"Jewel of Arabia is a captivating fragrance collection that reflects the vibrant spirit and timeless beauty of Arabian heritage.",
+"Jewel of Arabia Content":"Jewel of Arabia is a captivating fragrance collection that reflects the vibrant spirit and timeless beauty of Arabian heritage. This exquisite set blends floral freshness, rich woods, and traditional incense to create a multi-layered sensory experience that enchants and inspires.",
+"Jewel of Arabia Notes":"<p>Marj – a delicate floral perfume that radiates purity and gentle elegance, perfect for everyday wear and adding a touch of softness to your presence</p> <p>Zumar – a warm, rich fragrance with deep woody and amber notes, offering a luxurious and comforting aroma that lingers with sophistication</p> <p>Bakhoor Ahmed – a classic incense blend known for its smoky, spicy warmth and cultural significance, filling the atmosphere with an inviting and majestic aura</p>",
+
+"Mystique Arabia":"Mystique Arabia",
+"Mystique Arabia Description":"Mystique Arabia is perfect for layering or wearing individually, making it an exquisite choice for personal indulgence or a thoughtful gift that celebrates the timeless charm of rose.",
+"Mystique Arabia Content":"Mystique Arabia is a captivating fragrance set that unveils the enchanting allure of roses combined with delicate musks and soft florals. This elegant trio creates a harmonious blend of romantic, fresh, and soothing notes, perfect for those who cherish subtle sophistication and timeless beauty.",
+"Mystique Arabia Notes":"<p>Ignite Rose – a vibrant and passionate rose fragrance with rich, warm undertones that ignite the senses and leave a lasting impression of elegance and intensity</p> <p>Marj – a light, airy floral scent that evokes purity and serenity, offering a gentle and uplifting bouquet ideal for everyday grace</p> <p>Lathani – a soft, musky perfume with powdery and floral hints, enveloping the wearer in a delicate and comforting embrace</p>"
+
+
+
+
 
 
 

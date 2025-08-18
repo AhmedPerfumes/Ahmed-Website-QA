@@ -18,9 +18,9 @@ export default function OrderPaymentCompleted({ orderDetails }) {
   }, []);
 
   const subTotalPrice = (elm) => {
-    if (elm.is_gift) {
-      return <td>0.00{currency.symbol} (Free Gift)</td>;
-    }
+    // if (elm.is_gift) {
+    //   return <td>0.00{currency.symbol} (Free Gift)</td>;
+    // }
     const currentUTC = new Date(); // Current UTC time
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
@@ -38,13 +38,13 @@ export default function OrderPaymentCompleted({ orderDetails }) {
         console.log('else if');
         return <td>{((elm.price - (elm.price / 100 * elm.coupon.value)) * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
     } else if(elm?.sale_price) {
-        return <td>{(((elm.price * 1.15) - ((elm.price * 1.15) / 100 * elm.sale_price)) * elm.qty).toFixed(2)}{ currency.symbol }</td>;
+        return <td>{(((elm.price * 1) - ((elm.price * 1) / 100 * elm.sale_price)) * elm.qty).toFixed(2)}{ currency.symbol }</td>;
     } else {
       console.log('else');
       if(elm?.product_category && elm.product_category == 'Collections') {
         return <td>{ elm.gross_amount }{ currency.symbol }</td>;
       }
-      return <td>{((elm.price * 1.05) * elm.qty).toFixed(2)}{ currency.symbol }</td>;
+      return <td>{((elm.price * 1) * elm.qty).toFixed(2)}{ currency.symbol }</td>;
   }
   };
 

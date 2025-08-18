@@ -147,7 +147,7 @@ export default function Footer14() {
             </p>
             <p>
               <strong className="fw-medium">
-              +974 5505 3821 / +974 6696 0156
+              +974 5505 3821 / +974 3339 2075
               </strong>
             </p>
 

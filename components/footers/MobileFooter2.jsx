@@ -85,7 +85,7 @@ export default function MobileFooter2() {
         </p>
         <p className="text-center">
           <strong className="fw-medium text-white text-center">
-          +974 5505 3821 / +974 6696 0156
+          +974 5505 3821 / +974 3339 2075
           </strong>
         </p>
 

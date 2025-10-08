@@ -78,8 +78,15 @@ export default function Checkout() {
   const [couponSuccess, setCouponSuccess] = useState(null);
   const [couponData, setCouponData] = useState(null);
 
-  const handleRadioChange = (event) => {
+  const [termsCondition, setTermsCondition] = useState(false);
+  const [isPaymentLoading, setIsPaymentLoading] = useState(false);
+  const [cyberSourceJWT, setCyberSourceJWT] = useState(null);
+
+  const [isShowPayment, setIsShowPayment] = useState(false);
+
+  const handleRadioChange = async (event) => {
     setSelectedOption(event.target.value);
+    await flexSetup(cyberSourceJWT, event.target.value);
   };
 
   const handleChange = (event) => {
@@ -135,9 +142,239 @@ export default function Checkout() {
   useEffect(() => {
    setCouponDataContext(null);
   }, []);
- 
-  async function onOrder(event) {
+
+  useEffect(() => {
+  if (!cyberSourceJWT || selectedOption === 'cod') return;
+
+  const tryFlexSetup = () => {
+    const paymentSelection = document.querySelector('#buttonPaymentListContainer');
+    const paymentScreen = document.querySelector('#embeddedPaymentContainer');
+
+    if (paymentSelection && paymentScreen) {
+      flexSetup(cyberSourceJWT, selectedOption);
+    } else {
+      console.warn('CyberSource containers not yet in DOM. Retrying...');
+      setTimeout(tryFlexSetup, 100); // Retry after short delay
+    }
+  };
+
+  tryFlexSetup();
+}, [cyberSourceJWT, selectedOption]);
+
+  async function loadScript(src, integrity) {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${src}"]`)) {
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.src = src;
+      script.integrity = integrity;
+      script.crossOrigin = 'anonymous';
+
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error(`Failed to load script ${src}`));
+
+      document.head.appendChild(script);
+    });
+  }
+
+  async function flexSetup(jwt, paymentMethod) {
+    const captureContext = jwt;
+
+    const showArgs = {
+      containers: {
+        paymentSelection: '#buttonPaymentListContainer',
+        paymentScreen: '#embeddedPaymentContainer',
+      },
+    };
+
+    const sidebar = false;
+
+    try {
+      // @ts-ignore Accept is a global from the loaded script
+      const accept = await Accept(captureContext);
+      const up = await accept.unifiedPayments(sidebar);
+      const tt = await up.show(showArgs);
+      const completeResponse = await up.complete(tt);
+
+      console.log(completeResponse);
+      // Decode JWT payload:
+      const decoded = JSON.parse(Buffer.from(completeResponse.split('.')[1], 'base64').toString());
+      if (!decoded) {
+        // throw new Error('Failed to decode JWT');
+        setError('Failed to decode JWT');
+        setSuccess(null);return;
+      }
+      if(!decoded.status) {
+        setError('Payment Declined');
+        setSuccess(null);
+      }
+      if(decoded.status != 'AUTHORIZED') {
+        setError(decoded.message);
+        setSuccess(null);
+      }
+
+      await onOrder(null, decoded.id, decoded.status, decoded.message, paymentMethod);
+    } catch (error) {
+      console.error('something went wrong: ', error);
+      // setError(error.message);
+      // setSuccess(null);
+    }
+  }
+
+  async function onPayment(event) {
     event.preventDefault();
+
+    if(formData.billingAddress.first_name == '') {
+      setError('First Name is Required');
+      setSuccess(null);
+      return;
+    }
+    if(formData.billingAddress.last_name == '') {
+      setError('Last Name is Required');
+      setSuccess(null);
+      return;
+    }
+    if(formData.billingAddress.mobile == '') {
+      setError('Mobile Number is Required');
+      setSuccess(null);
+      return;
+    }
+    const regex = /^\d{8}$/;
+    if(!regex.test(formData.billingAddress.mobile)) {
+      setError('Invalid Mobile Number');
+      setSuccess(null);
+      return;
+    }
+    if(formData.billingAddress.email == '') {
+      setError('Email is Required');
+      setSuccess(null);
+      return;
+    }
+    const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if(!emailRegex.test(formData.billingAddress.email)) {
+      setError('Invalid Email Id');
+      setSuccess(null);
+      return;
+    }
+    if(formData.billingAddress.area == '') {
+      setError('Area is Required');
+      setSuccess(null);
+      return;
+    }
+    if(formData.billingAddress.building == '') {
+      setError('Building Number is Required');
+      setSuccess(null);
+      return;
+    }
+    if(formData.billingAddress.city == '') {
+      setError('City is Required');
+      setSuccess(null);
+      return;
+    }
+    if(!termsCondition) {
+      setError('Please check this box if you want to proceed.');
+      setSuccess(null);
+      return;
+    }
+
+    setIsPaymentLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    let address = formData.billingAddress.building + ' ' + formData.billingAddress.area + ' ' + formData.billingAddress.city;
+    if(formData.shippingAddress.building != '' && formData.shippingAddress.area != '' && formData.shippingAddress.city != '') {
+      address = formData.shippingAddress.building + ' ' + formData.shippingAddress.area + ' ' + formData.shippingAddress.city;
+    }
+    const finalPrice = !freeShippingFlag ? parseFloat(shippingServiceCharges[0].price) + totalPrice + parseFloat(shippingServiceCharges[1].price) : 0 + totalPrice + parseFloat(shippingServiceCharges[1].price);
+    const orderInformation = {
+        "amountDetails" : {
+            "totalAmount" : ""+finalPrice,
+        },
+        "billTo" : {
+            "address1" : address,
+            "buildingNumber" : formData.billingAddress.building,
+            "district" : formData.billingAddress.city,
+            "locality" : formData.billingAddress.area,
+            "email" : formData.billingAddress.email,
+            "firstName" : formData.billingAddress.first_name,
+            "lastName" : formData.billingAddress.last_name,
+            "phoneNumber" : formData.billingAddress.mobile,
+        },
+        "shipTo" : {
+            "address1" : address,
+            "buildingNumber" : formData.shippingAddress.building ? formData.shippingAddress.building : formData.billingAddress.building,
+            "district" : formData.shippingAddress.city ? formData.shippingAddress.city : formData.billingAddress.city,
+            "locality" : formData.shippingAddress.area ? formData.shippingAddress.area : formData.billingAddress.area,
+            "firstName" : formData.shippingAddress.first_name ? formData.shippingAddress.first_name : formData.billingAddress.first_name,
+            "lastName" : formData.shippingAddress.last_name ? formData.shippingAddress.last_name : formData.billingAddress.last_name,
+        }
+    }
+    // const additionalPaymentFields = { ...config, orderInformation }
+    // console.log('Payment Config:', cybersourceRestApi);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/cyberSource`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderInformation),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Something went wrong');
+      }
+      console.log('Payment data:', data);
+      const jwt = data.data[0];
+      if (!jwt) {
+        // throw new Error('Missing JWT in response');
+        setError('Missing JWT in response');
+        setSuccess(null);return;
+      }
+      setCyberSourceJWT(jwt);
+
+      // Decode JWT payload:
+      const decoded = JSON.parse(Buffer.from(jwt.split('.')[1], 'base64').toString());
+      if (!decoded) {
+        // throw new Error('Failed to decode JWT');
+        setError('Failed to decode JWT');
+        setSuccess(null);return;
+      }
+
+      const clientLibrary = decoded.ctx[0].data.clientLibrary; // adjust if your JWT uses different key
+      const clientLibraryIntegrity = decoded.ctx[0].data.clientLibraryIntegrity;
+
+      if (!clientLibrary || !clientLibraryIntegrity) {
+        // throw new Error('Missing clientLibrary or integrity in JWT payload');
+        setError('Missing clientLibrary or integrity in JWT payload');
+        setSuccess(null);return;
+      }
+
+      setIsPaymentLoading(false);
+
+      // Load the external script and run flexSetup
+      await loadScript(clientLibrary, clientLibraryIntegrity);
+
+      await flexSetup(jwt);
+
+      // router.push('/en/shop-payment', { query: { data: JSON.stringify(data) } });return;
+    } catch (err) {
+      console.error('Payment error:', err);
+      setError(err.message);
+    } finally {
+      setIsPaymentLoading(false);
+    }
+  }
+ 
+  async function onOrder(event, paymentId = null, status = null, message = null, payment_method = null) {
+    if (event) {
+      event.preventDefault();
+    }
     // console.log('Order submitted:', formData);
     setIsLoading(true);
     setError(null);
@@ -158,7 +395,7 @@ export default function Checkout() {
     const additionalFields = {
       ...formData,
       products : cartProducts,
-      payment_method: selectedOption,
+      payment_method: payment_method ? payment_method : selectedOption,
       shippingPrice,
       shippingPriceVat,
       servicePrice,
@@ -168,8 +405,14 @@ export default function Checkout() {
       finalPrice,
       customer_id: userJson ? userJson.id : null,
       locale,
-      couponCode
+      couponCode,
+      paymentId,
+      status,
+      message
     }
+
+    console.log('Additional Fields:', additionalFields);
+    // return;
  
     try {
       // const formDataa = new FormData(additionalFields);
@@ -187,7 +430,7 @@ export default function Checkout() {
  
       // Handle response if necessary
       const data = await response.json();
-      // console.log(data);
+      console.log('Additional Fields:', data);
       if(data.message && data.message.split(' ')[0] == 'Order') {
         setSuccess(data.message);
         setError(null);
@@ -213,7 +456,7 @@ export default function Checkout() {
           },
           shippingAdd: false,
         });
-        setTimeout(() => router.push(`/${locale}/shop-order-complete`), 1000);
+        setTimeout(() => router.push(`/${locale}/shop-order-complete`), 500);
       } else if(data.message && data.message.split(' ')[0] == 'Redirecting') {
         setSuccess(data.message);
         setError(null);
@@ -471,11 +714,14 @@ export default function Checkout() {
     setCouponDataContext(null);
   };
 
-  const removeCoupon = (e) => {
+  const removeCoupon = async(e) => {
     setCouponCode('');
     setCouponSuccess(null);
     setCouponData(null);
     setCouponDataContext(null);
+
+    setCyberSourceJWT(null);
+    setIsShowPayment(true);
   };
 
   const applyCoupon = async (e) => {
@@ -538,6 +784,9 @@ export default function Checkout() {
         setCouponData(data.coupon);
         setCouponDataContext(data.coupon);
         setCouponSuccess(`Applied Coupon: ${data.coupon.code} - Discount: ${data.coupon.value}%`);
+
+        setCyberSourceJWT(null);
+        setIsShowPayment(true);
       } else {
         setCouponSuccess(null);
         setCouponData(null);
@@ -1086,17 +1335,26 @@ export default function Checkout() {
                   </Link>
                   .
                 </div><br/>
-                <input type="checkbox" required/>&nbsp;&nbsp;
+                <input onClick={(prev) => setTermsCondition(!termsCondition)} type="checkbox" required/>&nbsp;&nbsp;
                   <span>I have read and agree to the website <Link href="https://www.ahmedalmaghribi.com/terms-and-condition/" target="_blank">terms and conditions</Link> </span>*
               </div>
               {error ? <div style={{ color: 'red' }}>{error}</div> : <div style={{ color: 'green' }}>{success}</div>}
-              <button
+              {selectedOption == 'cod' ? <button
                 className="btn btn-primary w-100 text-uppercase"
                 type="submit"
                 disabled={isLoading}
               >
                 {isLoading ? 'Loading...' : 'Place Order'}
-              </button>
+              </button> : !cyberSourceJWT && <button
+                className="btn btn-primary w-100 text-uppercase"
+                type="button"
+                disabled={isPaymentLoading}
+                onClick={onPayment}
+              >
+                {isPaymentLoading ? 'Loading...' : 'Proceed to Payment'}
+              </button>}
+              {cyberSourceJWT && selectedOption !== 'cod' ? <div id="buttonPaymentListContainer"></div> : null}
+              {cyberSourceJWT && selectedOption !== 'cod' ? <div id="embeddedPaymentContainer"></div> : null}
             </div>
           </div>
         </div>

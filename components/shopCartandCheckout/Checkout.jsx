@@ -82,8 +82,6 @@ export default function Checkout() {
   const [isPaymentLoading, setIsPaymentLoading] = useState(false);
   const [cyberSourceJWT, setCyberSourceJWT] = useState(null);
 
-  const [isShowPayment, setIsShowPayment] = useState(false);
-
   const handleRadioChange = async (event) => {
     setSelectedOption(event.target.value);
     await flexSetup(cyberSourceJWT, event.target.value);
@@ -161,6 +159,10 @@ export default function Checkout() {
   tryFlexSetup();
 }, [cyberSourceJWT, selectedOption]);
 
+useEffect(() => {
+   setCyberSourceJWT(null);
+}, [totalPrice]);
+
   async function loadScript(src, integrity) {
     return new Promise((resolve, reject) => {
       if (document.querySelector(`script[src="${src}"]`)) {
@@ -200,7 +202,7 @@ export default function Checkout() {
       const tt = await up.show(showArgs);
       const completeResponse = await up.complete(tt);
 
-      console.log(completeResponse);
+      // console.log(completeResponse);
       // Decode JWT payload:
       const decoded = JSON.parse(Buffer.from(completeResponse.split('.')[1], 'base64').toString());
       if (!decoded) {
@@ -329,7 +331,7 @@ export default function Checkout() {
       if (!res.ok) {
         throw new Error(data.error || 'Something went wrong');
       }
-      console.log('Payment data:', data);
+      // console.log('Payment data:', data);
       const jwt = data.data[0];
       if (!jwt) {
         // throw new Error('Missing JWT in response');
@@ -411,7 +413,7 @@ export default function Checkout() {
       message
     }
 
-    console.log('Additional Fields:', additionalFields);
+    // console.log('Additional Fields:', additionalFields);
     // return;
  
     try {
@@ -430,7 +432,7 @@ export default function Checkout() {
  
       // Handle response if necessary
       const data = await response.json();
-      console.log('Additional Fields:', data);
+      // console.log('Additional Fields:', data);
       if(data.message && data.message.split(' ')[0] == 'Order') {
         setSuccess(data.message);
         setError(null);
@@ -457,77 +459,79 @@ export default function Checkout() {
           shippingAdd: false,
         });
         setTimeout(() => router.push(`/${locale}/shop-order-complete`), 500);
-      } else if(data.message && data.message.split(' ')[0] == 'Redirecting') {
-        setSuccess(data.message);
-        setError(null);
-        // localStorage.setItem('orderData', btoa(JSON.stringify(data)));
-        // router.push(data.redirect_url);
-        const form = document.createElement("form");
-        form.action = data.redirect_url;  // The URL to redirect to
-        form.method = "POST";
+      }
+      // else if(data.message && data.message.split(' ')[0] == 'Redirecting') {
+      //   setSuccess(data.message);
+      //   setError(null);
+      //   // localStorage.setItem('orderData', btoa(JSON.stringify(data)));
+      //   // router.push(data.redirect_url);
+      //   const form = document.createElement("form");
+      //   form.action = data.redirect_url;  // The URL to redirect to
+      //   form.method = "POST";
 
-        // If you have additional data you want to send with the form
-        const params = {
-          // Add parameters you need to pass to the form (hidden inputs)
-          'access_key': data.access_key,
-          'profile_id': data.profile_id,
-          'transaction_uuid': data.transaction_uuid,
-          'signed_field_names': data.signed_field_names,
-          'unsigned_field_names': data.unsigned_field_names,
-          'signed_date_time': data.signed_date_time,
-          'locale': data.locale,
-          'transaction_type': data.transaction_type,
-          'reference_number': data.order_id,
-          'amount': data.total,
-          'currency': data.currency,
-          'bill_to_forename': data.bill_to_forename,
-          'bill_to_surname': data.bill_to_surname,
-          'bill_to_email': data.bill_to_email,
-          'bill_to_phone': data.bill_to_phone,
-          'bill_to_address_line1': data.bill_to_address_line1,
-          'bill_to_address_city': data.bill_to_address_city,
-          'bill_to_address_state': data.bill_to_address_state,
-          'bill_to_address_country': data.bill_to_address_country,
-          'ship_to_forename': data.ship_to_forename,
-          'ship_to_surname': data.ship_to_surname,
-          'ship_to_email': data.ship_to_email,
-          'ship_to_phone': data.ship_to_phone,
-          'ship_to_address_line1': data.ship_to_address_line1,
-          'ship_to_address_city': data.ship_to_address_city,
-          'ship_to_address_state': data.ship_to_address_state,
-          'ship_to_address_country': data.ship_to_address_country,
-          'submit': 'Submit',
-          'signature': data.signature
-        };
+      //   // If you have additional data you want to send with the form
+      //   const params = {
+      //     // Add parameters you need to pass to the form (hidden inputs)
+      //     'access_key': data.access_key,
+      //     'profile_id': data.profile_id,
+      //     'transaction_uuid': data.transaction_uuid,
+      //     'signed_field_names': data.signed_field_names,
+      //     'unsigned_field_names': data.unsigned_field_names,
+      //     'signed_date_time': data.signed_date_time,
+      //     'locale': data.locale,
+      //     'transaction_type': data.transaction_type,
+      //     'reference_number': data.order_id,
+      //     'amount': data.total,
+      //     'currency': data.currency,
+      //     'bill_to_forename': data.bill_to_forename,
+      //     'bill_to_surname': data.bill_to_surname,
+      //     'bill_to_email': data.bill_to_email,
+      //     'bill_to_phone': data.bill_to_phone,
+      //     'bill_to_address_line1': data.bill_to_address_line1,
+      //     'bill_to_address_city': data.bill_to_address_city,
+      //     'bill_to_address_state': data.bill_to_address_state,
+      //     'bill_to_address_country': data.bill_to_address_country,
+      //     'ship_to_forename': data.ship_to_forename,
+      //     'ship_to_surname': data.ship_to_surname,
+      //     'ship_to_email': data.ship_to_email,
+      //     'ship_to_phone': data.ship_to_phone,
+      //     'ship_to_address_line1': data.ship_to_address_line1,
+      //     'ship_to_address_city': data.ship_to_address_city,
+      //     'ship_to_address_state': data.ship_to_address_state,
+      //     'ship_to_address_country': data.ship_to_address_country,
+      //     'submit': 'Submit',
+      //     'signature': data.signature
+      //   };
 
-        // console.log(JSON.stringify(params));return;
+      //   // console.log(JSON.stringify(params));return;
 
-        Object.entries(params).forEach(([key, value]) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = key;
-          input.value = value;
-          form.appendChild(input);
-        });
+      //   Object.entries(params).forEach(([key, value]) => {
+      //     const input = document.createElement("input");
+      //     input.type = "hidden";
+      //     input.name = key;
+      //     input.value = value;
+      //     form.appendChild(input);
+      //   });
 
-        const submitButton = document.createElement('input');
-        submitButton.type = 'submit';
-        // submitButton.style.display = 'none';  // Hide the button
-        submitButton.value = 'Confirm';
+      //   const submitButton = document.createElement('input');
+      //   submitButton.type = 'submit';
+      //   // submitButton.style.display = 'none';  // Hide the button
+      //   submitButton.value = 'Confirm';
 
-        form.appendChild(submitButton);
+      //   form.appendChild(submitButton);
 
-        // Appending the form to the body
-        document.body.appendChild(form);
+      //   // Appending the form to the body
+      //   document.body.appendChild(form);
 
-        // Submit the form
-        // form.submit();return;
-        console.log('Form is valid:', form);
+      //   // Submit the form
+      //   // form.submit();return;
+      //   console.log('Form is valid:', form);
 
-        // Trigger the button click
-        setTimeout(() => submitButton.click(), 1000);
-        // submitButton.click();return;
-      } else if (data.qtyMessage) {
+      //   // Trigger the button click
+      //   setTimeout(() => submitButton.click(), 1000);
+      //   // submitButton.click();return;
+      // }
+      else if (data.qtyMessage) {
         // setSuccess();
         setError(data.qtyMessage);
         // localStorage.setItem('orderData', btoa(JSON.stringify(data)));
@@ -721,7 +725,6 @@ export default function Checkout() {
     setCouponDataContext(null);
 
     setCyberSourceJWT(null);
-    setIsShowPayment(true);
   };
 
   const applyCoupon = async (e) => {
@@ -786,12 +789,11 @@ export default function Checkout() {
         setCouponSuccess(`Applied Coupon: ${data.coupon.code} - Discount: ${data.coupon.value}%`);
 
         setCyberSourceJWT(null);
-        setIsShowPayment(true);
       } else {
         setCouponSuccess(null);
         setCouponData(null);
         setCouponDataContext(null);
-        console.log(data);
+        // console.log(data);
         if(data['couponCode']) {
           setCouponError(data['couponCode']);
         } else if(data['mobile_number']) {
@@ -805,7 +807,7 @@ export default function Checkout() {
       setCouponSuccess(null);
       setCouponData(null);
       setCouponDataContext(null);
-      setCouponError("An error occurred. Please try again.");
+      setCouponError(err.message);
     }
   };
 
@@ -824,17 +826,17 @@ export default function Checkout() {
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
     if(elm?.discount) {
-      console.log('if');
+      // console.log('if');
       if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
         return <td>{((elm.price - (elm.price / 100 * elm.discount.value)) * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
       } else {
         return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
       }
     } else if(elm?.sale_price) {
-      console.log('else if 2');
+      // console.log('else if 2');
       return <td><span className="money price price-old">{currency.symbol}{elm?.price}</span><span className="money price price-sale">{currency.symbol}{(elm.sale_price * elm.quantity).toFixed(2)}</span></td>;
     } else if(elm?.coupon && !Array.isArray(elm.coupon) && couponData != null && couponCode != null) {
-      console.log('else if', elm);
+      // console.log('else if', elm);
       // elm.map((item) => {
         // return elm.coupon.map((item, ind) => {
         //   // if() {
@@ -855,7 +857,7 @@ export default function Checkout() {
           return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
         }
     } else {
-      console.log('else');
+      // console.log('else');
       return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
     }
   };

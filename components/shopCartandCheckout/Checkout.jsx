@@ -413,7 +413,7 @@ useEffect(() => {
       message
     }
 
-    // console.log('Additional Fields:', additionalFields);
+    console.log('Additional Fields:', additionalFields);
     // return;
  
     try {

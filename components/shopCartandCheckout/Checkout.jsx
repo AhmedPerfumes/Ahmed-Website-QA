@@ -212,12 +212,14 @@ useEffect(() => {
       }
       if(!decoded.status) {
         setError('Payment Declined');
-        setSuccess(null);
+        setSuccess(null);return;
       }
       if(decoded.status != 'AUTHORIZED') {
         setError(decoded.message);
-        setSuccess(null);
+        setSuccess(null);return;
       }
+
+      // console.log('decoded', decoded);return;
 
       await onOrder(null, decoded.id, decoded.status, decoded.message, paymentMethod);
     } catch (error) {

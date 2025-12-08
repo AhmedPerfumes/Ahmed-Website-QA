@@ -263,7 +263,7 @@
   "Bakhoor Ahmed (40 Tabs)": "بخور احمد (40 قرص)",
   "Bakhoor Ahmed (20 Tabs)": "بخور احمد (20 قرص)",
   "Bakhoor Rasiyat":"بخور راسيات",
-  "Bakhoor Marj": "بخور مرج (20 قرص) ",
+  "Bakhoor Marj": "بخور مرج ",
 
   "--------------------Oud Ma'attar Category":"This is category for Oud Ma'attar-----------",
   "Oud al Amber 3TL": "عود عنبر  3 تولة",
@@ -387,6 +387,7 @@
   "O clock": "او كلوك",
   "Black Fume": "بلاك فيوم",
   "Peachy Peach": "بيتشي بيتش ",
+  "NISWAH": "نسوة",
   
   "----------Gel Category---------":"----------Gel Category---------",
   "Marj Body Gel":"مرج (بودي جل)",
@@ -600,6 +601,9 @@
 "Scentique White Description":" ”سينتك وايت ” إنه أكثر من مجرد عطر - إنها تجربة.",
 "RedJewel Description":"”ريد جويل ” هو عطر آسر يجسد الأناقة والسحر، وهو مصمم لأولئك الذين يقدرون تجربة شمية غنية ومتعددة الطبقات.",
 "Cocoblend Description":"في القلب، تتشابك باقة غنية من العود والجمال الخالد لورد بلغاري مع زهر البرتقال ونجيل الهند الرقيقين. تثير النفحات الهادئة من زنبق الماء والورد الدمشقي، المعززة بزهرة فرانجيباني الغريبة، هالة من النعمة والإثارة.",
+ "NISWAH Description":"نِسوة عبير ناعم ومنعش في كل رشة هو تكريم لجوهر الأنوثة، يجسد القوة، والأناقة، والجمال الخالد.",
+  "NISWAH Content":"تفتتح الرائحة بانفجار نابض من الفواكه والتوابل: توت العليق الغني، والزعفران الذهبي، والإجاص العصير، والكشمش الأسود المنعش، ممزوجة بنفحات متلألئة وزهور رقيقة. وفي القلب، تتفتح باقة غنية من الورد، والياسمين، والغاردينيا، والفرانجيباني، تتداخل معها لمسات دافئة من جوز الهند، والقرفة، والبرقوق، لتمنح العطر عمقاً وجاذبية. أما القاعدة، فتكشف عن أثر فاخر من العود، والتبغ، والباتشولي، والمسك، تتناغم مع لمسات حلوة من الكاكاو، والكراميل، والفانيليا، تاركة توقيعاً راقياً لا يُنسى.",
+  "NISWAH Notes":"",
 
 "Instance 60ML Content": "<p><span>\"سواء كنت تستعد لقضاء أمسية خاصة، أو اجتماع احترافي، أو تريد فقط أن تشعر بأفضل ما لديك كل يوم، فإن هذا العطر يكمل أسلوبك وشخصيتك دون عناء. تتناغم المكونات المختارة بعناية في هذا العطر لتكوين رائحة أنيقة لا تُنسى، مما يترك انطباعًا دائمًا في قلوب وعقول من حولك. احتضن قوة عطر إنستانس واجعل حضورك محسوسًا، مما يجعل كل لحظة مثالًا لا يُنسى من الجمال\"</span></p>",
 
@@ -1073,6 +1077,51 @@
 "Garden of Scent Notes":"",
 "Eternal Blossom Description":"<p>Eternal Blossom is a celebration of everlasting beauty. Each fragrance in this collection captures the delicate grace of flowers in full bloom — timeless, romantic, and endlessly captivating. A scent that lingers like a memory.Collection consist of Musk Hareer,Ignite Rose,Shy,Kaaf and Rose Noir EDP</p>",
 "Eternal Blossom Content":"<p>Eternal Blossom is a celebration of everlasting beauty. Each fragrance in this collection captures the delicate grace of flowers in full bloom — timeless, romantic, and endlessly captivating. A scent that lingers like a memory.</p>",
-"Eternal Blossom Notes":""
+"Eternal Blossom Notes":"",
+
+"Aura of Roses Description":"<p>Experience the enchanting blend of floral elegance with the Aura of Roses Bundle, featuring La Rosee, Marj, and Oud & Roses.</p>",
+"Aura of Roses Content":"<p>Indulge in the ultimate floral journey with the Aura of Roses Bundle. This carefully curated set combines the delicate freshness of La Rosee, the sophisticated charm of Marj, and the rich, opulent aroma of Oud & Roses. Perfect for gifting or elevating your own fragrance collection, each product harmonizes beautifully to create a luxurious, lingering scent experience that celebrates the timeless allure of roses.</p>",
+"Aura of Roses Notes":"<p>Products available: La Rosee, Marj, Oud & Roses</p>",
+
+"Signature Scents Description":"<p>Discover the irresistible charm of the Signature Scents Bundle, featuring Musk & Roses, Kaaf, and Rose Noir.</p>",
+"Signature Scents Content":"<p>Elevate your fragrance collection with the Signature Scents Bundle, a luxurious ensemble of Musk & Roses, Kaaf, and Rose Noir. Each scent tells its own story – the warm, sensual allure of Musk & Roses, the sophisticated elegance of Kaaf, and the deep, mysterious notes of Rose Noir. Perfect for gifting or personal indulgence, this bundle offers a harmonious blend of classic and contemporary aromas that linger beautifully, leaving a memorable impression wherever you go.</p>",
+"Signature Scents Notes":"<p>Products available: Musk & Roses, Kaaf, Rose Noir</p>",
+
+"The Fragrance Set Description":"<p>Experience the perfect harmony of scents with The Fragrance Set, featuring La Rosee, Marj, and Kaaf.</p>",
+"The Fragrance Set Content":"<p>The Fragrance Set offers a luxurious trio of La Rosee, Marj, and Kaaf, each bringing its unique character to your fragrance collection. Enjoy the delicate floral freshness of La Rosee, the sophisticated elegance of Marj, and the captivating depth of Kaaf. This set is ideal for gifting or for indulging yourself, creating a refined, lingering scent experience that enhances any occasion with grace and charm.</p>",
+"The Fragrance Set Notes":"<p>Products available: La Rosee, Marj, Kaaf</p>",
+
+"Desert Noir Description":"<p>Embrace the mysterious allure of the Desert Noir Bundle, featuring Ignite Oud and Rose Noir.</p>",
+"Desert Noir Content":"<p>Desert Noir brings together the rich, captivating scents of Ignite Oud and Rose Noir, creating a bold and sophisticated fragrance experience. Ignite Oud offers a deep, smoky aroma that exudes confidence, while Rose Noir adds a dark, luxurious floral touch. Perfect for evening wear or special occasions, this bundle captures the essence of elegance and mystery, leaving a lasting impression wherever you go.</p>",
+"Desert Noir Notes":"<p>Products available: Ignite Oud, Rose Noir</p>",
+
+"Essence Duo Description":"<p>Experience refined elegance with the Essence Duo, featuring Marj and AHL.</p>",
+"Essence Duo Content":"<p>The Essence Duo combines the sophisticated charm of Marj with the unique, captivating aroma of AHL. Perfectly balanced, this pair offers a luxurious fragrance journey that is both graceful and memorable. Ideal for personal indulgence or gifting, the Essence Duo enhances any occasion with its lingering, exquisite scents that celebrate the art of perfumery.</p>",
+"Essence Duo Notes":"<p>Products available: Marj, AHL</p>",
+
+"Pure Aura Description":"<p>Discover the captivating essence of the Pure Aura Bundle, featuring Ignite Oud and Marj.</p>",
+"Pure Aura Content":"<p>The Pure Aura Bundle combines the deep, smoky richness of Ignite Oud with the refined elegance of Marj, creating a harmonious fragrance experience. Perfect for those who appreciate luxurious, lingering scents, this duo is ideal for personal indulgence or gifting. Each fragrance complements the other, offering a sophisticated blend that leaves a memorable impression wherever you go.</p>",
+"Pure Aura Notes":"<p>Products available: Ignite Oud, Marj</p>",
+
+"Desert Bloom Description":"<p>Immerse yourself in the vibrant elegance of the Desert Bloom Bundle, featuring Kaaf, Oud Lavender, and Lathani.</p>",
+"Desert Bloom Content":"<p>The Desert Bloom Bundle offers a luxurious trio of scents that harmonize beautifully. Kaaf brings sophisticated depth, Oud Lavender adds a calming and aromatic floral touch, and Lathani completes the ensemble with a delicate, enchanting aroma. Perfect for gifting or enhancing your personal fragrance collection, this bundle creates a lasting impression with its balanced and memorable scent journey.</p>",
+"Desert Bloom Notes":"<p>Products available: Kaaf, Oud Lavender, Lathani</p>",
+
+"Essence of Ahmed Description":"<p>Experience the rich heritage of fragrance with the Essence of Ahmed Bundle, featuring Oud Ahmed and Bakhoor Ahmed.</p>",
+"Essence of Ahmed Content":"<p>The Essence of Ahmed Bundle brings together the deep, luxurious aroma of Oud Ahmed with the traditional, captivating scent of Bakhoor Ahmed. This duo celebrates timeless elegance and sophistication, making it perfect for gifting or indulging in a personal fragrance ritual. Each scent complements the other, creating a memorable and refined olfactory experience that embodies the essence of luxury.</p>",
+"Essence of Ahmed Notes":"<p>Products available: Oud Ahmed, Bakhoor Ahmed</p>",
+
+"Roses and Oud Description":"<p>Indulge in the perfect fusion of floral and woody notes with the Roses and Oud Bundle, featuring La Rosee and Ignite Oud.</p>",
+"Roses and Oud Content":"<p>The Roses and Oud Bundle combines the delicate, fresh floral aroma of La Rosee with the deep, smoky richness of Ignite Oud. This harmonious duo creates a luxurious and memorable fragrance experience, ideal for personal indulgence or gifting. Together, they offer a sophisticated balance of elegance and intensity, leaving a lasting impression wherever they are worn.</p>",
+"Roses and Oud Notes":"<p>Products available: La Rosee, Ignite Oud</p>",
+
+"Arabian Essence Description":"<p>Immerse yourself in the rich tradition of Arabian scents with the Arabian Essence Bundle, featuring Bakhoor Ahmed, Bakhoor Ghars, and Rawaha Oud Mubakhar.</p>",
+"Arabian Essence Content":"<p>The Arabian Essence Bundle offers a luxurious trio of traditional Arabian fragrances. Bakhoor Ahmed provides a classic, warm aroma, Bakhoor Ghars adds a sophisticated depth, and Rawaha Oud Mubakhar brings an elegant, smoky richness. Perfect for gifting or personal indulgence, this bundle delivers a memorable and authentic olfactory journey that celebrates the timeless allure of Arabian perfumery.</p>",
+"Arabian Essence Notes":"<p>Products available: Bakhoor Ahmed, Bakhoor Ghars, Rawaha Oud Mubakhar</p>",
+
+ "Nihlah": "نهلة",
+ "Nihlah Description": "تباين آسر بين انتعاش الحمضيات ودفء الأخشاب—«نهلة» يتفتح من زعفران وفواكه ناعمة إلى جلد وورد، وينتهي بحضن عود ومسك مخملي.",
+ "Nihlah Content": "تبدأ الرائحة بشرارة من البرغموت والليمون مع الكشمش الأسود والتوت العليق، يعززها الزعفران وجوزة الطيب والزنجبيل. يتعمّق القلب إلى جلد وخشب السنديان وورد دمشقي وباتشولي مع كشميران ولمسة كراميل وبرقوق لملمس مخملي فاخر. أما القاعدة فتجمع العود والبردي والفيتيفير والبخور وخشب الأرز والمسك الأبيض ولمسة بودرة تلك، لتبقى هالة خشبية بودرية أنيقة تدوم بثقة هادئة.",
+ "Nihlah Notes": "<p>المكونات العليا- البرغموت، الكشمش الأسود، الليمون، الزعفران، جوزة الطيب، الزنجبيل، التوت العليق</p><p>المكونات الوسطى-جلد، خشب السنديان (البلوط)، ورد دمشقي، باتشولي، كشميران، كراميل، برقوق</p><p>المكونات الأساسية- عود، بردي، فيتيفير، مسك أبيض، بخور، خشب الأرز، بودرة تلكالمسك</p>"
 
 }

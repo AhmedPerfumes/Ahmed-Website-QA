@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import VideoPanel from "../VideoPanel";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,7 @@ export default function NewsLetter() {
     const [hasScrolled, setHasScrolled] = useState(false);
     const locale = useLocale();
     let modalInstance = null;
+    const t = useTranslations();
 
     useEffect(() => {
         const bootstrap = require("bootstrap");
@@ -103,25 +104,20 @@ export default function NewsLetter() {
                                     className="section-title fw-normal mb-3 pb-2"
                                     style={{ color: "#cfa91a" }}
                                 >
-                                    Ahl
+                                    {t("Ahl")}
                                     {/* <span class="t-subtitle">
                                         The Essence of Belonging
                                     </span> */}
                                 </h3>
                                 <p>
-                                    A name that signifies family, kinship, and a
-                                    deep sense of belonging. This fragrance is a
-                                    tribute to the warmth of cherished
-                                    connections, enveloping you in a captivating
-                                    blend of luxurious notes that evoke comfort,
-                                    elegance, and sophistication.
+                                    {t("newletterDescription")}
                                     {/* <b className="sub-title">Don't miss out.</b> */}
                                 </p>
                                 <a
                                     className="btn-link btn-link_lg default-underline text-uppercase fw-medium"
                                     href={`/${locale}/shop/perfumes/oriental-fragrance/ahl`}
                                 >
-                                    Shop Now
+                                    {t("Shop Now")}
                                 </a>
                             </div>
                         </div>

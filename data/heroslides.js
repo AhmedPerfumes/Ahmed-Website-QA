@@ -523,12 +523,18 @@ export const slideData1000 = [
   {
     id: 1,
     bgImage: "/assets/images/home/demo15/slider1_bg.jpg",
+    title: "We're Experiencing High Traffic!",
+    description: "Delayed Order", 
+  },
+  {
+    id: 2,
+    bgImage: "/assets/images/home/demo15/slider1_bg.jpg",
     title: "Natural Glow",
     description:
       "Free Shipping on orders QAR 400 and above",
   },
   {
-    id: 2,
+    id: 3,
     bgImage: "/assets/images/home/demo15/slider2_bg.jpg",
     title: "Natural Glow",
     description:

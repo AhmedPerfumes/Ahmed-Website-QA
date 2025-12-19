@@ -148,10 +148,10 @@ export default function Checkout() {
     // }
     const result = await MySwal.fire({
       title: "Delivery Update",
-      text: "Your order may be delivered within 7 working days.",
+      text: "Due to overwhelming demand, order processing and delivery times may be slightly delayed. Your order may be delivered within 7-15 working days.",
       icon: "info",
       showCancelButton: true,
-      confirmButtonText: "Okay",
+      confirmButtonText: "Yes, I want to order",
       cancelButtonText: "Cancel",
       confirmButtonColor: "#a4782e",
     });

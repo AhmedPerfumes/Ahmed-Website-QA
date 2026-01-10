@@ -9,7 +9,7 @@ export const slides1 = [
     text2: "Summer Sale Stylish",
     text3: "Womens",
   },
-  
+
 ];
 export const slides2 = [
   {
@@ -75,7 +75,7 @@ export const slides4 = [
     characterImgWidth: 675,
     characterImgHeight: 733,
   },
-  
+
 ];
 export const slides5 = [
   {
@@ -277,7 +277,7 @@ export const slidesData3 = [
     href: "shop/perfumes/oriental-fragrance/ahl",
     color: "text-black"
   },
-  
+
 ];
 export const slidesData33 = [
   // {
@@ -520,12 +520,12 @@ export const slideData1000 = [
   //   description:
   //     "Eid Mubarak! 🌙✨ Wishing You Joy, Peace & Blessings!",
   // },
-  {
-    id: 1,
-    bgImage: "/assets/images/home/demo15/slider1_bg.jpg",
-    title: "We're Experiencing High Traffic!",
-    description: "Delayed Order", 
-  },
+  // {
+  //   id: 1,
+  //   bgImage: "/assets/images/home/demo15/slider1_bg.jpg",
+  //   title: "We're Experiencing High Traffic!",
+  //   description: "Delayed Order",
+  // },
   {
     id: 2,
     bgImage: "/assets/images/home/demo15/slider1_bg.jpg",
@@ -547,9 +547,9 @@ export const slideData1000 = [
   //   description:
   //     "FOR ANY INQUIRIES, PLEASE CONTACT OUR CUSTOMER CARE TEAM AT +800 472 1828",
   // },
- 
+
 ];
 
 
-  // Add more slide objects as needed
+// Add more slide objects as needed
 

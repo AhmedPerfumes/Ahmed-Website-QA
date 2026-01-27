@@ -31,10 +31,13 @@ export default function Checkout() {
   const locale = useLocale();
 
   const { cartProducts, totalPrice, freeShippingFlag, setOrderDetails, setCouponDataContext, setCartProducts } = useContextElement();
+  const requiresQID = totalPrice >= 250;
+
   const { isLoggedIn } = useUser();
   // const [selectedRegion, setSelectedRegion] = useState("");
   const [idDDActive, setIdDDActive] = useState(false);
   // const [shippingAdd, setShippingAdd] = useState(false);
+  const [showQidTerms, setShowQidTerms] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOption, setSelectedOption] = useState('cod');
   const [formData, setFormData] = useState({
@@ -46,7 +49,7 @@ export default function Checkout() {
       country: 'QA',
       area: '',
       building: '',
-      city: ''
+      city: '',
     },
     billingAddress: {
       first_name: '',
@@ -56,7 +59,8 @@ export default function Checkout() {
       country: 'QA',
       area: '',
       building: '',
-      city: ''
+      city: '',
+      qid: ''
     },
     shippingAdd: false,
     note: '',
@@ -112,7 +116,7 @@ export default function Checkout() {
       return {
         ...prevData,
         shippingAdd: newSameAsShipping,
-        shippingAddress: { first_name: '', last_name: '', mobile: '', email: '', area: '', building: '', city: '' }
+        shippingAddress: { first_name: '', last_name: '', mobile: '', email: '', area: '', building: '', city: '', qid: '' }
       }
     });
   };
@@ -164,6 +168,15 @@ export default function Checkout() {
     setIsLoading(true);
     setError(null);
     setSuccess(null);
+
+    if (requiresQID) {
+      const qid = formData.billingAddress.qid?.trim();
+      if (!/^\d{11}$/.test(qid)) {
+        setIsLoading(false);
+        setError('Valid 11-digit QID is required for orders 250 QAR and above.');
+        return;
+      }
+    }
 
     const shippingPrice = freeShippingFlag ? 0.00 : parseFloat(shippingServiceCharges[0].price);
     const shippingPriceVat = shippingPrice / 100 * vatTax.percentage;
@@ -222,7 +235,7 @@ export default function Checkout() {
             email: '',
             area: '',
             building: '',
-            city: ''
+            city: '',
           },
           billingAddress: {
             first_name: '',
@@ -231,7 +244,8 @@ export default function Checkout() {
             email: '',
             area: '',
             building: '',
-            city: ''
+            city: '',
+            qid: ''
           },
           shippingAdd: false,
         });
@@ -882,6 +896,55 @@ export default function Checkout() {
                 {isSendOTPLoading ? 'Loading...' : 'Verify OTP'}
                 </button></>}</>} */}
               </div>
+              {requiresQID && (
+                <div className="col-md-12">
+                  <div className="form-floating my-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="billing_qid"
+                      placeholder="QID *"
+                      name="billingAddress.qid"
+                      value={formData.billingAddress.qid}
+                      onChange={handleChange}
+                      required
+                      pattern="^\d{11}$"
+                      inputMode="numeric"
+                      maxLength={11}
+                      title="QID must be exactly 11 digits"
+                    />
+                    <label htmlFor="billing_qid">Qatar QID Number *</label>
+                  </div>
+
+                  <small className="text-muted d-block mt-1">
+                    <button
+                      type="button"
+                      className="btn btn-link p-0 ms-1 text-decoration-underline align-baseline"
+                      onClick={() => setShowQidTerms((v) => !v)}
+                      aria-expanded={showQidTerms}
+                      aria-controls="qid-terms-collapse"
+                    >
+                      {showQidTerms ? "Hide QID Terms" : "View QID Terms"}
+                    </button>
+
+                    <div
+                      id="qid-terms-collapse"
+                      className={`mt-2 ${showQidTerms ? "" : "d-none"}`}
+                    >
+                      <div className="p-3 rounded  border">
+                        <div className="small">
+                          <strong>Why we need QID number?</strong>
+                          <ul className="mt-2 mb-0 text-dark">
+                            <li>بناءً على تعليمات وزارة التجارة والصناعة في دولة قطر، يُطلب من العملاء إدخال رقم البطاقة الشخصية القطرية (QID) المكوّن من 11 رقمًا للمشاركة في الحملة.</li>
+                            <li>As per the guidelines of the Ministry of Commerce and Industry, Qatar, customers are required to enter their 11-digit QID number to participate in the campaign.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </small>
+                </div>
+              )}
+
               <div className="col-md-12">
                 {!isLoggedIn && <div className="form-check mt-3">
                   <input

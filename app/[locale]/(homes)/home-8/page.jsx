@@ -6,7 +6,6 @@ import MobileFooter2 from "@/components/footers/MobileFooter2";
 import React from "react";
 // import CanvasAnimation from "@/components/CanvasAnimation";
 // import MobileAnimation from "@/components/MobileAnimation";
-import NewsLetter from "@/components/modals/NewsLetter";
 // import dynamic from 'next/dynamic';
 
 // const MobileAnimation = dynamic(() => import('@/components/MobileAnimation'), {
@@ -28,7 +27,6 @@ export default function HomePage8() {
                 backgroundImage: `url(/assets/background-ivory.webp)`,
             }}
         >
-            <NewsLetter />
             <Header14 />
             <div className="d-none d-lg-block">
                 {/* CanvasAnimation will render first for large screens */}

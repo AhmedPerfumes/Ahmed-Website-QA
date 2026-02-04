@@ -2,26 +2,40 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useLocale } from "next-intl";
-import VideoPanel from "../VideoPanel";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 
-export default function NewsLetter() {
+export default function NewsLetter({ popUp }) {
     const modalElement = useRef(null);
     const [hasScrolled, setHasScrolled] = useState(false);
     const locale = useLocale();
+    const t = useTranslations();
+    
+    // 1. Safe Data Access
+    const data = Array.isArray(popUp) && popUp.length > 0 ? popUp[0] : null;
+
+    // 2. Localization Helpers
+    const isRtl = locale === 'ar';
+    const title = data ? (isRtl ? data.name_ar : data.name) : '';
+    const description = data ? (isRtl ? data.description_ar : data.description) : '';
+    
+    // Assumption: Images are stored in a relative assets directory. 
+    // Adjust logic if full URLs are provided by backend.
+    const imagePath = data ? `${process.env.NEXT_PUBLIC_API_URL}storage/${data.image}` : ''; 
+    const mobileImagePath = data ? `${process.env.NEXT_PUBLIC_API_URL}storage/${data.mobile_image}` : '';
+    const linkPath = data ? `/${locale}/${data.link}` : '#';
+
     let modalInstance = null;
 
     useEffect(() => {
+        // Prevent execution if no data
+        if (!data) return;
+
         const bootstrap = require("bootstrap");
 
-        // Initialize Bootstrap Modal
         modalInstance = new bootstrap.Modal(modalElement.current, {
             keyboard: false,
         });
 
-        // Function to show the modal
         const showModal = () => {
             if (!hasScrolled) {
                 modalInstance.show();
@@ -29,30 +43,31 @@ export default function NewsLetter() {
             }
         };
 
-        // Handle scroll event
         const handleScroll = () => {
             if (window.scrollY > 3500 && !hasScrolled) {
                 showModal();
             }
         };
 
-        // Add event listener for close button
-        const closeButton = modalElement.current.querySelector(".btn-close");
-        closeButton.addEventListener("click", () => {
-            modalInstance.hide(); // Programmatically hide the modal
-        });
+        const closeBtn = modalElement.current.querySelector(".btn-close");
+        if(closeBtn) {
+            closeBtn.addEventListener("click", () => {
+                modalInstance.hide();
+            });
+        }
 
-        // Listen for scroll events
         window.addEventListener("scroll", handleScroll);
 
-        // Cleanup event listeners on unmount
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            closeButton.removeEventListener("click", () =>
-                modalInstance.hide()
-            );
+            if (closeBtn) {
+                closeBtn.removeEventListener("click", () => modalInstance?.hide());
+            }
         };
-    }, [hasScrolled]);
+    }, [hasScrolled, data]);
+
+    // Return null if no data is provided to prevent rendering empty modal
+    if (!data) return null;
 
     return (
         <div
@@ -65,64 +80,64 @@ export default function NewsLetter() {
         >
             <div className="modal-dialog newsletter-popup modal-dialog-centered">
                 <div className="modal-content">
-                    {/* Explicit close button handling */}
                     <button
                         type="button"
                         className="btn-close"
                         aria-label="Close"
                     ></button>
+                    
                     <div className="row p-0 m-0">
+                        {/* Image Section */}
                         <div className="col-md-8 p-0">
                             <div className="newsletter-popup__bg h-100 w-100">
-                                <div className="d-none d-lg-block">
-                                    <a
-                                        href={`/${locale}/shop/perfumes/oriental-fragrance/ahl`}
-                                    >
+                                <a href={linkPath}>
+                                    {/* Desktop Image */}
+                                    <div className="d-none d-lg-block h-100">
                                         <Image
                                             width={550}
                                             height={650}
                                             style={{ height: "fit-content" }}
                                             loading="lazy"
-                                            src="/assets/images/home/Ahl.jpg"
+                                            src={imagePath} // Dynamic Source
                                             className="h-100 w-100 object-fit-cover d-block"
-                                            alt="image"
+                                            alt={title}
                                         />
-                                    </a>
-                                </div>
-                                <div className="d-sm-block d-md-none">
-                                    <VideoPanel
-                                        src="/assets/videos/ahl.mp4"
-                                        section="hundred"
-                                    />
-                                </div>
+                                    </div>
+
+                                    {/* Mobile Image (Replaces previous VideoPanel) */}
+                                    <div className="d-sm-block d-md-none">
+                                        <Image
+                                            width={550}
+                                            height={650}
+                                            style={{ height: "fit-content" }}
+                                            loading="lazy"
+                                            src={mobileImagePath} // Dynamic Mobile Source
+                                            className="h-100 w-100 object-fit-cover d-block hover-effect"
+                                            alt={title}
+                                        />
+                                    </div>
+                                </a>
                             </div>
                         </div>
+
+                        {/* Content Section */}
                         <div className="col-md-4 p-0 d-flex align-items-center text-center">
-                            <div className="block-newsletter w-100">
+                            <div className="block-newsletter w-100 px-3 py-4">
                                 <h3
-                                    className="section-title fw-normal mb-3 pb-2"
-                                    style={{ color: "#cfa91a" }}
+                                    className="section-title fw-normal mb-3"
+                                    style={{ color: "#5c6137" }}
                                 >
-                                    Ahl
-                                    {/* <span class="t-subtitle">
-                                        The Essence of Belonging
-                                    </span> */}
+                                    {title}
                                 </h3>
-                                <p>
-                                    A name that signifies family, kinship, and a
-                                    deep sense of belonging. This fragrance is a
-                                    tribute to the warmth of cherished
-                                    connections, enveloping you in a captivating
-                                    blend of luxurious notes that evoke comfort,
-                                    elegance, and sophistication.
-                                    {/* <b className="sub-title">Don't miss out.</b> */}
+                                <p className="mb-3" style={{ fontSize: "1rem", color: "#333" }}>
+                                    {description}
                                 </p>
-                                <a
-                                    className="btn-link btn-link_lg default-underline text-uppercase fw-medium"
-                                    href={`/${locale}/shop/perfumes/oriental-fragrance/ahl`}
-                                >
-                                    Shop Now
-                                </a>
+                                <div className="mb-4" style={{ fontSize: "0.95rem", color: "#555" }} dangerouslySetInnerHTML={{ __html: isRtl ? data.content_ar : data.content }} />
+                                <div className="d-flex justify-content-center">
+                                    <a className="btn-rounded btn-link_lg text-uppercase fw-medium hover-effect" href={linkPath} >
+                                        {t("Shop Now")}
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

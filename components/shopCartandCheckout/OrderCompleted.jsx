@@ -89,7 +89,7 @@ export default function OrderCompleted() {
     }
   };
 
-  return (
+   return (
     <>
     {Object.keys(orderDetails).length ? <><div className="order-complete">
       <div className="order-complete__message">

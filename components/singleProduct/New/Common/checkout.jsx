@@ -4,8 +4,6 @@ import { useLocale, useTranslations } from "next-intl";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { renderPrice } from "@/utlis/priceRenderer";
-import TamaraWidget from "@/components/TamaraWidget";
-import { toast } from 'react-toastify';
 
 const Checkout = ({ product }) => {
     // const sizes = [product.size];
@@ -530,7 +528,7 @@ const Checkout = ({ product }) => {
                 )}
 
                 <div className="my-3" id="TabbyPromo"></div>
-                <TamaraWidget inlineType="6" inlineVariant='outlined' locale={locale}/>
+                {/* <TamaraWidget inlineType="6" inlineVariant='outlined' locale={locale}/> */}
             </div>
         </div>
     );

@@ -337,7 +337,7 @@ const KSeriesScrollSection = () => {
           justify-content: center;
           gap: 14px;
           border: 1px solid rgba(255, 255, 255, 0.08);
-          font-family: "Sofia Pro", "Inter", system-ui, -apple-system,
+          font-family: "Kanit-Regular", "Inter", system-ui, -apple-system,
             BlinkMacSystemFont, "Segoe UI", sans-serif;
           color: #f7eee1;
           text-align: left;

@@ -47,9 +47,9 @@ const arabicFont = localFont({
     src: "../../public/assets/fonts/alexandria-arabic/static/Alexandria-Regular.ttf",
 });
 
-// Import Sofia Pro Regular font as a secondary font
+// Import secondary font
 const sofiaFont = localFont({
-    src: "../../public/assets/fonts/sofia/SofiaProRegular.ttf",
+    src: "../../public/assets/fonts/kanit/Kanit-Regular.ttf",
 });
 
 export default async function LocaleLayout({ children, params: { locale } }) {
@@ -63,7 +63,7 @@ export default async function LocaleLayout({ children, params: { locale } }) {
     if (locale === "ar") {
         selectedFont = arabicFont;
     } else if (locale === "secondary") {
-        selectedFont = sofiaFont; // Apply Sofia Pro Regular as a secondary font
+        selectedFont = sofiaFont; 
     }
 
     // Fetch translation messages

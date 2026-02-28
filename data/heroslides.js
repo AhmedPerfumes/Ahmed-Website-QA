@@ -520,12 +520,12 @@ export const slideData1000 = [
   //   description:
   //     "Eid Mubarak! 🌙✨ Wishing You Joy, Peace & Blessings!",
   // },
-  // {
-  //   id: 1,
-  //   bgImage: "/assets/images/home/demo15/slider1_bg.jpg",
-  //   title: "We're Experiencing High Traffic!",
-  //   description: "Delayed Order",
-  // },
+  {
+    id: 1,
+    bgImage: "/assets/images/home/demo15/slider1_bg.jpg",
+    title: "We're Experiencing High Traffic!",
+    description: "Delayed Order",
+  },
   {
     id: 2,
     bgImage: "/assets/images/home/demo15/slider1_bg.jpg",

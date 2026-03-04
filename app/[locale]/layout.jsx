@@ -28,6 +28,7 @@ import { routing } from "@/i18n/routing";
 import { FacebookPixelEvents } from "@/components/Metapixel";
 import Head from "next/head";
 import Script from "next/script";
+import { ToastContainer } from "react-toastify";
 
 export const metadata = {
     title: "Buy Best Perfumes Online | Ahmed Al Maghribi Perfumes",
@@ -232,6 +233,7 @@ export default async function LocaleLayout({ children, params: { locale } }) {
                                 <ProductDescription />
                                 <ProductAdditionalInformation />
                                 <ProductReviews />
+                                <ToastContainer/>
                             </MenuProvider>
                         </UserProvider>
                     </Context>

@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { renderPrice } from "@/utlis/priceRenderer";
+import {toast } from 'react-toastify';
 
 const Checkout = ({ product }) => {
     // const sizes = [product.size];
@@ -26,105 +27,7 @@ const Checkout = ({ product }) => {
     const currentQuantity = currentItem ? currentItem.quantity : quantity;
 
 
-    // useEffect(() => {
-    // const tamaraPromoScript = document.createElement("script");
-    // tamaraPromoScript.src = "https://cdn-sandbox.tamara.co/widget-v2/tamara-widget.js";
-    // tamaraPromoScript.async = true;
-    // document.body.appendChild(tamaraPromoScript);
-
-    // return () => {
-    //     document.body.removeChild(tamaraPromoScript);
-    // };
-    // }, []);
-
-    // useEffect(() => {
-    // window.tamaraSettings = {
-    //     lang: "en",
-    //     country: "AE",
-    //     publicKey: "258c1cec-32f2-4290-9fde-83b3018848e9",
-    // };
-
-    // const tamaraPromoScript = document.createElement("script");
-    // tamaraPromoScript.src = "https://cdn-sandbox.tamara.co/widget-v2/tamara-widget.js";
-    // tamaraPromoScript.async = true;
-    // document.body.appendChild(tamaraPromoScript);
-
-    // return () => {
-    //     document.body.removeChild(tamaraPromoScript);
-    // };
-    // }, []);
-
-    // const setQuantityCartItem = (id, quantity) => {
-    //     if (isIncludeCard()) {
-    //         if (quantity >= 1 && quantity <= product.product_qty) {
-    //             setError(null);
-    //             const item = cartProducts.filter(
-    //                 (elm) => elm.product_id == id
-    //             )[0];
-    //             const items = [...cartProducts];
-    //             const itemIndex = items.indexOf(item);
-    //             item.quantity = quantity;
-    //             items[itemIndex] = item;
-    //             setCartProducts(items);
-    //         } else {
-    //             setError("Quantity is more than available quantity");
-    //         }
-    //     } else {
-    //         setQuantity(
-    //             quantity <= product.product_qty && quantity >= 1
-    //                 ? quantity
-    //                 : product.product_qty
-    //         );
-    //         setError(null);
-    //         if (quantity > product.product_qty) {
-    //             setError("Quantity is more than available quantity");
-    //         } else {
-    //             setError(null);
-    //         }
-    //     }
-    // };
-
-    // const setQuantityCartItem = (id, quantity) => {
-    //     // First check: within product stock
-    //     const withinStock = quantity >= 1 && quantity <= product.product_qty;
-
-    //     // Second check: max 6 per product
-    //     const withinLimit = quantity <= 6;
-
-    //     if (isIncludeCard()) {
-    //         if (withinStock && withinLimit) {
-    //         setError(null);
-
-    //         const items = [...cartProducts];
-    //         const itemIndex = items.findIndex((elm) => elm.product_id == id);
-
-    //         if (itemIndex !== -1) {
-    //             items[itemIndex] = {
-    //             ...items[itemIndex],
-    //             quantity
-    //             };
-    //         }
-
-    //         setCartProducts(items);
-    //         } else {
-    //         setError(
-    //             !withinStock
-    //             ? "Quantity is more than available quantity"
-    //             : "Maximum allowed quantity is 6"
-    //         );
-    //         }
-    //     } else {
-    //         const validQty = withinStock && withinLimit ? quantity : Math.min(product.product_qty, 6);
-
-    //         setQuantity(validQty);
-
-    //         setError(
-    //         !withinStock
-    //             ? "Quantity is more than available quantity"
-    //             : "Maximum allowed quantity is 6"
-    //         );
-    //     }
-    // };
+   
 
     const setQuantityCartItem = (id, quantity, maxOrderQty) => {
         const qty = Number(quantity);
@@ -222,80 +125,6 @@ const Checkout = ({ product }) => {
     //     // Default fallback
     //     return parseFloat(elm.price).toFixed(2);
     // };
-
-    const tabbyPrice = (elm) => {
-        const currentUTC = new Date();
-        const currentGST = new Date(currentUTC.getTime() + 4 * 60 * 60 * 1000);
-        const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
-        
-        let finalPrice = elm?.price;
-
-        if (elm?.discount) {
-            if ( new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-                finalPrice = (elm.price - (elm.price / 100) * elm.discount.value).toFixed(2);
-            }
-        } else if (elm?.sale_price) {
-            finalPrice = (elm.price - (elm.price / 100) * elm.sale_price).toFixed(2);
-        }
-        
-        return finalPrice;
-    };
-
-    useEffect(() => {
-        let retryCount = 0;
-        const maxRetries = 10;
-
-        // 1. Define render function with safety checks
-        const renderTabbyWidget = () => {
-            // Check if element exists AND if TabbyPromo is a valid constructor
-            if (window.TabbyPromo && typeof window.TabbyPromo === 'function') {
-                try {
-                    const tabbyNode = document.getElementById("TabbyPromo");
-                    if (tabbyNode) tabbyNode.innerHTML = "";
-
-                    const unitPrice = parseFloat(tabbyPrice(product));
-                    const totalPrice = (unitPrice * currentQuantity).toFixed(2);
-
-                    new window.TabbyPromo({
-                        selector: "#TabbyPromo",
-                        currency: "SAR",
-                        price: totalPrice,
-                        lang: locale,
-                        source: "product",
-                        publicKey: 'pk_test_019228fd-8e52-3ecd-f813-bf11dc8e2118',
-                        merchantCode: "assaaste",
-                    });
-                } catch (err) {
-                    console.error("Tabby Widget Error:", err);
-                }
-            } else {
-                // If script exists but global isn't ready, retry briefly
-                if (retryCount < maxRetries) {
-                    retryCount++;
-                    setTimeout(renderTabbyWidget, 500);
-                }
-            }
-        };
-
-        // 2. Load Script if not present
-        const scriptId = "tabby-promo-script";
-        if (!document.getElementById(scriptId)) {
-            const tabbyPromoScript = document.createElement("script");
-            tabbyPromoScript.src = "https://checkout.tabby.ai/tabby-promo.js";
-            tabbyPromoScript.id = scriptId;
-            tabbyPromoScript.async = true;
-            document.body.appendChild(tabbyPromoScript);
-
-            tabbyPromoScript.onload = () => {
-                renderTabbyWidget();
-            };
-        } else {
-            // Script tag exists, attempt render immediately (will retry if not ready)
-            renderTabbyWidget();
-        }
-
-    // Dependency array
-    }, [currentQuantity, locale, product, cartProducts]);
 
     return (
         <div>
@@ -485,13 +314,11 @@ const Checkout = ({ product }) => {
                                 >
                                     <button
                                         aria-label="Decrease quantity"
-                                        onClick={() => {
+                                         onClick={() => {
                                             const currentQty = isIncludeCard()?.quantity ?? 1;
-                                            // if(currentQty > 1) {
+                                            if(currentQty > 1) {
                                                 setQuantityCartItem(product.product_id, currentQty - 1, product?.maximum_order_quantity )
-                                            // } else {
-                                                // removeProduct(product.product_id)
-                                            // }
+                                            }
                                         }}
                                         className="btn btn-sm rounded-circle border-0 d-flex align-items-center justify-content-center"
                                         style={{ width: 34, height: 34, background: "rgba(255,255,255,0.12)", color: "#fff", }}
@@ -526,9 +353,6 @@ const Checkout = ({ product }) => {
                         {t("Out of Stock")}
                     </button>
                 )}
-
-                <div className="my-3" id="TabbyPromo"></div>
-                {/* <TamaraWidget inlineType="6" inlineVariant='outlined' locale={locale}/> */}
             </div>
         </div>
     );

@@ -150,19 +150,19 @@ export default function Checkout() {
     // if (!isConfirmed) {
     //   return; // Stop everything if user cancels
     // }
-    const result = await MySwal.fire({
-      title: "Delivery Update",
-      text: "Due to ongoing circumstances, Your order may be delivered within 7-15 working days.",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonText: "Yes, I want to order",
-      cancelButtonText: "Cancel",
-      confirmButtonColor: "#a4782e",
-    });
+    // const result = await MySwal.fire({
+    //   title: "Delivery Update",
+    //   text: "Due to ongoing circumstances, Your order may be delivered within 7-15 working days.",
+    //   icon: "info",
+    //   showCancelButton: true,
+    //   confirmButtonText: "Yes, I want to order",
+    //   cancelButtonText: "Cancel",
+    //   confirmButtonColor: "#a4782e",
+    // });
 
-    if (!result.isConfirmed) {
-      console.log("Canceled!");return;
-    }
+    // if (!result.isConfirmed) {
+    //   console.log("Canceled!");return;
+    // }
 
     setIsLoading(true);
     setError(null);

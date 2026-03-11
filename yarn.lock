@@ -2358,10 +2358,10 @@ sweetalert2-react-content@^5.1.1:
   resolved "https://registry.npmjs.org/sweetalert2-react-content/-/sweetalert2-react-content-5.1.1.tgz"
   integrity sha512-JR1DWKQVCSy87q2gNGv5pZgG4TK/x1X61N/HbvDdKmnkCWCSSulG7JfFR8qSB32+H+6nvonsIcevZD7mzRpF0A==
 
-sweetalert2@^11.0.0, sweetalert2@^11.26.17:
-  version "11.26.17"
-  resolved "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.26.17.tgz"
-  integrity sha512-kkaySn1IRfwNlf9AkZVqDmBINDWw9NRR6Ij0O5dBRBOD1+mbtZJWxxR9/pA90nce9E5tIIkJ7SWij4rMWXtA1g==
+sweetalert2@^11.0.0, sweetalert2@^11.26.21:
+  version "11.26.21"
+  resolved "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.26.21.tgz"
+  integrity sha512-apfAIHg5DOOnPqUIJc+aAsDplpfHliAnVl7zqLfhQiWaYDew46pg4ZZMLJhbVbjdOdMV+PKG5ulkKzNqvcSViQ==
 
 swiper@^11.1.14:
   version "11.1.14"

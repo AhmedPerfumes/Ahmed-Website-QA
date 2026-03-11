@@ -21,11 +21,11 @@ import { useRouter } from 'next/navigation';
 import { useLocale } from "next-intl";
 import Pagination1 from "../common/Pagination1";
 // import FreeGiftFeature from '@/components/FreeGiftFeature';
-// import Swal from "sweetalert2";
-// import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function Checkout() {
-  // const MySwal = withReactContent(Swal);
+  const MySwal = withReactContent(Swal);
   const { shippingServiceCharges, vatTax, isLoading: isMenuLoading, error: isMenuError, currency } = useMenu();
   const router = useRouter();
   const locale = useLocale();
@@ -152,7 +152,7 @@ export default function Checkout() {
     // }
     // const result = await MySwal.fire({
     //   title: "Delivery Update",
-    //   text: "Due to overwhelming demand, order processing and delivery times may be slightly delayed. Your order may be delivered within 7-15 working days.",
+    //   text: "Due to ongoing circumstances, Your order may be delivered within 7-15 working days.",
     //   icon: "info",
     //   showCancelButton: true,
     //   confirmButtonText: "Yes, I want to order",
@@ -161,7 +161,6 @@ export default function Checkout() {
     // });
 
     // if (!result.isConfirmed) {
-    //   // user clicked No
     //   console.log("Canceled!");return;
     // }
 

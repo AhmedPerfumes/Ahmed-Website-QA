@@ -138,28 +138,82 @@ export default function Cart() {
   const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
 
   const subTotalPrice = (elm) => {
-    if(elm?.discount) {
+   if(elm?.discount) {
       if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-        return <span className="shopping-cart__subtotal">{((elm.price - (elm.price / 100 * elm.discount.value)) * elm.quantity).toFixed(2)}{ currency.symbol }</span>;
+        if(elm.discount.discount_type == "percent") {
+          return <span className="shopping-cart__subtotal">{((elm.price - (elm.price / 100 * elm.discount.value)) * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</span>;
+        } else if(elm.discount.discount_type == "amount") {
+          return <span className="shopping-cart__subtotal">{((elm.price - elm.discount.value) * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</span>;
+        }
+        // return <span className="shopping-cart__subtotal">{((elm.price - (elm.price / 100 * elm.discount.value)) * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</span>;
       } else {
-        return <span className="shopping-cart__subtotal">{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</span>;
+        return <span className="shopping-cart__subtotal">{(elm.price * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</span>;
       }
-    }else if(elm?.sale_price) {
-      return <span className="shopping-cart__subtotal">{((elm.sale_price) * elm.quantity).toFixed(2)}{ currency.symbol }</span>;
-    } else {
-      return <span className="shopping-cart__subtotal">{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</span>;
+    // } else if(elm?.sale_price) {
+    //   return <span className="shopping-cart__subtotal">{((elm.price - (elm.price / 100 * elm.sale_price)) * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</span>;
+    // }
+    } 
+    else {
+      return <span className="shopping-cart__subtotal">{(elm.price * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</span>;
     }
   };
+
+  // const price = (elm) => {
+  //   if(elm?.discount) {
+  //     if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
+  //       return <span className="shopping-cart__product-price">{(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(2)}{ currency.symbol }</span>;
+  //     } else {
+  //       return <span className="money price">{elm?.price}{ currency.symbol }</span>;
+  //     }
+  //   } else if(elm?.sale_price) {
+  //     return <><span className="money price price-old">{currency.symbol}{elm?.price}</span><span className="price price-sale">{ currency.symbol }{(elm.sale_price).toFixed(2)}</span></>;
+  //   } else {
+  //     return <span className="shopping-cart__product-price">{elm.price}{ currency.symbol }</span>;
+  //   }
+  // };
 
   const price = (elm) => {
     if(elm?.discount) {
       if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-        return <span className="shopping-cart__product-price">{(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(2)}{ currency.symbol }</span>;
+        if(elm.discount.discount_type == "percent") {
+          return (
+            <>
+              <span className="price price-sale">
+                {currency.symbol}{(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(currency.decimals)}
+              </span>
+              <span className="money price price-old">
+                {currency.symbol}{elm?.price}
+              </span>
+            </>
+          );
+        } else if(elm.discount.discount_type == "amount") {
+          return (
+            <>
+              <span className="price price-sale">
+                {currency.symbol}{(elm.price - elm.discount.value).toFixed(currency.decimals)}
+              </span>
+              <span className="money price price-old">
+                {currency.symbol}{elm?.price}
+              </span>
+            </>
+          );
+        }
+        // return (
+        //   <>
+        //     <span className="price price-sale">
+        //       {currency.symbol}{(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(currency.decimals)}
+        //     </span>
+        //     <span className="money price price-old">
+        //       {currency.symbol}{elm?.price}
+        //     </span>
+        //   </>
+        // );
       } else {
         return <span className="money price">{elm?.price}{ currency.symbol }</span>;
       }
-    } else if(elm?.sale_price) {
-      return <><span className="money price price-old">{currency.symbol}{elm?.price}</span><span className="price price-sale">{ currency.symbol }{(elm.sale_price).toFixed(2)}</span></>;
+    }
+     else if(elm?.sale_price) {
+      return <><span className="money price price-old">{currency.symbol}{elm?.price}</span><span className="price price-sale">{ currency.symbol }{(elm.sale_price).toFixed(currency.decimals)}</span></>;
     } else {
       return <span className="shopping-cart__product-price">{elm.price}{ currency.symbol }</span>;
     }

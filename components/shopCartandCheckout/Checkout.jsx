@@ -12,7 +12,7 @@ const countries = [
 import { useContextElement } from "@/context/Context";
 import { useUser } from "@/context/UserContext";
 import { useMenu } from '@/context/MenuContext';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import he from 'he';
@@ -20,17 +20,20 @@ import { products1 } from "@/data/products/fashion";
 import { useRouter } from 'next/navigation';
 import { useLocale } from "next-intl";
 import Pagination1 from "../common/Pagination1";
+import FreeGiftFeature from "../FreeGiftFeature";
+import BOGOFeature from "../BogoFeature";
 // import FreeGiftFeature from '@/components/FreeGiftFeature';
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+// import Swal from "sweetalert2";
+// import withReactContent from "sweetalert2-react-content";
 
 export default function Checkout() {
-  const MySwal = withReactContent(Swal);
+  // const MySwal = withReactContent(Swal);
   const { shippingServiceCharges, vatTax, isLoading: isMenuLoading, error: isMenuError, currency } = useMenu();
   const router = useRouter();
   const locale = useLocale();
+  const hasCleaned = useRef(false);
 
-  const { cartProducts, totalPrice, freeShippingFlag, setOrderDetails, setCouponDataContext, setCartProducts } = useContextElement();
+  const { cartProducts, totalPrice, freeShippingFlag, setOrderDetails, setCouponDataContext, setCartProducts, promotionsContext } = useContextElement();
   const requiresQID = totalPrice >= 250;
 
   const { isLoggedIn } = useUser();
@@ -110,6 +113,31 @@ export default function Checkout() {
     }
   };
 
+  useEffect(() => {
+    if (hasCleaned.current) return;
+    // Check if any regular (non-gift, non-free) products are in BOGO
+    const hasBogoRegularItems = cartProducts.some((item) => 
+      !item.is_gift && 
+      promotionsContext.some((promo) => promo.buy_products.some((buyItem) => buyItem.product_id === item.product_id))
+    );
+    
+    if (!hasBogoRegularItems) {
+      // Only remove coupon properties from products that have no BOGO and no discount
+      const cleanedCart = cartProducts.map((item) => {
+        const hasDiscount = item.discount != null;
+        if (!hasDiscount) {
+          const { is_coupon, value, ...rest } = item;
+          return rest;
+        }
+        return item;
+      });
+      setCartProducts(cleanedCart);
+      setCouponDataContext(null);
+      hasCleaned.current = true; // prevent future runs
+    }
+  }, [cartProducts, promotionsContext, setCartProducts, setCouponDataContext]);
+  
+
   const handleCheckboxChange = () => {
     setFormData((prevData) => {
       const newSameAsShipping = !prevData.shippingAdd;
@@ -142,6 +170,65 @@ export default function Checkout() {
   useEffect(() => {
    setCouponDataContext(null);
   }, []);
+
+  const mapProductsFromFormData = (products) => {
+    const mapped = [];
+    products.forEach((item) => {
+      if (item.bogo_free_qty && item.bogo_free_qty > 0) {
+        const paidQty = (item.quantity || 0) - item.bogo_free_qty;
+
+        // Paid portion
+        if (paidQty > 0) {
+          mapped.push({
+            product_id: item.product_id,
+            product_name: item.product_name,
+            quantity: paidQty,
+            category_name: item.category_name,
+            subcategory_name: item.subcategory_name,
+            coupon: item.coupon,
+            discount: null,
+            _original_discount: item._original_discount || null,
+            ...('is_coupon' in item && { is_coupon: item.is_coupon }),
+            ...('coupon_type' in item && { coupon_type: item.coupon_type }),
+            ...('value' in item && { value: item.value }),
+          });
+        }
+
+        // BOGO free portion
+        mapped.push({
+          product_id: item.product_id,
+          product_name: item.product_name,
+          quantity: item.bogo_free_qty,
+          category_name: item.category_name,
+          subcategory_name: item.subcategory_name,
+          coupon: [],
+          discount: null,
+          is_gift: true,
+          type: 'bogo',
+          campaign: item.bogo_campaign,
+        });
+      } else {
+        // Regular product (no BOGO)
+        mapped.push({
+          product_id: item.product_id,
+          product_name: item.product_name,
+          quantity: item.quantity,
+          category_name: item.category_name,
+          subcategory_name: item.subcategory_name,
+          coupon: item.coupon,
+          discount: item.discount,
+          ...('_original_discount' in item && { _original_discount: item._original_discount }),
+          ...('is_coupon' in item && { is_coupon: item.is_coupon }),
+          ...('is_gift' in item && { is_gift: item.is_gift }),
+          ...('coupon_type' in item && { coupon_type: item.coupon_type }),
+          ...('value' in item && { value: item.value }),
+          ...('campaign' in item && { campaign: item.campaign }),
+          ...('type' in item && { type: item.type }),
+        });
+      }
+    });
+    return mapped;
+  };
  
   async function onOrder(event) {
     event.preventDefault();
@@ -191,7 +278,7 @@ export default function Checkout() {
 
     const additionalFields = {
       ...formData,
-      products : cartProducts,
+      products : mapProductsFromFormData(cartProducts),
       payment_method: selectedOption,
       shippingPrice,
       shippingPriceVat,
@@ -338,6 +425,8 @@ export default function Checkout() {
         setError(data.couponMessage);
         // localStorage.setItem('orderData', btoa(JSON.stringify(data)));
         // router.push(data.redirect_url);
+      } else if (data.bogoMessage) {
+        setError(data.bogoMessage);
       } else {
         if(data.products) {
           setError(data.products);
@@ -602,52 +691,112 @@ export default function Checkout() {
     return <div>{ isMenuError }</div>;
   }
 
+  // const subTotalPrice = (elm) => {
+  //   // if (elm.is_gift) {
+  //   //   return <td>0.00{currency.symbol} (Free Gift)</td>;
+  //   // }
+  //   if (elm.is_gift) { return <td>0.00{currency.symbol} (Free Gift)</td>; }
+  //   const currentUTC = new Date(); // Current UTC time
+  //   const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
+  //   const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
+  //   const bogoFreeQty = Number(elm.bogo_free_qty || 0);
+  //   const paidQty = Math.max(0, (elm.quantity || 0) - bogoFreeQty);
+  //   if(elm?.discount) {
+  //     console.log('if');
+  //     if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
+  //       return <td>{((elm.price - (elm.price / 100 * elm.discount.value)) * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
+  //     } else {
+  //       return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
+  //     }
+  //   } else if(elm?.sale_price) {
+  //     console.log('else if 2');
+  //     return <td><span className="money price price-old">{currency.symbol}{elm?.price}</span><span className="money price price-sale">{currency.symbol}{(elm.sale_price * elm.quantity).toFixed(2)}</span></td>;
+  //   } else if(elm?.coupon && !Array.isArray(elm.coupon) && couponData != null && couponCode != null) {
+  //     console.log('else if', elm);
+  //     // elm.map((item) => {
+  //       // return elm.coupon.map((item, ind) => {
+  //       //   // if() {
+  //       //     if(new Date(current_date_time) >= new Date(item.start_date) && new Date(current_date_time) <= new Date(item.end_date) && item.code == couponData.code) {
+  //       //       console.log('iffff', elm);
+  //       //       return <td key={elm.ind}><span className="money price price-old">{elm?.price}{ currency.symbol }</span><span className="money price price-sale">{((elm.price - (elm.price / 100 * item.value)) * elm.quantity).toFixed(2)}{ currency.symbol }</span></td>; // <td>{((elm.price - (elm.price / 100 * i.value)) * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
+  //       //     }
+  //       //     else {
+  //       //       console.log('elseeee', elm);
+  //       //       return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
+  //       //     }
+  //       //   // }
+  //       // });
+  //     // });
+  //       if(new Date(current_date_time) >= new Date(elm.coupon[couponCode.toLowerCase()]?.start_date) && new Date(current_date_time) <= new Date(elm.coupon[couponCode.toLowerCase()]?.end_date) && elm.coupon[couponCode.toLowerCase()].code == couponData.code.toLowerCase()) {
+  //         return <td><span className="money price price-old">{ currency.symbol }{(elm.price * elm.quantity).toFixed(2)}</span><span className="money price price-sale">{ currency.symbol }{((elm.price - (elm.price / 100 * elm.coupon[couponCode.toLowerCase()]?.value)) * elm.quantity).toFixed(2)}</span></td>;
+  //       } else {
+  //         return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
+  //       }
+  //   } else {
+  //     console.log('else');
+  //     return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
+  //   }
+  // };
+
   const subTotalPrice = (elm) => {
-    // if (elm.is_gift) {
-    //   return <td>0.00{currency.symbol} (Free Gift)</td>;
-    // }
+    if (elm.is_gift) { return <td>0.00{currency.symbol} (Free Gift)</td>; }
     const currentUTC = new Date(); // Current UTC time
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
-    if(elm?.discount) {
-      console.log('if');
-      if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-        return <td>{((elm.price - (elm.price / 100 * elm.discount.value)) * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
-      } else {
-        return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
+     const bogoFreeQty = Number(elm.bogo_free_qty || 0);
+    const paidQty = Math.max(0, (elm.quantity || 0) - bogoFreeQty);
+    
+    let itemPrice = elm.price;
+     if ( elm?.discount && new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
+      if (elm.discount.discount_type == "percent") { itemPrice = elm.price - (elm.price / 100) * elm.discount.value; } 
+      else if (elm.discount.discount_type == "amount") { itemPrice = elm.discount.final_price; }
+      return (
+        <td>
+          <span className="money price price-sale"> {currency.symbol} {(itemPrice * elm.quantity).toFixed(currency.decimals)} </span>
+          <span className="money price price-old"> {currency.symbol} {(elm.price * elm.quantity).toFixed(currency.decimals)} </span>
+        </td>
+      );
+    }
+    if (bogoFreeQty > 0) {
+      return (
+        <td>
+          <span className="money price price-sale"> {currency.symbol} {(itemPrice * paidQty).toFixed(currency.decimals)} </span>
+          <span className="money price price-old"> {currency.symbol} {(itemPrice * elm.quantity).toFixed(currency.decimals)} </span>
+          <br /><span style={{ color: '#28a745', fontWeight: 'bold', fontSize: '12px' }}>🎁 {bogoFreeQty} FREE</span>
+        </td>
+      );
+    }
+    // else if(elm?.sale_price) {
+    //   console.log('else if 2');
+    //   return (
+    //     <td>
+    //       <span className="money price price-old">{currency.symbol}{elm?.price}</span>
+    //       <span className="money price price-sale">{currency.symbol}{(elm.sale_price * elm.quantity).toFixed(currency.decimals)}</span>
+    //     </td>
+    //   )
+    // }
+    else if (couponData && couponData.type === "customer" && elm.is_coupon) {
+      if (couponData.coupon_type == "percent") { 
+        itemPrice = elm.price - (elm.price / 100) * couponData.value;
+      } else if (couponData.coupon_type == "amount") {
+        itemPrice = elm.price - couponData.value;
       }
-    } else if(elm?.sale_price) {
-      console.log('else if 2');
-      return <td><span className="money price price-old">{currency.symbol}{elm?.price}</span><span className="money price price-sale">{currency.symbol}{(elm.sale_price * elm.quantity).toFixed(2)}</span></td>;
-    } else if(elm?.coupon && !Array.isArray(elm.coupon) && couponData != null && couponCode != null) {
-      console.log('else if', elm);
-      // elm.map((item) => {
-        // return elm.coupon.map((item, ind) => {
-        //   // if() {
-        //     if(new Date(current_date_time) >= new Date(item.start_date) && new Date(current_date_time) <= new Date(item.end_date) && item.code == couponData.code) {
-        //       console.log('iffff', elm);
-        //       return <td key={elm.ind}><span className="money price price-old">{elm?.price}{ currency.symbol }</span><span className="money price price-sale">{((elm.price - (elm.price / 100 * item.value)) * elm.quantity).toFixed(2)}{ currency.symbol }</span></td>; // <td>{((elm.price - (elm.price / 100 * i.value)) * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
-        //     }
-        //     else {
-        //       console.log('elseeee', elm);
-        //       return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
-        //     }
-        //   // }
-        // });
-      // });
-        if(new Date(current_date_time) >= new Date(elm.coupon[couponCode.toLowerCase()]?.start_date) && new Date(current_date_time) <= new Date(elm.coupon[couponCode.toLowerCase()]?.end_date) && elm.coupon[couponCode.toLowerCase()].code == couponData.code.toLowerCase()) {
-          return <td><span className="money price price-old">{ currency.symbol }{(elm.price * elm.quantity).toFixed(2)}</span><span className="money price price-sale">{ currency.symbol }{((elm.price - (elm.price / 100 * elm.coupon[couponCode.toLowerCase()]?.value)) * elm.quantity).toFixed(2)}</span></td>;
-        } else {
-          return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
-        }
+      return (
+        <td>
+          <span className="money price price-sale">{currency.symbol}{(itemPrice * elm.quantity).toFixed(currency.decimals)}</span>
+          <span className="money price price-old">{currency.symbol}{(elm.price * elm.quantity).toFixed(currency.decimals)}</span>
+        </td>
+      );
     } else {
-      console.log('else');
-      return <td>{(elm.price * elm.quantity).toFixed(2)}{ currency.symbol }</td>;
+      return <td>{(elm.price * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</td>;
     }
   };
+  const isExpired = (end_date) => { return new Date(end_date) < new Date(); };
 
   return (
     <>
+    <FreeGiftFeature couponData={couponData}/>
+        <BOGOFeature/>
     {/* <FreeGiftFeature couponData={couponData}/> */}
     {cartProducts.length ? (
       <form onSubmit={onOrder}>

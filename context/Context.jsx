@@ -171,7 +171,7 @@ export default function Context({ children }) {
     setTotalPrice(subtotal);
     
     // Oman static free shipping threshold (20) based on your original commented code
-    // setFreeShippingFlag(Number(subtotal.toFixed(3)) >= 20);
+    setFreeShippingFlag((subtotal).toFixed(2) >= 100 ? true : false);
   }, [state.products, couponDataContext, promotionsContext]);
   // -----------------------------------------------
 

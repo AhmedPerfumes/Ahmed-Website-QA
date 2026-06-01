@@ -1,7 +1,7 @@
 "use client";
 
 import { products54 } from "@/data/products/fashion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useContextElement } from "@/context/Context";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -11,26 +11,72 @@ import he from "he";
 import { useLocale, useTranslations} from "next-intl";
 import { useMenu } from '@/context/MenuContext';
 
-export default function Style2({ category, subcategory, products }) {
+export default function Style2({ category, subcategory, products: initialProducts }) {
   const { isLoading: isMenuLoading, error: isMenuError, currency } = useMenu();
   const locale = useLocale();
   const t=useTranslations();
-  const indexToSwap = 1;
-  let objectFound = false;
-
-  for (let index = 0; index < products.length; index++) {
-    if (products[index] && products[index].collection_name === "New Launch") {
-      // Swap only if the condition is met and not the same index
-      if (index !== indexToSwap) {
-        // Perform the swap
-        const temp = products[indexToSwap];
-        products[indexToSwap] = products[index];
-        products[index] = temp;
-        objectFound = true;
-      }
-      break; // Stop the loop after the swap
+  const [products, setProducts] = useState(() => {
+    const list = [...initialProducts];
+    const indexToPin = 1;
+    const newLaunchIndex = list.findIndex(p => p.collection_name === 'New Launch');
+    if (newLaunchIndex > -1) {
+      const [pinned] = list.splice(newLaunchIndex, 1);
+      list.splice(indexToPin, 0, pinned);
     }
-  }
+    return list;
+  })
+
+  useEffect(() => {
+    const list = [...initialProducts];
+    const indexToPin = 1;
+    const newLaunchIndex = list.findIndex(p => p.collection_name === 'New Launch');
+    if (newLaunchIndex > -1) {
+      const [pinned] = list.splice(newLaunchIndex, 1);
+      list.splice(indexToPin, 0, pinned);
+    }
+    setProducts(list);
+
+    const fetchLiveStatus = async () => {
+      try {
+        const productIds = list.map((p) => p.product_id);
+        if (productIds.length === 0) return;
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/products/live-status`, {
+          method: 'POST',
+          header: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ product_ids: productIds})
+        });
+
+        if(!response.ok) return;
+
+        const liveData = await response.json();
+
+        setProducts((prevProducts) => {
+          return prevProducts.map((prevProd) => {
+            const liveMatch = liveData.find((l) => l.product_id === prevProd.product_id)
+
+            if(liveMatch) {
+              return {
+                ...prevProd,
+                product_qty: liveMatch.product_qty,
+                price: liveMatch.price,
+                sale_price: liveMatch.sale_price,
+                discount: liveMatch.discount,
+                maximum_order_quantity: liveMatch.maximum_order_quantity
+              };
+            }
+            return prevProd;
+          });
+        });
+      } catch (error) {
+        console.error("Failed to hydrate live product data", error);
+      }
+    };
+
+    fetchLiveStatus();
+  }, [initialProducts]);
 
   function capitalizeEachWord(str) {
     return str.split(' ') // Split the sentence into words
@@ -38,6 +84,7 @@ export default function Style2({ category, subcategory, products }) {
               .join(' '); // Join the words back into a sentence
   }
 
+  // "WARNING: If you change this logic, update the corresponding PHP/JS file."
   function removeSpecialCharactersAndAmp(str) {
     // Remove the specific word "&amp;"
     let cleanedStr = str?.replace(/&amp;/g, "");
@@ -75,19 +122,43 @@ export default function Style2({ category, subcategory, products }) {
   const { addProductToQuickView } = useContextElement();
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
 
+  // const price = (elm) => {
+  //   const currentUTC = new Date(); // Current UTC time
+  //   const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
+  //   const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
+  //   if(elm?.discount) {
+  //     if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
+  //       return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(2)}{ currency.symbol }</span></>;
+  //     } else {
+  //       return <span className="money price">{elm?.price}{ currency.symbol }</span>;
+  //     }
+  //   } else if(elm?.sale_price) {
+  //     return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {((elm.sale_price)).toFixed(2)}{ currency.symbol }</span></>;
+  //   } else {
+  //     return <span className="money price">{elm?.price}{ currency.symbol }</span>;
+  //   }
+  // };
+console.log(currency, "currency");
+
   const price = (elm) => {
     const currentUTC = new Date(); // Current UTC time
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
     if(elm?.discount) {
       if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-        return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(2)}{ currency.symbol }</span></>;
+        if(elm.discount.discount_type == "percent") {
+          return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(currency.decimals)}{ currency.symbol }</span></>;
+        } else if(elm.discount.discount_type == "amount") {
+          return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {(elm.price - elm.discount.value).toFixed(currency.decimals)}{ currency.symbol }</span></>;
+        }
       } else {
         return <span className="money price">{elm?.price}{ currency.symbol }</span>;
       }
-    } else if(elm?.sale_price) {
-      return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {((elm.sale_price)).toFixed(2)}{ currency.symbol }</span></>;
-    } else {
+    } 
+    // else if(elm?.sale_price) {
+    //   return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {((elm.sale_price)).toFixed(currency.decimals)}{ currency.symbol }</span></>;
+    // } 
+    else {
       return <span className="money price">{elm?.price}{ currency.symbol }</span>;
     }
   };

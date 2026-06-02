@@ -444,9 +444,9 @@ useEffect(() => {
                           </div>
                         ) : (
                           elm.discount && (
-                            <div style={{ backgroundColor: '#198754' }} className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2">
-                              Sale {elm.discount.value}%
-                            </div>
+                          <div style={{ backgroundColor: '#198754' }} className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2">
+                            {elm.discount.discount_type === "percent" ? `Sale ${elm.discount.value}%` : "Sale"}
+                          </div>
                           )
                         )}
                       </SwiperSlide>

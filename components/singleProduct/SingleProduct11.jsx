@@ -17,121 +17,41 @@ import Base from "./New/base";
 import ProductInfoTabs from "./New/ProductInfoTabs/ProductInfoTabs";
 import ItemFamilySlider from "./New/ItemFamilySlider";
 
-export default function SingleProduct11({ category, subcategory, product: initialProduct }) {
+export default function SingleProduct11({ category, subcategory, product }) {
   const { isLoading: isMenuLoading, error: isMenuError, currency } = useMenu();
   const { cartProducts, setCartProducts } = useContextElement();
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState(null);
   const locale = useLocale();
   const t = useTranslations();
-  const [product, setProduct] = useState(initialProduct);
-    const [displayProduct, setDisplayProduct] = useState(initialProduct);
-
-  useEffect(() => {
-        if (initialProduct?.product_id !== product?.product_id) {
-            setProduct(initialProduct);
-        }
-
-        const fetchLiveStatus = async () => {
-            if (!initialProduct?.product_id) return;
-
-            try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}api/products/live-status`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ product_ids: [initialProduct.product_id] }),
-                });
-
-                if (!response.ok) return;
-
-                const liveData = await response.json();
-                
-                // If we got data back for this ID
-                if (Array.isArray(liveData) && liveData.length > 0) {
-                    const liveItem = liveData[0];
-                    setProduct(prev => ({
-                        ...prev,
-                        product_qty: liveItem.product_qty,
-                        price: liveItem.price,
-                        sale_price: liveItem.sale_price,
-                        discount: liveItem.discount,
-                        maximum_order_quantity: liveItem.maximum_order_quantity
-                    }));
-                }
-            } catch (err) {
-                console.error("Live product hydration failed", err);
-            }
-        };
-
-        fetchLiveStatus();
-    }, [initialProduct?.product_id]);
 
   const isIncludeCard = () => {
     const item = cartProducts.filter((elm) => elm.product_id == product.product_id)[0];
     return item;
   };
-  // const setQuantityCartItem = (id, quantity) => {
-  //   if (isIncludeCard()) {
-  //     if (quantity >= 1 && quantity <= product.product_qty) {
-  //       setError(null);
-  //       const item = cartProducts.filter((elm) => elm.product_id == id)[0];
-  //       const items = [...cartProducts];
-  //       const itemIndex = items.indexOf(item);
-  //       item.quantity = quantity;
-  //       items[itemIndex] = item;
-  //       setCartProducts(items);
-  //     } else {
-  //       setError("Quantity is more than available quantity");
-  //     }
-  //   } else {
-  //     setQuantity((quantity <= product.product_qty && quantity >= 1) ? quantity : product.product_qty);
-  //     setError(null);
-  //     if(quantity > product.product_qty) {
-  //       setError("Quantity is more than available quantity");
-  //     } else {
-  //       setError(null);
-  //     }
-  //   }
-  // };
-
-  const setQuantityCartItem = (id, quantity, maxOrderQty) => {
-    const qty = Number(quantity);
-    const stock = Number(product.product_qty);
-    const maxOrder = Number(maxOrderQty);
-
-    const limit = (maxOrder && maxOrder > 0) ? maxOrder : stock;
-    const isValid = qty <= stock && qty <= limit;
-
+  const setQuantityCartItem = (id, quantity) => {
     if (isIncludeCard()) {
-      if (isValid) {
+      if (quantity >= 1 && quantity <= product.product_qty) {
         setError(null);
+        const item = cartProducts.filter((elm) => elm.product_id == id)[0];
         const items = [...cartProducts];
-        const itemIndex = items.findIndex((elm) => elm.product_id == id);
-
-        if (itemIndex !== -1) {
-          items[itemIndex] = { ...items[itemIndex], quantity, };
-        }
-        
+        const itemIndex = items.indexOf(item);
+        item.quantity = quantity;
+        items[itemIndex] = item;
         setCartProducts(items);
       } else {
-        // FAILURE: Show specific error
-        const errorMsg = qty > stock ? "Quantity is more than available quantity" : `Maximum allowed quantity is ${limit}`;
-        setError(errorMsg);
+        setError("Quantity is more than available quantity");
       }
     } else {
-      if (isValid) {
-        setQuantity(qty);
-        setError(null); // Clear error if valid
+      setQuantity((quantity <= product.product_qty && quantity >= 1) ? quantity : product.product_qty);
+      setError(null);
+      if(quantity > product.product_qty) {
+        setError("Quantity is more than available quantity");
       } else {
-        // Cap the value to the max allowed so user doesn't get stuck
-        const errorMsg = qty > stock ? "Quantity is more than available quantity" : `Maximum allowed quantity is ${limit}`;
-        setError(errorMsg);
+        setError(null);
       }
     }
-  }
-  
+  };
   const addToCart = () => {
     if (!isIncludeCard()) {
       const item = {...product, category_name: capitalizeEachWord(category.split('-').join(' ')), subcategory_name: capitalizeEachWord(subcategory.split('-').join(' '))};
@@ -170,50 +90,18 @@ export default function SingleProduct11({ category, subcategory, product: initia
               .join(' '); // Join the words back into a sentence
   }
 
-  // const price = (elm) => {
-  //   const currentUTC = new Date(); // Current UTC time
-  //   const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
-  //   const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
-  //   if(elm?.discount) {
-  //     if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-  //       return <><span className="money price price-old">{ currency.symbol }{elm?.price}</span> <span className="money price price-sale"> { currency.symbol }{(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(2)}</span></>;
-  //     } else {
-  //       return <span className="money price">{elm?.price}{ currency.symbol }</span>;
-  //     }
-  //   } else if(elm?.sale_price) {
-  //     return <><span className="money price price-sale">{ currency.symbol }{(elm.sale_price).toFixed(2)}</span><span className="money price price-old">{ currency.symbol }{elm?.price}</span> </>;
-  //   } else {
-  //     return <span className="money price">{elm?.price}{ currency.symbol }</span>;
-  //   }
-  // };
-
   const price = (elm) => {
     const currentUTC = new Date(); // Current UTC time
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
-    
-    if (elm?.discount) {
-      if (new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-        
-        if (elm.discount.discount_type === "percent") {
-          return (
-            <>
-              <span className="money price price-old">{ currency.symbol }{elm?.price}</span> 
-              <span className="money price price-sale"> { currency.symbol }{(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(currency.decimals)}</span>
-            </>
-          );
-        } else if (elm.discount.discount_type === "amount") {
-          return (
-            <>
-              <span className="money price price-old">{ currency.symbol }{elm?.price}</span> 
-              <span className="money price price-sale"> { currency.symbol }{(elm.price - elm.discount.value).toFixed(currency.decimals)}</span>
-            </>
-          );
-        }
-
+    if(elm?.discount) {
+      if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
+        return <><span className="money price price-old">{ currency.symbol }{elm?.price}</span> <span className="money price price-sale"> { currency.symbol }{(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(2)}</span></>;
       } else {
         return <span className="money price">{elm?.price}{ currency.symbol }</span>;
       }
+    } else if(elm?.sale_price) {
+      return <><span className="money price price-sale">{ currency.symbol }{(elm.sale_price).toFixed(2)}</span><span className="money price price-old">{ currency.symbol }{elm?.price}</span> </>;
     } else {
       return <span className="money price">{elm?.price}{ currency.symbol }</span>;
     }

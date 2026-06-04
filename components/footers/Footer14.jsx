@@ -147,7 +147,7 @@ export default function Footer14() {
             </p>
             <p>
               <strong className="fw-medium">
-              {t("+974 5505 3821 / +974 3339 2075")}
+              {t("+974 4481 3606 / +974 3339 2075")}
               </strong>
             </p>
 

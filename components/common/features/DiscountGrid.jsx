@@ -102,7 +102,7 @@ function DiscountGrid({ title, onlyDiscounted = false }) {
           return (
             <div key={i} className="product-card-wrapper">
               <div className="product-card mb-3 mb-md-4 mb-xxl-5">
-                <div className="pc__img-wrapper">
+                <div className="pc__img-wrapper" style={{ position: 'relative' }}>
                   <Swiper
                     className="background-img"
                     slidesPerView={1}
@@ -145,7 +145,7 @@ function DiscountGrid({ title, onlyDiscounted = false }) {
                   {/* ✅ Label on top right */}
                   {elm.label_name && (
                     <div
-                      style={{ backgroundColor: elm.label_color, zIndex: 10 }}
+                      style={{ backgroundColor: elm.label_color, zIndex: 1 }}
                       className="product-label text-uppercase text-white top-0 left-auto right-0 mt-2 mx-2"
                     >
                       {elm.label_name}
@@ -155,7 +155,7 @@ function DiscountGrid({ title, onlyDiscounted = false }) {
                   {/* ✅ Discount or Stock Label */}
                   {elm.product_qty <= 0 ? (
                     <div
-                      style={{ backgroundColor: "#dc3545", zIndex: 10 }}
+                      style={{ backgroundColor: "#dc3545", zIndex: 1 }}
                       className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2"
                     >
                       Out Of Stock
@@ -163,7 +163,7 @@ function DiscountGrid({ title, onlyDiscounted = false }) {
                   ) : (
                     isDiscountActive && (
                       <div
-                        style={{ backgroundColor: "#198754", zIndex: 10 }}
+                        style={{ backgroundColor: "#198754", zIndex: 1 }}
                         className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2"
                       >
                         Sale {elm.discount.value}%

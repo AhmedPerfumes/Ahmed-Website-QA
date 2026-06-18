@@ -149,6 +149,16 @@ export default function Nav({ categoriesSubCategories }) {
       </li>
     );
   });
+  categoriesSubCategoriesBody.push(
+    <li key="sale" className="navigation__item">
+      <Link href={`/${locale}/sale`} className={`navigation__link
+          ${isActiveExportMenu(`/sale`) ? "menu-active" : ""}
+          `}>
+        {t("Sale")}
+      </Link>
+    </li>
+
+  );
 
   // categoriesSubCategoriesBody.push(
   //   <li key="export" className="navigation__item">

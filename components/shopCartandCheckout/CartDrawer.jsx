@@ -240,7 +240,10 @@ export default function CartDrawer() {
           <VideoPanel src="/assets/videos/popup video.mp4" section='sm_popup'/>
         </div> */}
         <div className="free-shipping-progress mt-3">
-              {totalPrice < freeShippingThreshold ? (
+          <p style={{ color: "red", fontWeight: 700, marginBottom: "0.75rem" }}>
+            Note: Due to high order volume, delivery may take 3 to 4 days.
+          </p>
+          {totalPrice < freeShippingThreshold ? (
                 <div>
                   <p>
                     Spend {(freeShippingThreshold - totalPrice).toFixed(2)}{ currency.symbol } more to get free

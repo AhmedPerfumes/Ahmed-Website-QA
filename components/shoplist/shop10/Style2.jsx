@@ -285,7 +285,18 @@ console.log(currency, "currency");
                       alt="image"
                     />
                   </Link>
-                  <div className="content_abs content_bottom content_left content_bottom-lg content_left-lg">
+                  <div 
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: "100%",
+                      background: "linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%)",
+                      pointerEvents: "none"
+                    }}
+                  />
+                  <div className="content_abs content_bottom content_left content_bottom-lg content_left-lg" style={{ position: "relative", zIndex: 1 }}>
                     <h2 className="fs-30 fw-normal text-uppercase mb-0 text-white cat-title">
                       {elm?.product_name && he.decode (elm?.product_name)}
                     </h2>

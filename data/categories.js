@@ -305,7 +305,7 @@ export const categories88 = [
     imgSrc: "/assets/images/home/demo15/category-3.jpg",
     altText: "Laathani",
     subText: "Uncover your signature glow",
-    videoSrc: "/assets/videos/vlogs/neeb.mp4",
+    videoSrc: "/assets/videos/vlogs/Neeb.mp4",
     imgSrc2: "/assets/videos/vlogs/thumbnails/Neeb.jpg",
     link: "/shop/perfumes/oriental-fragrance/laathani",
     btn: "/shop/perfumes/oriental-fragrance/laathani"
@@ -315,7 +315,7 @@ export const categories88 = [
     imgSrc: "/assets/images/home/demo15/category-4.jpg",
     altText: "Kaaf",
     subText: "Radiate pure, refined luxury",
-    videoSrc: "/assets/videos/vlogs/rico.mp4",
+    videoSrc: "/assets/videos/vlogs/Rico.mp4",
     imgSrc2: "/assets/videos/vlogs/thumbnails/Rico.jpg",
     link: "/shop/perfumes/oriental-fragrance/kaaf",
     btn: "/shop/perfumes/oriental-fragrance/kaaf"
@@ -325,7 +325,7 @@ export const categories88 = [
     imgSrc: "/assets/images/home/demo15/category-1.jpg",
     altText: "Oud & Roses",
     subText: "Embrace unforgettable elegance",
-    videoSrc: "/assets/videos/vlogs/sana-Khan.mp4",
+    videoSrc: "/assets/videos/vlogs/Sana-Khan.mp4",
     imgSrc2: "/assets/videos/vlogs/thumbnails/Sana-Khan.jpg",
     link: "/shop/perfumes/occidental-fragrance/oud-roses",
     btn: "/shop/perfumes/occidental-fragrance/oud-roses"

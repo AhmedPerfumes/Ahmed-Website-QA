@@ -62,7 +62,7 @@ export default function Footer14() {
                   {t("Swift Complimentary Shipping")}
                 </h3>
                 <p className="service-promotion__content text-secondary mb-0 text-white">
-                  {t("Free delivery on orders over QAR 400")}
+                  {t("Free delivery on orders over QAR 100")}
                 </p>
               </div>
             </div>
@@ -126,7 +126,7 @@ export default function Footer14() {
             <div className="logo">
               <a href="/">
               <Image
-              src="/assets/images/about/AhmedLogo.png"
+              src="/assets/images/logo/Logo.png"
               width={100}
               height={100}
               alt="Ahmed"

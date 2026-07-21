@@ -70,9 +70,9 @@ export default function MobileFooter2() {
         <div className="logo d-flex justify-content-center">
           <a href="/">
           <Image
-                  src="/assets/images/about/AhmedLogo.png"
-                  width={100}
-                  height={100}
+                  src="/assets/images/logo/Mobile.svg"
+                  width={200}
+                  height={80}
                   alt="Ahmed"
                   className="logo__image d-block"
                 />

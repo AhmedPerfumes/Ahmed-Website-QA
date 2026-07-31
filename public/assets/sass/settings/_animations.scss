@@ -80,6 +80,12 @@ $move-distance: 0.625rem;
     opacity: 1;
     visibility: visible;
   }
+
+  @include media-breakpoint-down(md) {
+    bottom: 0;
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 .anim_appear-right {

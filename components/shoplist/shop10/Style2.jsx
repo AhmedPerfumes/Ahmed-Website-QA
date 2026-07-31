@@ -315,7 +315,7 @@ console.log(currency, "currency");
                 </>
               )}
               {i != 1 ? (
-                <div className="anim_appear-bottom position-absolute bottom-0 start-0 w-100 d-none d-sm-flex align-items-center">
+                <div className="anim_appear-bottom position-absolute bottom-0 start-0 w-100 d-flex align-items-center">
                   {isAddedToCartProducts(elm?.product_id)
                     ? elm.product_qty > 0 && (
                         <button

@@ -143,11 +143,10 @@ export default function Header14() {
                 id="header"
                 className={
                     pathname == "/"
-                        ? `header header_sticky bg-white ${
-                              scrollDirection == "up"
-                                  ? "header_sticky-active"
-                                  : ""
-                          } `
+                        ? `header header_sticky bg-white ${scrollDirection == "up"
+                            ? "header_sticky-active"
+                            : ""
+                        } `
                         : "header header_sticky position-sticky w-100 bg-white"
                 }
                 style={pathname == "/" ? {} : {}}
@@ -185,9 +184,8 @@ export default function Header14() {
 
                 <div
                     ref={containerRef}
-                    className={`header-tools__item hover-container ${
-                        isPopupOpen ? "js-content_visible" : ""
-                    }`}
+                    className={`header-tools__item hover-container ${isPopupOpen ? "js-content_visible" : ""
+                        }`}
                 >
                     <div className="search-popup js-hidden-content">
                         <form
@@ -272,7 +270,7 @@ export default function Header14() {
                     </li> */}
                                     </ul>
                                 </div>
-                                <div className="search-result row row-cols-5"></div>
+                                {/* <div className="search-result row row-cols-5"></div> */}
                             </div>
                         </form>
                     </div>
@@ -327,7 +325,7 @@ export default function Header14() {
                             </div>
                             <div className="logo">
                                 <a href="/">
-                                <img
+                                    <img
                                         src="/assets/images/logo/Logo.png"
                                         width="100px"
                                         alt="Ahmed"

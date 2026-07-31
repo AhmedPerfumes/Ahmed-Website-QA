@@ -19,12 +19,13 @@ import {
 import he from 'he';
 import Slider from "rc-slider";
 
-import {useLocale} from 'next-intl';
+import {useLocale, useTranslations} from 'next-intl';
 import { useMenu } from '@/context/MenuContext';
 
 export default function Shop1({ search }) {
   const { isLoading: isMenuLoading, error: isMenuError, currency } = useMenu();
   const locale = useLocale();
+  const t = useTranslations();
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
   const [selectedColView, setSelectedColView] = useState(3);
 
@@ -510,7 +511,7 @@ useEffect(() => {
                 <div className="pc__info position-relative">
                   <p className="pc__category">{elm.category_name}</p>
                   <h6 className="pc__title">
-                    <Link href={`/${locale}/shop/${removeSpecialCharactersAndAmp(elm.category_name).split(' ').join('-').toLowerCase()}/${isSubcategory(elm.category_name.split(' ').join('-').toLowerCase(), elm.subcategory)}/${removeSpecialCharactersAndAmp(elm.product_name).split(' ').join('-').toLowerCase()}`}>{elm?.product_name && he.decode(elm?.product_name)}</Link>
+                    <Link href={`/${locale}/shop/${removeSpecialCharactersAndAmp(elm.category_name).split(' ').join('-').toLowerCase()}/${isSubcategory(elm.category_name.split(' ').join('-').toLowerCase(), elm.subcategory)}/${removeSpecialCharactersAndAmp(elm.product_name).split(' ').join('-').toLowerCase()}`}>{locale === 'ar' ? (elm?.product_name_ar ? he.decode(elm.product_name_ar) : (elm?.product_name ? t(elm.product_name) : '')) : (elm?.product_name ? he.decode(elm.product_name) : '')}</Link>
                   </h6>
                   <div className="product-card__price d-flex">
                     {/* {elm.price ? (

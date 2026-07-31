@@ -298,7 +298,7 @@ console.log(currency, "currency");
                   />
                   <div className="content_abs content_bottom content_left content_bottom-lg content_left-lg" style={{ position: "relative", zIndex: 1 }}>
                     <h2 className="fs-30 fw-normal text-uppercase mb-0 text-white cat-title">
-                      {elm?.product_name && he.decode (elm?.product_name)}
+                      {locale === 'ar' ? (elm?.product_name_ar ? he.decode(elm.product_name_ar) : (elm?.product_name ? t(elm.product_name) : '')) : (elm?.product_name ? he.decode(elm.product_name) : '')}
                     </h2>
                     <p className="mb-4 text-white">{t("Exclusive Launch")}</p>
                     <Link
@@ -379,7 +379,7 @@ console.log(currency, "currency");
                       .join("-")
                       .toLowerCase()}`}
                   >
-                    {elm?.product_name && t(he.decode(elm?.product_name))}
+                    {locale === 'ar' ? (elm?.product_name_ar ? he.decode(elm.product_name_ar) : (elm?.product_name ? t(elm.product_name) : '')) : (elm?.product_name ? he.decode(elm.product_name) : '')}
                   </Link>
                 </h6>
                 <div className="product-card__price d-flex">

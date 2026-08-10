@@ -57,25 +57,25 @@ export default function ItemFamilySlider({ product, itemFamilyProds }) {
         },
     };
 
-      // "WARNING: If you change this logic, update the corresponding PHP/JS file."
+    // "WARNING: If you change this logic, update the corresponding PHP/JS file."
     function removeSpecialCharactersAndAmp(productName) {
         // Step 1: Remove any non-alphanumeric characters except for spaces
-    const dynamicKey = productName.replace(/[^a-zA-Z0-9\s]/g, '') + ' Description';
-  
-    // Step 2: Words to remove
-    const wordsToRemove = ['&', ' &', '& ', ' & ', 'amp', ' amp', 'amp ', ' amp ', ';', ' ;', '; ', ' ; '];
-  
-    // Step 3: Remove the words from the dynamic key (case insensitive)
-    let cleanString = dynamicKey;
-    wordsToRemove.forEach(word => {
-      const regex = new RegExp(word, 'gi'); // 'gi' for global and case-insensitive replacement
-      cleanString = cleanString.replace(regex, '');
-    });
-  
-    // Step 4: Replace multiple spaces with a single space
-    cleanString = cleanString.replace(/\s+/g, ' ').trim(); // Trim to remove leading/trailing spaces
-  
-    return cleanString;
+        const dynamicKey = productName.replace(/[^a-zA-Z0-9\s]/g, '') + ' Description';
+
+        // Step 2: Words to remove
+        const wordsToRemove = ['&', ' &', '& ', ' & ', 'amp', ' amp', 'amp ', ' amp ', ';', ' ;', '; ', ' ; '];
+
+        // Step 3: Remove the words from the dynamic key (case insensitive)
+        let cleanString = dynamicKey;
+        wordsToRemove.forEach(word => {
+            const regex = new RegExp(word, 'gi'); // 'gi' for global and case-insensitive replacement
+            cleanString = cleanString.replace(regex, '');
+        });
+
+        // Step 4: Replace multiple spaces with a single space
+        cleanString = cleanString.replace(/\s+/g, ' ').trim(); // Trim to remove leading/trailing spaces
+
+        return cleanString;
     }
 
     const isSubcategory = (category, subcategory) => {
@@ -154,17 +154,17 @@ export default function ItemFamilySlider({ product, itemFamilyProds }) {
                                             .split(" ")
                                             .join("-")
                                             .toLowerCase()}/${isSubcategory(
-                                            elm.category_name
+                                                elm.category_name
+                                                    .split(" ")
+                                                    .join("-")
+                                                    .toLowerCase(),
+                                                elm.subcategory
+                                            )}/${removeSpecialCharactersAndAmp(
+                                                elm.product_name
+                                            )
                                                 .split(" ")
                                                 .join("-")
-                                                .toLowerCase(),
-                                            elm.subcategory
-                                        )}/${removeSpecialCharactersAndAmp(
-                                            elm.product_name
-                                        )
-                                            .split(" ")
-                                            .join("-")
-                                            .toLowerCase()}`}
+                                                .toLowerCase()}`}
                                     >
                                         {elm?.images &&
                                             Array.isArray(elm.images) && (
@@ -198,7 +198,7 @@ export default function ItemFamilySlider({ product, itemFamilyProds }) {
                                                 backgroundColor:
                                                     elm.label_color,
                                             }}
-                                            className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2"
+                                            className="product-label text-uppercase text-white top-0 right-0 left-auto mt-2 mx-2"
                                         >
                                             {elm?.label_name}
                                         </div>
@@ -226,31 +226,31 @@ export default function ItemFamilySlider({ product, itemFamilyProds }) {
                                     )}
                                     {isAddedToCartProducts(elm?.product_id)
                                         ? elm.product_qty > 0 && (
-                                              <button
-                                                  className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
-                                                  title="Already Added"
-                                              >
-                                                  Already Added
-                                              </button>
-                                          )
+                                            <button
+                                                className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
+                                                title="Already Added"
+                                            >
+                                                Already Added
+                                            </button>
+                                        )
                                         : elm.product_qty > 0 && (
-                                              <button
-                                                  className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
-                                                  onClick={() =>
-                                                      addProductToCart({
-                                                          ...elm,
-                                                          category_name:
-                                                              elm.category_name,
-                                                          subcategory_name:
-                                                              elm.subcategory
-                                                                  .subcategory_name,
-                                                      })
-                                                  }
-                                                  title="Add to Cart"
-                                              >
-                                                  Add To Cart
-                                              </button>
-                                          )}
+                                            <button
+                                                className="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
+                                                onClick={() =>
+                                                    addProductToCart({
+                                                        ...elm,
+                                                        category_name:
+                                                            elm.category_name,
+                                                        subcategory_name:
+                                                            elm.subcategory
+                                                                .subcategory_name,
+                                                    })
+                                                }
+                                                title="Add to Cart"
+                                            >
+                                                Add To Cart
+                                            </button>
+                                        )}
                                 </div>
 
                                 <div className="pc__info position-relative">
@@ -265,17 +265,17 @@ export default function ItemFamilySlider({ product, itemFamilyProds }) {
                                                 .split(" ")
                                                 .join("-")
                                                 .toLowerCase()}/${isSubcategory(
-                                                elm.category_name
+                                                    elm.category_name
+                                                        .split(" ")
+                                                        .join("-")
+                                                        .toLowerCase(),
+                                                    elm.subcategory
+                                                )}/${removeSpecialCharactersAndAmp(
+                                                    elm.product_name
+                                                )
                                                     .split(" ")
                                                     .join("-")
-                                                    .toLowerCase(),
-                                                elm.subcategory
-                                            )}/${removeSpecialCharactersAndAmp(
-                                                elm.product_name
-                                            )
-                                                .split(" ")
-                                                .join("-")
-                                                .toLowerCase()}`}
+                                                    .toLowerCase()}`}
                                         >
                                             {elm?.product_name &&
                                                 t(he.decode(elm?.product_name))}

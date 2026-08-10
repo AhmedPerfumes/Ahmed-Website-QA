@@ -8,13 +8,13 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import he from "he";
-import { useLocale, useTranslations} from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useMenu } from '@/context/MenuContext';
 
 export default function Style2({ category, subcategory, products: initialProducts }) {
   const { isLoading: isMenuLoading, error: isMenuError, currency } = useMenu();
   const locale = useLocale();
-  const t=useTranslations();
+  const t = useTranslations();
   const [products, setProducts] = useState(() => {
     const list = [...initialProducts];
     const indexToPin = 1;
@@ -46,10 +46,10 @@ export default function Style2({ category, subcategory, products: initialProduct
           header: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ product_ids: productIds})
+          body: JSON.stringify({ product_ids: productIds })
         });
 
-        if(!response.ok) return;
+        if (!response.ok) return;
 
         const liveData = await response.json();
 
@@ -57,7 +57,7 @@ export default function Style2({ category, subcategory, products: initialProduct
           return prevProducts.map((prevProd) => {
             const liveMatch = liveData.find((l) => l.product_id === prevProd.product_id)
 
-            if(liveMatch) {
+            if (liveMatch) {
               return {
                 ...prevProd,
                 product_qty: liveMatch.product_qty,
@@ -80,8 +80,8 @@ export default function Style2({ category, subcategory, products: initialProduct
 
   function capitalizeEachWord(str) {
     return str.split(' ') // Split the sentence into words
-              .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize first letter of each word
-              .join(' '); // Join the words back into a sentence
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize first letter of each word
+      .join(' '); // Join the words back into a sentence
   }
 
   // "WARNING: If you change this logic, update the corresponding PHP/JS file."
@@ -138,28 +138,28 @@ export default function Style2({ category, subcategory, products: initialProduct
   //     return <span className="money price">{elm?.price}{ currency.symbol }</span>;
   //   }
   // };
-console.log(currency, "currency");
+  console.log(currency, "currency");
 
   const price = (elm) => {
     const currentUTC = new Date(); // Current UTC time
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
-    if(elm?.discount) {
-      if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-        if(elm.discount.discount_type == "percent") {
-          return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(currency.decimals)}{ currency.symbol }</span></>;
-        } else if(elm.discount.discount_type == "amount") {
-          return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {(elm.price - elm.discount.value).toFixed(currency.decimals)}{ currency.symbol }</span></>;
+    if (elm?.discount) {
+      if (new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
+        if (elm.discount.discount_type == "percent") {
+          return <><span className="money price price-old">{elm?.price}{currency.symbol}</span> <span className="money price price-sale"> {(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(currency.decimals)}{currency.symbol}</span></>;
+        } else if (elm.discount.discount_type == "amount") {
+          return <><span className="money price price-old">{elm?.price}{currency.symbol}</span> <span className="money price price-sale"> {(elm.price - elm.discount.value).toFixed(currency.decimals)}{currency.symbol}</span></>;
         }
       } else {
-        return <span className="money price">{elm?.price}{ currency.symbol }</span>;
+        return <span className="money price">{elm?.price}{currency.symbol}</span>;
       }
-    } 
+    }
     // else if(elm?.sale_price) {
     //   return <><span className="money price price-old">{elm?.price}{ currency.symbol }</span> <span className="money price price-sale"> {((elm.sale_price)).toFixed(currency.decimals)}{ currency.symbol }</span></>;
     // } 
     else {
-      return <span className="money price">{elm?.price}{ currency.symbol }</span>;
+      return <span className="money price">{elm?.price}{currency.symbol}</span>;
     }
   };
 
@@ -196,50 +196,50 @@ console.log(currency, "currency");
                     >
                       {elm?.images &&
                         // JSON.parse(elm.images).map((image, ind) => (
-                            <>
-                              {JSON.parse(elm.images)[0] && <Image
-                                loading="lazy"
-                                src={`${process.env.NEXT_PUBLIC_API_URL}storage/${JSON.parse(elm.images)[0]}`}
-                                width="330"
-                                height="400"
-                                alt="img"
-                                className="pc__img"
-                              />
-                              }
+                        <>
+                          {JSON.parse(elm.images)[0] && <Image
+                            loading="lazy"
+                            src={`${process.env.NEXT_PUBLIC_API_URL}storage/${JSON.parse(elm.images)[0]}`}
+                            width="330"
+                            height="400"
+                            alt="img"
+                            className="pc__img"
+                          />
+                          }
 
-                              {JSON.parse(elm.images)[1] && <Image
-                                loading="lazy"
-                                src={`${process.env.NEXT_PUBLIC_API_URL}storage/${JSON.parse(elm.images)[1]}`}
-                                width="330"
-                                height="400"
-                                alt="img"
-                                className="pc__img pc__img-second"
-                              />
-                              }
-                            </>
+                          {JSON.parse(elm.images)[1] && <Image
+                            loading="lazy"
+                            src={`${process.env.NEXT_PUBLIC_API_URL}storage/${JSON.parse(elm.images)[1]}`}
+                            width="330"
+                            height="400"
+                            alt="img"
+                            className="pc__img pc__img-second"
+                          />
+                          }
+                        </>
                         // ))
-                        }
-                      </Link>
-                      {elm?.label_name && (
-                        <div
-                          style={{ backgroundColor: elm.label_color }}
-                          className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2"
-                        >
-                          {elm?.label_name}
+                      }
+                    </Link>
+                    {elm?.label_name && (
+                      <div
+                        style={{ backgroundColor: elm.label_color }}
+                        className="product-label text-uppercase text-white top-0 right-0 left-auto mt-2 mx-2"
+                      >
+                        {elm?.label_name}
+                      </div>
+                    )}
+                    {elm.product_qty <= 0 ? (
+                      <div style={{ backgroundColor: '#dc3545' }} className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2">
+                        {t("Out Of Stock")}
+                      </div>
+                    ) : (
+                      elm.discount && (
+                        <div style={{ backgroundColor: '#198754' }} className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2">
+                          {elm.discount.discount_type === "percent" ? `Sale ${elm.discount.value}%` : "Sale"}
                         </div>
-                      )}
-                      {elm.product_qty <= 0 ? (
-                        <div style={{ backgroundColor: '#dc3545' }} className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2">
-                          {t("Out Of Stock")}
-                        </div>
-                      ) : (
-                        elm.discount && (
-                          <div style={{ backgroundColor: '#198754' }} className="product-label text-uppercase text-white top-0 left-0 mt-2 mx-2">
-                            {elm.discount.discount_type === "percent" ? `Sale ${elm.discount.value}%` : "Sale"}
-                          </div>
-                        )
-                      )}
-                      </SwiperSlide>
+                      )
+                    )}
+                  </SwiperSlide>
 
                   {i != 1 ? (
                     <>
@@ -285,7 +285,7 @@ console.log(currency, "currency");
                       alt="image"
                     />
                   </Link>
-                  <div 
+                  <div
                     style={{
                       position: "absolute",
                       bottom: 0,
@@ -318,28 +318,28 @@ console.log(currency, "currency");
                 <div className="anim_appear-bottom position-absolute bottom-0 start-0 w-100 d-flex align-items-center">
                   {isAddedToCartProducts(elm?.product_id)
                     ? elm.product_qty > 0 && (
-                        <button
-                          className="btn btn-primary flex-grow-1 fs-base ps-3 ps-xxl-4 pe-0 border-0 text-uppercase fw-medium"
-                          title="Already Added"
-                        >
-                          {t("Already Added")}
-                        </button>
-                      )
+                      <button
+                        className="btn btn-primary flex-grow-1 fs-base ps-3 ps-xxl-4 pe-0 border-0 text-uppercase fw-medium"
+                        title="Already Added"
+                      >
+                        {t("Already Added")}
+                      </button>
+                    )
                     : elm?.product_qty > 0 && (
-                        <button
-                          className="btn btn-primary flex-grow-1 fs-base ps-3 ps-xxl-4 pe-0 border-0 text-uppercase fw-medium js-add-cart js-open-aside"
-                          onClick={() => addProductToCart({...elm, category_name: capitalizeEachWord(category.split('-').join(' ')), subcategory_name: capitalizeEachWord(subcat.split('-').join(' '))})}
-                          title="Add to Cart"
-                        >
-                          {t("Add To Cart")}
-                        </button>
-                      )}
+                      <button
+                        className="btn btn-primary flex-grow-1 fs-base ps-3 ps-xxl-4 pe-0 border-0 text-uppercase fw-medium js-add-cart js-open-aside"
+                        onClick={() => addProductToCart({ ...elm, category_name: capitalizeEachWord(category.split('-').join(' ')), subcategory_name: capitalizeEachWord(subcat.split('-').join(' ')) })}
+                        title="Add to Cart"
+                      >
+                        {t("Add To Cart")}
+                      </button>
+                    )}
                   <button
                     className="btn btn-primary flex-grow-1 fs-base ps-0 pe-3 pe-xxl-4 border-0 text-uppercase fw-medium js-quick-view"
                     data-bs-toggle="modal"
                     data-bs-target="#quickView"
                     title="Quick view"
-                    onClick={() => addProductToQuickView({...elm, category_name: capitalizeEachWord(category.split('-').join(' ')), subcategory_name: capitalizeEachWord(subcat.split('-').join(' '))})}
+                    onClick={() => addProductToQuickView({ ...elm, category_name: capitalizeEachWord(category.split('-').join(' ')), subcategory_name: capitalizeEachWord(subcat.split('-').join(' ')) })}
                   >
                     {t("Quick View")}
                   </button>
@@ -383,7 +383,7 @@ console.log(currency, "currency");
                   </Link>
                 </h6>
                 <div className="product-card__price d-flex">
-                  { price(elm) }
+                  {price(elm)}
                 </div>
               </div>
             ) : null}

@@ -24,11 +24,13 @@ export default function SingleProduct11({ category, subcategory, product }) {
   const [error, setError] = useState(null);
   const locale = useLocale();
   const t = useTranslations();
+  const productName = locale === 'ar' ? (product?.product_name_ar ? he.decode(product.product_name_ar) : (product?.product_name ? t(product.product_name) : '')) : (product?.product_name ? he.decode(product.product_name) : '');
 
   const isIncludeCard = () => {
     const item = cartProducts.filter((elm) => elm.product_id == product.product_id)[0];
     return item;
   };
+  console.log(product, "prodd")
   const setQuantityCartItem = (id, quantity) => {
     if (isIncludeCard()) {
       if (quantity >= 1 && quantity <= product.product_qty) {
@@ -45,7 +47,7 @@ export default function SingleProduct11({ category, subcategory, product }) {
     } else {
       setQuantity((quantity <= product.product_qty && quantity >= 1) ? quantity : product.product_qty);
       setError(null);
-      if(quantity > product.product_qty) {
+      if (quantity > product.product_qty) {
         setError("Quantity is more than available quantity");
       } else {
         setError(null);
@@ -54,157 +56,175 @@ export default function SingleProduct11({ category, subcategory, product }) {
   };
   const addToCart = () => {
     if (!isIncludeCard()) {
-      const item = {...product, category_name: capitalizeEachWord(category.split('-').join(' ')), subcategory_name: capitalizeEachWord(subcategory.split('-').join(' '))};
+      const item = { ...product, category_name: capitalizeEachWord(category.split('-').join(' ')), subcategory_name: capitalizeEachWord(subcategory.split('-').join(' ')) };
       item.quantity = quantity;
       setCartProducts((pre) => [...pre, item]);
       document
-      .getElementById("cartDrawerOverlay")
-      .classList.add("page-overlay_visible");
+        .getElementById("cartDrawerOverlay")
+        .classList.add("page-overlay_visible");
       document.getElementById("cartDrawer").classList.add("aside_visible");
     }
   };
 
-  function cleanProductName(productName) {
+  function cleanProductName(productName, suffix = 'Description') {
     // Step 1: Remove any non-alphanumeric characters except for spaces
-    const dynamicKey = productName.replace(/[^a-zA-Z0-9\s]/g, '') + ' Description';
-  
+    const dynamicKey = productName.replace(/[^a-zA-Z0-9\s]/g, '') + ' ' + suffix;
+
     // Step 2: Words to remove
     const wordsToRemove = ['&', ' &', '& ', ' & ', 'amp', ' amp', 'amp ', ' amp ', ';', ' ;', '; ', ' ; '];
-  
+
     // Step 3: Remove the words from the dynamic key (case insensitive)
     let cleanString = dynamicKey;
     wordsToRemove.forEach(word => {
       const regex = new RegExp(word, 'gi'); // 'gi' for global and case-insensitive replacement
       cleanString = cleanString.replace(regex, '');
     });
-  
+
     // Step 4: Replace multiple spaces with a single space
     cleanString = cleanString.replace(/\s+/g, ' ').trim(); // Trim to remove leading/trailing spaces
-  
+
     return cleanString;
   }
 
+  const getLocalizedText = (suffix, apiEnField, apiArField) => {
+    if (!product?.product_name) return '';
+    const key = cleanProductName(product.product_name, suffix);
+    let trans = null;
+    try { trans = t.raw(key); } catch (e) { }
+
+    if (locale === 'ar') {
+      if (product?.[apiArField]) return product[apiArField];
+      if (typeof t.has === 'function' && t.has(key)) return t.raw(key);
+      if (typeof t.has !== 'function' && trans && trans !== key) return trans;
+      if (product?.[apiEnField]) return product[apiEnField];
+      return trans || key;
+    } else {
+      if (product?.[apiEnField]) return product[apiEnField];
+      return trans || key;
+    }
+  };
+
   function capitalizeEachWord(str) {
     return str.split(' ') // Split the sentence into words
-              .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize first letter of each word
-              .join(' '); // Join the words back into a sentence
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize first letter of each word
+      .join(' '); // Join the words back into a sentence
   }
 
   const price = (elm) => {
     const currentUTC = new Date(); // Current UTC time
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
-    
+
     if (elm?.discount) {
       if (new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-        
+
         if (elm.discount.discount_type === "percent") {
           return (
             <>
-              <span className="money price price-old">{ currency.symbol }{elm?.price}</span> 
-              <span className="money price price-sale"> { currency.symbol }{(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(currency.decimals)}</span>
+              <span className="money price price-old">{currency.symbol}{elm?.price}</span>
+              <span className="money price price-sale"> {currency.symbol}{(elm.price - (elm.price / 100 * elm.discount.value)).toFixed(currency.decimals)}</span>
             </>
           );
         } else if (elm.discount.discount_type === "amount") {
           return (
             <>
-              <span className="money price price-old">{ currency.symbol }{elm?.price}</span> 
-              <span className="money price price-sale"> { currency.symbol }{(elm.price - elm.discount.value).toFixed(currency.decimals)}</span>
+              <span className="money price price-old">{currency.symbol}{elm?.price}</span>
+              <span className="money price price-sale"> {currency.symbol}{(elm.price - elm.discount.value).toFixed(currency.decimals)}</span>
             </>
           );
         }
 
       } else {
-        return <span className="money price">{elm?.price}{ currency.symbol }</span>;
+        return <span className="money price">{elm?.price}{currency.symbol}</span>;
       }
     } else {
-      return <span className="money price">{elm?.price}{ currency.symbol }</span>;
+      return <span className="money price">{elm?.price}{currency.symbol}</span>;
     }
   };
 
   return (
-     <>
+    <>
       {Object.keys(product).length > 0 ? <><section className="product-single container product-single__type-9">
         <div className="row">
           <div className="col-lg-7">
-            <Slider4 product={ product }/>
+            <Slider4 product={product} />
           </div>
           <div className="col-lg-5">
             <div className="d-flex justify-content-between mb-4 pb-md-2">
               <div className="breadcrumb mb-0 d-none d-md-block flex-grow-1">
-                <BreadCumb category={ category } subcategory={ subcategory }/>
+                <BreadCumb category={category} subcategory={subcategory} />
               </div>
               {/* <!-- /.breadcrumb --> */}
             </div>
-            <h1 className="product-single__name">{product?.product_name && t(he.decode(product?.product_name))}</h1>
+            <h1 className="product-single__name">{productName}</h1>
             <div className="product-single__price">
-              { price(product) }
+              {price(product)}
             </div>
             <div className="product-single__short-desc">
-              <div dangerouslySetInnerHTML={{ __html: t.raw(cleanProductName(product.product_name)) }}></div>
+              <div dangerouslySetInnerHTML={{ __html: getLocalizedText('Description', 'description', 'description_ar') }}></div>
             </div>
             <h6 style={{ color: "red" }}>{error && error}</h6>
             <form onSubmit={(e) => e.preventDefault()}>
-              {product.product_qty > 0 ?(
-              <div className="product-single__addtocart">
-                <div className="qty-control position-relative">
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={
-                      isIncludeCard() ? isIncludeCard().quantity : quantity
-                    }
-                    min="1"
-                    onChange={(e) =>
-                      setQuantityCartItem(product.product_id, e.target.value)
-                    }
-                    className="qty-control__number text-center"
-                    readOnly
-                  />
-                  <div
-                    onClick={() =>
-                      setQuantityCartItem(
-                        product.product_id,
-                        isIncludeCard()?.quantity - 1 || quantity - 1
-                      )
-                    }
-                    className="qty-control__reduce"
-                  >
-                    -
+              {product.product_qty > 0 ? (
+                <div className="product-single__addtocart">
+                  <div className="qty-control position-relative">
+                    <input
+                      type="number"
+                      name="quantity"
+                      value={
+                        isIncludeCard() ? isIncludeCard().quantity : quantity
+                      }
+                      min="1"
+                      onChange={(e) =>
+                        setQuantityCartItem(product.product_id, e.target.value)
+                      }
+                      className="qty-control__number text-center"
+                      readOnly
+                    />
+                    <div
+                      onClick={() =>
+                        setQuantityCartItem(
+                          product.product_id,
+                          isIncludeCard()?.quantity - 1 || quantity - 1
+                        )
+                      }
+                      className="qty-control__reduce"
+                    >
+                      -
+                    </div>
+                    <div
+                      onClick={() =>
+                        setQuantityCartItem(
+                          product.product_id,
+                          isIncludeCard()?.quantity + 1 || quantity + 1
+                        )
+                      }
+                      className="qty-control__increase"
+                    >
+                      +
+                    </div>
                   </div>
-                  <div
-                    onClick={() =>
-                      setQuantityCartItem(
-                        product.product_id,
-                        isIncludeCard()?.quantity + 1 || quantity + 1
-                      )
-                    }
-                    className="qty-control__increase"
+                  {/* <!-- .qty-control --> */}
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-addtocart js-open-aside"
+                    onClick={() => addToCart()}
                   >
-                    +
-                  </div>
+                    {isIncludeCard() ? t("Already Added") : t("Add to Cart")}
+                  </button>
                 </div>
-                {/* <!-- .qty-control --> */}
-                <button
-                  type="submit"
-                  className="btn btn-primary btn-addtocart js-open-aside"
-                  onClick={() => addToCart()}
-                >
-                  {isIncludeCard() ? t("Already Added") : t("Add to Cart")}
-                </button>
-              </div>
-              ):(
+              ) : (
                 <div className="out-of-stock">
-  <span className="badge fs-5 text-uppercase">Out of Stock</span>
-  <p className="text-red mt-2">
-    This product is currently unavailable.
-  </p>
- 
-</div>
+                  <span className="badge fs-5 text-uppercase">Out of Stock</span>
+                  <p className="text-red mt-2">
+                    This product is currently unavailable.
+                  </p>
+
+                </div>
               )}
             </form>
             <div className="product-single__addtolinks">
-              <ShareComponent title={product.product_name} />
+              <ShareComponent title={productName} />
             </div>
             <div className="product-single__meta-info">
               {/* <div className="meta-item">
@@ -217,35 +237,35 @@ export default function SingleProduct11({ category, subcategory, product }) {
               </div>
               <div className="meta-item">
                 <label>{t("Categories")}: </label>
-                <span>{ t(capitalizeEachWord(category.split('-').join(' '))) }, { t(capitalizeEachWord(subcategory.split('-').join(' '))) }</span>
+                <span>{t(capitalizeEachWord(category.split('-').join(' ')))}, {t(capitalizeEachWord(subcategory.split('-').join(' ')))}</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="product-single product-single__type-9 bg-dark text-white d-flex align-items-center justify-content-center p-5">
-        <div className="product-single__details-list">
-          <h2 className="product-single__details-list__title text-white">
-            Description
-          </h2>
-          <div className="product-single__details-list__content text-white">
-            <Description product_name={ product.product_name }/>
+        <section className="product-single product-single__type-9 bg-dark text-white d-flex align-items-center justify-content-center p-5">
+          <div className="product-single__details-list">
+            <h2 className="product-single__details-list__title text-white">
+              Description
+            </h2>
+            <div className="product-single__details-list__content text-white">
+              <div className="product-single__description">
+                <div dangerouslySetInnerHTML={{ __html: getLocalizedText('Content', 'content', 'content_ar') }}></div>
+              </div>
+            </div>
+            <h2 className="product-single__details-list__title text-white">
+              {category === "gift-sets"
+                ? "Gift Set Contains"
+                : category === "collections"
+                  ? "Bundle Consist of"
+                  : "Fragrance Notes"}
+            </h2>
+            <div className="product-single__details-list__content text-white">
+              <AdditionalInfo product={product} product_name={product.product_name} video={product.video && JSON.parse(product.video)[0][0].value} title={product.video[0][1] && JSON.parse(product.video)[0][1].value} />
+            </div>
           </div>
-          <h2 className="product-single__details-list__title text-white">
-          {category === "gift-sets"
-  ? "Gift Set Contains"
-  : category === "collections"
-  ? "Bundle Consist of"
-  : "Fragrance Notes"}
-
-
-          </h2>
-          <div className="product-single__details-list__content text-white">
-            <AdditionalInfo product_name={ product.product_name } video={ product.video && JSON.parse(product.video)[0][0].value } title={ product.video[0][1] && JSON.parse(product.video)[0][1].value }/>
-          </div>
-        </div>
-      </section></> : <h2 className="h4 text-center text-uppercase mb-4 pb-xl-2 mb-xl-4">No Product Found</h2>}
+        </section></> : <h2 className="h4 text-center text-uppercase mb-4 pb-xl-2 mb-xl-4">No Product Found</h2>}
     </>
     // <>
     //   {Object.keys(product).length > 0 ? <>

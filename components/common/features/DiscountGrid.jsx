@@ -99,6 +99,8 @@ function DiscountGrid({ title, onlyDiscounted = false }) {
           const isDiscountActive =
             elm.discount && elm.discount.value && start && end && now >= start && now <= end;
 
+          const productName = locale === 'ar' ? (elm?.product_name_ar ? he.decode(elm.product_name_ar) : (elm?.product_name ? t(elm.product_name) : '')) : (elm?.product_name ? he.decode(elm.product_name) : '');
+
           return (
             <div key={i} className="product-card-wrapper">
               <div className="product-card mb-3 mb-md-4 mb-xxl-5">
@@ -211,7 +213,7 @@ function DiscountGrid({ title, onlyDiscounted = false }) {
                         .join("-")
                         .toLowerCase()}`}
                     >
-                      {t(he.decode(elm.product_name))}
+                      {productName}
                     </Link>
                   </h6>
                   <div className="product-card__price d-flex">

@@ -130,7 +130,7 @@ const ShopPage8 = async ({ params }) => {
     
     return data && (
       <>
-        <QuickView />
+        {/* <QuickView /> */}
         <Header14 />
         <Banner5 image={ data.image } mobile_image={data.mobile_image}/>
         <main className="page-wrapper pt-0">

@@ -53,7 +53,7 @@ async function getCategorySubCategory(categoryName) {
       // console.log(data);
       return data && (
       <>
-        <QuickView />
+        {/* <QuickView /> */}
         <Header14 />
         <main>
           <Shop5 />

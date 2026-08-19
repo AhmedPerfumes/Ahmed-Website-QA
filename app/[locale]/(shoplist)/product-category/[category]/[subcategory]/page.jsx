@@ -121,7 +121,7 @@ const ShopPage8 = async ({ params }) => {
     // console.log(data);
     return (
       <>
-        <QuickView />
+        {/* <QuickView /> */}
         <Header14 />
         <Banner5 image={ data.image } mobile_image={data.mobile_image}/>
         <main className="page-wrapper pt-0">

@@ -119,7 +119,6 @@ export default function Style2({ category, subcategory, products: initialProduct
   }
 
   const { toggleWishlist, isAddedtoWishlist } = useContextElement();
-  const { addProductToQuickView } = useContextElement();
   const { addProductToCart, isAddedToCartProducts } = useContextElement();
 
   // const price = (elm) => {
@@ -319,7 +318,7 @@ console.log(currency, "currency");
                   {isAddedToCartProducts(elm?.product_id)
                     ? elm.product_qty > 0 && (
                         <button
-                          className="btn btn-primary flex-grow-1 fs-base ps-3 ps-xxl-4 pe-0 border-0 text-uppercase fw-medium"
+                          className="btn btn-primary w-100 fs-base py-2 border-0 text-uppercase fw-medium"
                           title="Already Added"
                         >
                           {t("Already Added")}
@@ -327,22 +326,13 @@ console.log(currency, "currency");
                       )
                     : elm?.product_qty > 0 && (
                         <button
-                          className="btn btn-primary flex-grow-1 fs-base ps-3 ps-xxl-4 pe-0 border-0 text-uppercase fw-medium js-add-cart js-open-aside"
+                          className="btn btn-primary w-100 fs-base py-2 border-0 text-uppercase fw-medium js-add-cart js-open-aside"
                           onClick={() => addProductToCart({...elm, category_name: capitalizeEachWord(category.split('-').join(' ')), subcategory_name: capitalizeEachWord(subcat.split('-').join(' '))})}
                           title="Add to Cart"
                         >
                           {t("Add To Cart")}
                         </button>
                       )}
-                  <button
-                    className="btn btn-primary flex-grow-1 fs-base ps-0 pe-3 pe-xxl-4 border-0 text-uppercase fw-medium js-quick-view"
-                    data-bs-toggle="modal"
-                    data-bs-target="#quickView"
-                    title="Quick view"
-                    onClick={() => addProductToQuickView({...elm, category_name: capitalizeEachWord(category.split('-').join(' ')), subcategory_name: capitalizeEachWord(subcat.split('-').join(' '))})}
-                  >
-                    {t("Quick View")}
-                  </button>
                 </div>
               ) : null}
               {/* {i != 1 ? (

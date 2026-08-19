@@ -166,12 +166,11 @@ export default function Contact() {
             <p className="mb-2 fs-5">3.	Your privacy and security are of utmost importance to us, and we strive to ensure your experience with Ahmed Al Maghribi Perfumes LLC is both secure and enjoyable.</p>
             <h4 className="pt-5 mb-4 fs-3">Contact Information</h4>
             <p className="mb-2 fs-5">
-              Address: Ahmed Al Maghrebi Perfume Manuf L.L.C, Jurf Industrial
-              Zone 3, AJMAN, P. O. Box – 3850, U.A.E
+              Address: Ahmed Perfumes / Ahmed Al Maghribi Perfume Manuf, Unit No. 5, Building No. 93, Street No. 840, Mirqab Al Jadeed Street, Zone 39, Fareej Al Nasr, Doha, Qatar
             </p>
             <p className="mb-2 fs-5">Email: info@ahmedalmaghribi.com</p>
             <p className="mb-2 fs-5">
-              Phone: +971 67420602 / 67422496 / 67446076
+              Phone: +974 33440074 / 44813606
             </p>
 
             <h4 className="pt-4 mb-2 fs-3">Head Office Timing</h4>

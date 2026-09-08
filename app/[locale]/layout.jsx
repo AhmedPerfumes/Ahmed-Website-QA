@@ -29,6 +29,7 @@ import { FacebookPixelEvents } from "@/components/Metapixel";
 import Head from "next/head";
 import Script from "next/script";
 import { ToastContainer } from "react-toastify";
+import IntlProviderClient from "./IntlProviderClient";
 
 export const metadata = {
     title: "Buy Best Perfumes Online | Ahmed Al Maghribi Perfumes",
@@ -214,7 +215,7 @@ export default async function LocaleLayout({ children, params: { locale } }) {
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-                <NextIntlClientProvider messages={messages}>
+                <IntlProviderClient locale={locale} messages={messages}>
                     <Svgs />
                     <Context>
                         <UserProvider>
@@ -239,7 +240,7 @@ export default async function LocaleLayout({ children, params: { locale } }) {
                     </Context>
                     <div className="page-overlay" id="pageOverlay"></div>
                     <ScrollTop />
-                </NextIntlClientProvider>
+                </IntlProviderClient>
             </body>
         </html>
     );

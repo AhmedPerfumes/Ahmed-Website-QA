@@ -10,10 +10,10 @@ import { useMenu } from '../../context/MenuContext';
 import VideoPanel from "../VideoPanel";
 
 export default function CartDrawer() {
-  const { isLoading: isMenuLoading, error: isMenuError, currency } = useMenu();
+  const { isLoading: isMenuLoading, error: isMenuError, currency,shippingServiceCharges } = useMenu();
   const locale = useLocale();
   const [error, setError] = useState(null);
-  const { cartProducts, setCartProducts, totalPrice, couponDataContext } = useContextElement();
+  const { cartProducts, setCartProducts, totalPrice, rawSubtotal, couponDataContext, cashbackDiscountAmount, appliedCashbackRule } = useContextElement();
   const pathname = usePathname();
   const closeCart = () => {
     document
@@ -90,8 +90,9 @@ export default function CartDrawer() {
     closeCart();
   }, [pathname]);
 
+
   // Calculate progress towards free shipping
-  const freeShippingThreshold = 100;
+  const freeShippingThreshold =250;
   const progressPercentage = Math.min(
     (totalPrice / freeShippingThreshold) * 100,
     100
@@ -123,7 +124,15 @@ export default function CartDrawer() {
         } else {
           return <span>{(elm.price * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</span>;
         }
-    }else {
+    } else if (appliedCashbackRule && !elm.is_gift && !elm.discount && (appliedCashbackRule.product_type === 'all' || (appliedCashbackRule.product_ids || []).includes(elm.product_id))) {
+      const discounted = elm.price - (elm.price / 100 * Number(appliedCashbackRule.cashback_percentage || 0));
+      return (
+        <>
+          <span className="money price price-old">{currency.symbol}{elm?.price}</span>
+          <span className="cart-drawer-item__price money price price-sale">{(discounted * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</span>
+        </>
+      );
+    } else {
       return <span className="cart-drawer-item__price money price">{(elm.price * elm.quantity).toFixed(currency.decimals)}{ currency.symbol }</span>;
     }
   };
@@ -167,6 +176,11 @@ export default function CartDrawer() {
                   <div className="cart-drawer-item__info flex-grow-1">
                     <h6 className="cart-drawer-item__title fw-normal">
                       {elm?.product_name && he.decode(elm.product_name)}
+                      {appliedCashbackRule && !elm.is_gift && !elm.discount && (appliedCashbackRule.product_type === 'all' || (appliedCashbackRule.product_ids || []).includes(elm.product_id)) && (
+                        <span className="badge bg-success-subtle text-success ms-1" style={{ fontSize: '11px' }}>
+                          {appliedCashbackRule.cashback_percentage}% Off
+                        </span>
+                      )}
                     </h6>
                     {/* <p className="cart-drawer-item__option text-secondary">
                       Color: Yellow
@@ -264,7 +278,6 @@ export default function CartDrawer() {
                 <h4 className="success">☆ Congratulations! You qualify for free shipping!</h4>
               )}
         </div>
-          <hr className="cart-drawer-divider" />
           <div className="d-flex justify-content-between">
             <h6 className="fs-base fw-medium">SUBTOTAL:</h6>
             <span className="cart-subtotal fw-medium">{totalPrice.toFixed(2)}{ currency.symbol }</span>

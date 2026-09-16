@@ -33,7 +33,7 @@ export default function Checkout() {
   const locale = useLocale();
   const hasCleaned = useRef(false);
 
-  const { cartProducts, totalPrice, freeShippingFlag, setOrderDetails, setCouponDataContext, setCartProducts, promotionsContext } = useContextElement();
+  const { cartProducts, totalPrice, rawSubtotal, freeShippingFlag, setOrderDetails, setCouponDataContext, setCartProducts, promotionsContext, cashbackDiscountAmount, appliedCashbackRule } = useContextElement();
   const requiresQID = totalPrice >= 250;
 
   const { isLoggedIn } = useUser();
@@ -325,7 +325,10 @@ export default function Checkout() {
       finalPrice,
       customer_id: userJson ? userJson.id : null,
       locale,
-      couponCode
+      couponCode,
+      discount_amount: cashbackDiscountAmount || 0,
+      promotion_amount: cashbackDiscountAmount || 0,
+      discount_description: appliedCashbackRule ? appliedCashbackRule.name : ''
     }
  
     try {
@@ -821,6 +824,15 @@ export default function Checkout() {
         <td>
           <span className="money price price-sale">{currency.symbol}{(itemPrice * elm.quantity).toFixed(currency.decimals)}</span>
           <span className="money price price-old">{currency.symbol}{(elm.price * elm.quantity).toFixed(currency.decimals)}</span>
+        </td>
+      );
+    } else if (appliedCashbackRule && !elm.is_gift && !elm.discount && (appliedCashbackRule.product_type === 'all' || (appliedCashbackRule.product_ids || []).includes(elm.product_id))) {
+      itemPrice = elm.price - (elm.price / 100) * Number(appliedCashbackRule.cashback_percentage || 0);
+      return (
+        <td>
+          <span className="money price price-sale">{currency.symbol}{(itemPrice * paidQty).toFixed(currency.decimals)}</span>
+          <span className="money price price-old">{currency.symbol}{(elm.price * paidQty).toFixed(currency.decimals)}</span>
+          <br /><span style={{ color: '#28a745', fontWeight: 'bold', fontSize: '12px' }}>🏷️ {appliedCashbackRule.cashback_percentage}% Off ({appliedCashbackRule.name})</span>
         </td>
       );
     } else {

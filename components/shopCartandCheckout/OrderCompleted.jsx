@@ -65,40 +65,73 @@ export default function OrderCompleted() {
 
   const subTotalPrice = (elm) => {
     if (elm.is_gift) {
-      return <td>0.000{currency.symbol} (Free Gift)</td>;
+      return (
+        <td>
+          <span className="money price price-sale"> {currency.symbol} 0.00 </span>
+          <span className="money price price-old"> {currency.symbol} {((elm.price * 1) * elm.qty).toFixed(currency.decimals)} </span>
+          <br /><span style={{ color: '#28a745', fontWeight: 'bold', fontSize: '12px' }}>🎁 Free Gift</span>
+        </td>
+      );
     }
     const currentUTC = new Date(); // Current UTC time
     const currentGST = new Date(currentUTC.getTime() + (4 * 60 * 60 * 1000)); // Add 4 hours for GST
     const current_date_time = currentGST.toISOString().slice(0, 19).replace("T", " ");
-   if(elm?.discount) {
-      // console.log('...', elm.discount);
-      // console.log('...', new Date(current_date_time), new Date(elm.discount.start_date));
-      if(new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
-        console.log('if...');
-        if(elm.discount.discount_type == 'percent') {
-          console.log('percent...', elm);
-          return <td>{((elm.price - (elm.price / 100 * elm.discount.value)) * elm.qty).toFixed(currency.decimals)}{ currency.symbol }</td>;
-        } else if(elm.discount.discount_type == 'amount') {
-          console.log('amount...', elm);
-          return <td>{((elm.price - elm.discount.value) * elm.qty).toFixed(currency.decimals)}{ currency.symbol }</td>;
+
+    if (elm?.discount) {
+      if (new Date(current_date_time) >= new Date(elm.discount.start_date) && new Date(current_date_time) <= new Date(elm.discount.end_date)) {
+        let itemPrice = elm.price;
+        if (elm.discount.discount_type == 'percent') {
+          itemPrice = elm.price - (elm.price / 100 * elm.discount.value);
+        } else if (elm.discount.discount_type == 'amount') {
+          itemPrice = elm.discount.final_price ?? (elm.price - elm.discount.value);
         }
-        // return <td>{((elm.price - (elm.price / 100 * elm.discount.value)) * elm.qty).toFixed(currency.decimals)}{ currency.symbol }</td>;
+        return (
+          <td>
+            <span className="money price price-sale"> {currency.symbol} {(itemPrice * elm.qty).toFixed(currency.decimals)} </span>
+            <span className="money price price-old"> {currency.symbol} {(elm.price * elm.qty).toFixed(currency.decimals)} </span>
+            {elm.discount.value && (
+              <>
+                <br /><span style={{ color: '#28a745', fontWeight: 'bold', fontSize: '12px' }}>🏷️ {elm.discount.value}% Off {elm.discount.name ? `(${elm.discount.name})` : ''}</span>
+              </>
+            )}
+          </td>
+        );
       } else {
-        console.log('else...');
         return <td>{(elm.price * elm.qty).toFixed(currency.decimals)}{ currency.symbol }</td>;
       }
-    }
-    else if(elm?.coupon && elm.coupon.length != 0 && elm.coupon[couponDataContext?.code.toLowerCase()]?.code == couponDataContext?.code.toLowerCase()) {
-      console.log('COUPON', elm);
-      if(new Date(current_date_time) >= new Date(elm.coupon[couponDataContext?.code.toLowerCase()]?.start_date) && new Date(current_date_time) <= new Date(elm.coupon[couponDataContext?.code.toLowerCase()]?.end_date)) {
-        return <td>{((elm.price - (elm.price / 100 * elm.coupon[couponDataContext?.code.toLowerCase()]?.value)) * elm.qty).toFixed(3)}{ currency.symbol }</td>;
+    } else if (elm?.coupon && elm.coupon.length != 0 && couponDataContext?.code && elm.coupon[couponDataContext?.code.toLowerCase()]?.code == couponDataContext?.code.toLowerCase()) {
+      const couponItem = elm.coupon[couponDataContext?.code.toLowerCase()];
+      if (new Date(current_date_time) >= new Date(couponItem?.start_date) && new Date(current_date_time) <= new Date(couponItem?.end_date)) {
+        const itemPrice = elm.price - (elm.price / 100 * couponItem.value);
+        return (
+          <td>
+            <span className="money price price-sale">{currency.symbol} {(itemPrice * elm.qty).toFixed(currency.decimals)}</span>
+            <span className="money price price-old">{currency.symbol} {(elm.price * elm.qty).toFixed(currency.decimals)}</span>
+            <br /><span style={{ color: '#28a745', fontWeight: 'bold', fontSize: '12px' }}>🏷️ {couponItem.value}% Off ({couponItem.code.toUpperCase()})</span>
+          </td>
+        );
       } else {
-        return <td>{(elm.price * elm.qty).toFixed(3)}{ currency.symbol }</td>;
+        return <td>{(elm.price * elm.qty).toFixed(currency.decimals)}{ currency.symbol }</td>;
       }
-    } else if(elm?.sale_price) {
-        return <td>{((elm.price - (elm.price / 100 * elm.sale_price)) * elm.qty).toFixed(currency.decimals)}{ currency.symbol }</td>;
+    } else if (elm?.discount_percent && Number(elm.discount_percent) > 0) {
+      const itemPrice = elm.price - (elm.price / 100 * Number(elm.discount_percent));
+      return (
+        <td>
+          <span className="money price price-sale">{currency.symbol} {(itemPrice * elm.qty).toFixed(currency.decimals)}</span>
+          <span className="money price price-old">{currency.symbol} {(elm.price * elm.qty).toFixed(currency.decimals)}</span>
+          <br /><span style={{ color: '#28a745', fontWeight: 'bold', fontSize: '12px' }}>🏷️ {elm.discount_percent}% Off {elm.campaign ? `(${elm.campaign})` : ''}</span>
+        </td>
+      );
+    } else if (elm?.sale_price) {
+      const itemPrice = elm.price - (elm.price / 100 * elm.sale_price);
+      return (
+        <td>
+          <span className="money price price-sale">{currency.symbol} {(itemPrice * elm.qty).toFixed(currency.decimals)}</span>
+          <span className="money price price-old">{currency.symbol} {(elm.price * elm.qty).toFixed(currency.decimals)}</span>
+        </td>
+      );
     } else {
-        return <td>{(elm.price * elm.qty).toFixed(currency.decimals)}{ currency.symbol }</td>;
+      return <td>{(elm.price * elm.qty).toFixed(currency.decimals)}{ currency.symbol }</td>;
     }
   };
 
@@ -182,7 +215,7 @@ export default function OrderCompleted() {
               </tr>
               <tr>
                 <th>SHIPPING</th>
-                <td>{(orderDetails.sub_total).toFixed(2) >= 100 ? 'You Got Free Shipping' : `Shipping Cost: ${ shippingServiceCharges[0].price }${ currency.symbol }`}</td>
+                <td>{(parseFloat(orderDetails.sub_total) >= (parseFloat(shippingServiceCharges?.[0]?.to) || 250) || Number(orderDetails.shipping_amount) === 0) ? 'You Got Free Shipping' : `Shipping Cost: ${ shippingServiceCharges?.[0]?.price ?? 30 }${ currency.symbol }`}</td>
               </tr>
               {/* <tr>
                 <th>SERVICE FEE</th>

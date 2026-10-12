@@ -9,7 +9,7 @@ export default function NewsLetter({ popUp }) {
     const [hasScrolled, setHasScrolled] = useState(false);
     const locale = useLocale();
     const t = useTranslations();
-    
+
     // 1. Safe Data Access
     const data = Array.isArray(popUp) && popUp.length > 0 ? popUp[0] : null;
 
@@ -17,10 +17,10 @@ export default function NewsLetter({ popUp }) {
     const isRtl = locale === 'ar';
     const title = data ? (isRtl ? data.name_ar : data.name) : '';
     const description = data ? (isRtl ? data.description_ar : data.description) : '';
-    
+
     // Assumption: Images are stored in a relative assets directory. 
     // Adjust logic if full URLs are provided by backend.
-    const imagePath = data ? `${process.env.NEXT_PUBLIC_API_URL}storage/${data.image}` : ''; 
+    const imagePath = data ? `${process.env.NEXT_PUBLIC_API_URL}storage/${data.image}` : '';
     const mobileImagePath = data ? `${process.env.NEXT_PUBLIC_API_URL}storage/${data.mobile_image}` : '';
     const linkPath = data ? `/${locale}/${data.link}` : '#';
 
@@ -44,13 +44,13 @@ export default function NewsLetter({ popUp }) {
         };
 
         const handleScroll = () => {
-            if (window.scrollY > 3500 && !hasScrolled) {
+            if (window.scrollY > 2000 && !hasScrolled) {
                 showModal();
             }
         };
 
         const closeBtn = modalElement.current.querySelector(".btn-close");
-        if(closeBtn) {
+        if (closeBtn) {
             closeBtn.addEventListener("click", () => {
                 modalInstance.hide();
             });
@@ -85,7 +85,7 @@ export default function NewsLetter({ popUp }) {
                         className="btn-close"
                         aria-label="Close"
                     ></button>
-                    
+
                     <div className="row p-0 m-0">
                         {/* Image Section */}
                         <div className="col-md-8 p-0">

@@ -145,7 +145,7 @@ const ScrollSnapHorizontalBootstrap = () => {
 
     return (
         <>
-        <NewsLetter popUp={popUp} />
+            <NewsLetter popUp={popUp} />
             <div id="main" className="">
                 {/* Vertical Section 1 */}
                 {/* <section className="scroll-section d-flex flex-direction-column">
@@ -542,18 +542,18 @@ const ScrollSnapHorizontalBootstrap = () => {
                     </div> */}
 
                     <div className="panel2 mt-5">
-                    <div className="inner2">
-                        <div className="youtube-wrapper">
-                        <iframe
-                            src="https://www.youtube.com/embed/gf0kYWgy-58?autoplay=1&mute=1&controls=0&disablekb=1&fs=0&loop=1&playlist=gf0kYWgy-58&modestbranding=1&rel=0"
-                            title="K - Series"
-                            frameBorder="0"
-                            allow="autoplay; fullscreen; picture-in-picture"
-                            allowFullScreen
-                            />
+                        <div className="inner2">
+                            <div className="youtube-wrapper">
+                                <iframe
+                                    src="https://www.youtube.com/embed/gf0kYWgy-58?autoplay=1&mute=1&controls=0&disablekb=1&fs=0&loop=1&playlist=gf0kYWgy-58&modestbranding=1&rel=0"
+                                    title="K - Series"
+                                    frameBorder="0"
+                                    allow="autoplay; fullscreen; picture-in-picture"
+                                    allowFullScreen
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
 
                     <div className="panel2 mt-5">
                         <div className="inner2 d-flex flex-column align-items-center">
@@ -582,7 +582,7 @@ const ScrollSnapHorizontalBootstrap = () => {
                             <Link
                                 href={`/${locale}/shop/dakhoon/bakhoor/bakhoor-ahmed-40-tabs`}
                             >
-                            <Image
+                                <Image
                                     width={0}
                                     height={0}
                                     sizes="100%"
@@ -724,16 +724,16 @@ const ScrollSnapHorizontalBootstrap = () => {
                             <p className="section-paragraph">{t("Steps")}</p>
                         </div>
                         <div className="order-0 order-md-1 mb-5">
-                        <Image
-                                    width={0}
-                                    height={0}
-                                    sizes="100%"
-                                    className="h-auto w-100"
-                                    src="/assets/images/home/demo8/Shop.jpg"
-                                    alt="Ahmed Al Maghribi Perfumes"
-                                    loading="lazy"
-                                    style={{ width: "100%", height: "auto" }}
-                                />
+                            <Image
+                                width={0}
+                                height={0}
+                                sizes="100%"
+                                className="h-auto w-100"
+                                src="/assets/images/home/qatar-Al-nasr-street-shop.jpeg"
+                                alt="Ahmed Al Maghribi Perfumes"
+                                loading="lazy"
+                                style={{ width: "100%", height: "auto" }}
+                            />
                         </div>
                     </div>
                 </section>
